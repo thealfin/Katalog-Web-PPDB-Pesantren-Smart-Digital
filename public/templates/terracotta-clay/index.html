@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Pondok Pesantren Terracotta Clay</title>
+    <!-- Ganti dengan link ikon Anda -->
+    <link rel="icon" type="image/png" href="#" />      
+    <meta name="description"
+        content="Deskripsi singkat mengenai profil dan visi misi lembaga pendidikan pesantren Anda untuk keperluan SEO.">
+    <meta name="keywords"
+        content="Pesantren, Pendidikan Islam, Tahfidz, Tilawah, Nama Lembaga, Lokasi.">
+    <meta name="author" content="Nama Instansi/Pengembang">
+    <meta property="og:title" content="Pondok Pesantren Terracotta Clay" />
+    <meta property="og:description"
+        content="Mencetak generasi yang berakhlakul karimah, cerdas, dan berprestasi melalui program pendidikan unggulan." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="#" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content="Pondok Pesantren Terracotta Clay" />
+
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Konfigurasi Tailwind dengan Palet Warna Baru -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ivory': '#FFF7ED',
+                        'dark-gray': '#7C2D12',
+                        'deep-green': '#7C2D12',
+                        'dark-green': '#7C2D12',
+                        'text-gray': '#7C2D12',
+                        'accent-light-green': '#FB923C',
+                        'highlight-yellow': '#FB923C',
+                        'logo-border': '#7C2D12',
+                        'black': '#000000',
+                    },
+                    spacing: {
+                        '13': '3.25rem',
+                    },
+                    // TAMBAHKAN INI UNTUK BACKDROP BLUR
+                    backdropBlur: {
+                        xs: '2px',
+                    },
+                    // TAMBAHKAN INI UNTUK BACKGROUND OPACITY CUSTOM
+                    backgroundColor: {
+                        'dark-gray-75': 'rgba(41, 95, 76, 0.75)',
+                        'dark-gray-85': 'rgba(39, 57, 46, 0.85)',
+                        'dark-gray-95': 'rgba(39, 57, 46, 0.95)',
+                    },
+                    borderColor: {
+                        'accent-light-green-10': 'rgba(230, 216, 195, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Lato:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            touch-action: pan-y;
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            max-width: 100%;
+        }
+
+        /* Mencegah horizontal scroll */
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+
+        /* Navbar Transparan dengan Blur Effect */
+        #navbar {
+            background: rgba(39, 57, 46, 0.8) !important; /* Menggunakan Deep Green */
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+            border-bottom: 1px solid rgba(230, 216, 195, 0.15);
+        }
+
+        /* Navbar saat scroll - sedikit lebih solid */
+        #navbar.scrolled {
+            background: rgba(93, 134, 108, 0.85) !important;
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+        }
+
+        /* Mobile Menu Background juga transparan */
+        #mobileMenu {
+            background: rgba(93, 134, 108, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Container responsiveness fix */
+        .container {
+            width: 100%;
+            max-width: 100%;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .container {
+                max-width: 640px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 768px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1024px;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .container {
+                max-width: 1280px;
+            }
+        }
+
+        /* Mencegah pinch zoom pada gambar */
+        img {
+            pointer-events: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Allow click pada link dalam gambar */
+        a img {
+            pointer-events: auto;
+        }
+
+
+        /* Definisi variabel CSS menggunakan palet baru */
+        :root {
+            --primary: #7C2D12;       /* forest-green */
+            --primary-dark: #7C2D12;  /* dark-green */
+            --primary-deep: #7C2D12;  /* deep-green */
+            --primary-glow: #FB923C;  /* tan / highlight */
+            --secondary: #FB923C;     /* beige / accent */
+            --background: #FFF7ED;    /* ivory / background */
+            --black: #000000;
+        }
+        
+        /* --- CSS UNTUK SEGI ENAM (HEXAGON) --- */
+        .hexagon-clip {
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            width: 52px; 
+            height: 52px; 
+        }
+        /* --- AKHIR CSS HEKSAGON --- */
+        
+        /* Animasi Ikon */
+        .group:hover .social-icon-bounce {
+            animation: bounce 0.8s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0) scale(1.1); }
+            50% { transform: translateY(-10px) scale(1.2); }
+            100% { transform: translateY(0) scale(1.1); }
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: #7C2D12; 
+        }
+
+        h1, h2, h3, .game-font {
+            font-family: 'Playfair Display', sans-serif;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(39, 57, 46, 0.4), rgba(39, 57, 46, 0.95));
+        }
+
+        .neon-glow {
+            text-shadow: 0 0 15px var(--primary-glow), 0 0 30px var(--primary-glow);
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 20px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Classes untuk Scroll Reveal */
+        .fade-in-bottom {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-bottom.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen animated-bg bg-ivory text-text-gray">
+
+        <!-- Header Section dengan Sticky Navbar -->
+        <header id="navbar" 
+        class="fixed w-full top-0 z-50 bg-dark-gray-75 backdrop-blur-xl backdrop-saturate-150 shadow-lg border-b border-accent-light-green-10 transition-all duration-300">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- KELOMPOK KIRI: Logo dan Navigasi -->
+                <div class="flex items-center space-x-12">
+                    <!-- Logo Pesantren -->
+                    <div class="flex items-center">
+                        <a href="#" class="flex items-center space-x-2 group">
+                            <div class="w-13 h-13 hexagon-clip flex items-center justify-center bg-logo-border overflow-hidden shadow-md">
+                                <img src="https://placehold.co/400x400/7C2D12/FFF7ED.png?text=T" alt="Logo Instansi"
+                                    class="w-12 object-contain bg-transparent">
+                            </div>
+                            <span class="game-font font-bold text-xl md:text-2xl text-ivory group-hover:text-accent-light-green transition-all">
+                                Pondok Pesantren<br><span class="text-accent-light-green">Terracotta Clay</span>
+                            </span>
+                        </a>
+                    </div>
+
+                    <!-- Main Navigation - Desktop -->
+                    <nav class="hidden md:flex items-center space-x-6">
+                        <a href="#" class="nav-link text-ivory hover:text-highlight-yellow transition-all">Beranda</a>
+                        <a href="#tentangkami" class="nav-link text-ivory hover:text-highlight-yellow transition-all">Tentang Kami</a>
+                        <a href="#keunggulan" class="nav-link text-ivory hover:text-highlight-yellow transition-all">Keunggulan</a>
+                        <a href="#pendaftaran" class="nav-link text-ivory hover:text-highlight-yellow transition-all">Pendaftaran</a>
+                        <a href="#kontakkami" class="nav-link text-ivory hover:text-highlight-yellow transition-all">Kontak</a>
+                    </nav>
+                </div>
+
+                <!-- KELOMPOK KANAN: Mobile Menu Toggle -->
+                <div class="flex items-center space-x-3">
+                    <button id="mobileMenuToggle"
+                        class="md:hidden p-2 text-accent-light-green hover:text-ivory transition-all">
+                        <i class="ri-menu-line text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobileMenu" 
+                class="navbar-items max-h-0 md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-dark-gray-95 backdrop-blur-lg backdrop-saturate-150 rounded-b-xl mt-4">
+                <nav class="flex flex-col space-y-2 px-4 py-0">
+                    <a href="#" 
+                        class="text-ivory hover:text-highlight-yellow hover:bg-dark-gray-85 py-3 px-3 rounded-lg border-b border-dark-gray transition-all">
+                        Beranda
+                    </a>
+                    <a href="#tentangkami" 
+                        class="text-ivory hover:text-highlight-yellow hover:bg-dark-gray-85 py-3 px-3 rounded-lg border-b border-dark-gray transition-all">
+                        Tentang Kami
+                    </a>
+                    <a href="#keunggulan" 
+                        class="text-ivory hover:text-highlight-yellow hover:bg-dark-gray-85 py-3 px-3 rounded-lg border-b border-dark-gray transition-all">
+                        Keunggulan
+                    </a>
+                    <a href="#pendaftaran" 
+                        class="text-ivory hover:text-highlight-yellow hover:bg-dark-gray-85 py-3 px-3 rounded-lg border-b border-dark-gray transition-all">
+                        Pendaftaran
+                    </a>
+                    <a href="#kontakkami" 
+                        class="text-ivory hover:text-highlight-yellow hover:bg-dark-gray-85 py-3 px-3 rounded-lg transition-all">
+                        Kontak
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16">
+        <div id="hero-slider" class="absolute inset-0 z-0 overflow-hidden">
+            <!-- Images akan diisi di sini oleh JavaScript -->
+        </div>
+
+        <div class="absolute inset-0 hero-gradient z-10"></div>
+
+        <div class="container mx-auto px-4 z-10 text-center md:text-left fade-in-bottom">
+            <div class="max-w-4xl mx-auto md:mx-0 ">
+                <h1
+                    class="text-4xl md:text-6xl font-bold mb-4 game-font tracking-wider no-referrer-when-downgrade text-ivory">
+                    <b>Lembaga Pendidikan</b><span class="text-accent-light-green">
+                        <br><b>Pesantren Modern</b></span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-8">
+                    <b>Membentuk Generasi Berkarakter Unggul, 
+                        <br>Cerdas Secara Intelektual dan Spiritual.
+                        <br>Kurikulum Terintegrasi Berstandar Internasional.</b>
+                </p>
+                <div
+                    class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#pendaftaran"
+                        class="btn-glow bg-accent-light-green hover:bg-highlight-yellow text-dark-gray font-medium py-3 px-8 rounded-full transition-all flex items-center justify-center space-x-2 shadow-lg">
+                        <i class="ri-graduation-cap-line"></i>
+                        <span>Daftar Sekarang</span>
+                    </a>
+                    <a href="#" target="_blank"
+                        class="btn-glow bg-transparent border-2 border-accent-light-green text-accent-light-green hover:bg-ivory hover:text-dark-gray font-medium py-3 px-8 rounded-full transition-all flex items-center justify-center space-x-2">
+                        <i class="ri-youtube-line"></i>
+                        <span>Video Profil</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="ri-arrow-down-line text-2xl text-highlight-yellow"></i>
+        </div>
+    </section>
+
+
+    <!-- Tentang Kami Section -->
+    <section class="py-16 bg-ivory fade-in-bottom" id="tentangkami">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <h2 class="text-3xl md:text-4xl font-bold game-font mb-8 text-center text-text-gray">
+                Profil Singkat <span class="text-accent-light-green"> Lembaga Kami</span>
+            </h2>
+
+            <div class="bg-dark-gray text-ivory p-8 rounded-xl shadow-xl shadow-dark-gray/20">
+                <p class="text-gray-300 mb-6 text-lg leading-relaxed profil-paragraph-1">
+                    Lembaga Pendidikan ini merupakan institusi swasta yang didirikan pada tahun <b>[Tahun]</b> oleh <b>[Nama Pendiri]</b>. Berfokus pada pengembangan nilai-nilai islami dan pengetahuan umum. Pesantren ini berlokasi di wilayah strategis yang mendukung suasana belajar kondusif bagi para santri.
+                </p>
+                
+                <div id="profilContent">
+                    <p class="text-gray-300 mb-6 text-lg leading-relaxed">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+                    <p class="text-gray-300 mb-6 text-lg leading-relaxed">
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    <p class="text-accent-light-green font-semibold italic text-lg mt-8 text-center">
+                        Berlandaskan visi <b>"Mewujudkan Generasi Mandiri, Berakhlak Mulia, dan Kompetitif di Era Global."</b>
+                    </p>
+                </div>
+                
+                <button id="toggleProfilBtn" 
+                    class="mt-4 text-highlight-yellow hover:text-accent-light-green font-semibold text-base flex items-center gap-2 transition-all duration-300 focus:outline-none">
+                    <span id="toggleProfilText">Selengkapnya</span>
+                    <i id="toggleProfilIcon" class="ri-arrow-down-s-line text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Keunggulan Section -->
+    <section class="py-16 bg-ivory fade-in-bottom" id="keunggulan">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold game-font mb-4 relative inline-block">
+                    Pilar <span class="text-accent-light-green">Utama Kami</span>
+                    <span
+                        class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-accent-light-green to-highlight-yellow"></span>
+                </h2>
+                <p class="text-gray-500 mt-2">Fondasi utama dalam mendidik dan menyiapkan masa depan generasi bangsa.</p>
+            </div>
+
+            <div class="relative overflow-hidden">
+                <div id="misiCarousel" class="flex transition-transform duration-500 ease-in-out">
+                    
+                    <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div
+                            class="bg-dark-gray rounded-xl h-full p-6 shadow-lg hover:shadow-highlight-yellow/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="text-center">
+                                <i class="ri-heart-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Pendidikan Akhlak</h3>
+                                <p class="text-gray-300 text-sm">Fokus pada pembentukan karakter dan integritas moral yang tinggi sesuai dengan nilai-nilai luhur agama.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div
+                            class="bg-dark-gray rounded-xl h-full p-6 shadow-lg hover:shadow-highlight-yellow/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="text-center">
+                                <i class="ri-global-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Wawasan Global</h3>
+                                <p class="text-gray-300 text-sm">Membekali santri dengan kemampuan bahasa asing dan penguasaan teknologi informasi terkini.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div
+                            class="bg-dark-gray rounded-xl h-full p-6 shadow-lg hover:shadow-highlight-yellow/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="text-center">
+                                <i class="ri-lightbulb-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Metode Kreatif</h3>
+                                <p class="text-gray-300 text-sm">Pendekatan belajar yang interaktif dan menyenangkan untuk merangsang potensi kreativitas santri.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div
+                            class="bg-dark-gray rounded-xl h-full p-6 shadow-lg hover:shadow-highlight-yellow/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="text-center">
+                                <i class="ri-shield-user-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Kemandirian</h3>
+                                <p class="text-gray-300 text-sm">Melatih kedisiplinan dan tanggung jawab pribadi agar siap menghadapi tantangan di masa depan.</p>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+            <div class="flex justify-center space-x-4 mt-8">
+                <button id="prevMisi"
+                    class="p-3 bg-dark-gray hover:bg-accent-light-green rounded-full text-accent-light-green hover:text-dark-gray transition-all shadow-md">
+                    <i class="ri-arrow-left-s-line text-xl"></i>
+                </button>
+                <button id="nextMisi"
+                    class="p-3 bg-dark-gray hover:bg-accent-light-green rounded-full text-accent-light-green hover:text-dark-gray transition-all shadow-md">
+                    <i class="ri-arrow-right-s-line text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-container p-4 md:p-8 -mt-16 relative z-30">
+        <!-- Bagian Unit Pendidikan -->
+        <section id="unit" class="my-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl text-center font-bold game-font mb-4">Jenjang <span
+                        class="text-accent-light-green text-center border-accent-light-green pb-2">Pendidikan</span></h2>
+
+                <div class="relative overflow-hidden">
+                    <div id="unitCarousel" class="flex transition-transform duration-500 ease-in-out">
+
+                        <div class="carousel-item-unit flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                            <div class="bg-dark-gray text-ivory p-6 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 h-full">
+                                <i class="ri-bookmark-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Unit Dasar</h3>
+                                <p class="text-gray-300 text-sm">Fokus pada pengenalan dasar-dasar pengetahuan dan pembiasaan adab sehari-hari.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item-unit flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                            <div class="bg-dark-gray text-ivory p-6 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 h-full">
+                                <i class="ri-book-2-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Unit Menengah</h3>
+                                <p class="text-gray-300 text-sm">Pendalaman materi kurikulum nasional yang dipadukan dengan penguatan literasi agama.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item-unit flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                            <div class="bg-dark-gray text-ivory p-6 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 h-full">
+                                <i class="ri-honour-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Unit Atas</h3>
+                                <p class="text-gray-300 text-sm">Persiapan santri menuju jenjang pendidikan tinggi dengan peminatan yang spesifik.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item-unit flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                            <div class="bg-dark-gray text-ivory p-6 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 h-full">
+                                <i class="ri-medal-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Program Khusus</h3>
+                                <p class="text-gray-300 text-sm">Program akselerasi untuk bidang keahlian tertentu sesuai dengan minat dan bakat santri.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center space-x-4 mt-8">
+                    <button id="prevUnit"
+                        class="p-3 bg-dark-gray hover:bg-accent-light-green rounded-full text-accent-light-green hover:text-dark-gray transition-all shadow-md">
+                        <i class="ri-arrow-left-s-line text-xl"></i>
+                    </button>
+                    <button id="nextUnit"
+                        class="p-3 bg-dark-gray hover:bg-accent-light-green rounded-full text-accent-light-green hover:text-dark-gray transition-all shadow-md">
+                        <i class="ri-arrow-right-s-line text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Bagian Galeri -->
+        <section id="galeri" class="my-16">
+            <h2 class="text-3xl md:text-4xl font-bold game-font mb-8 text-center">
+                Galeri<span class="text-accent-light-green"> Aktivitas Kami</span>
+            </h2>
+            <div id="galeriSliderContainer" class="container mx-auto px-4">
+                <!-- JavaScript akan generate slider di sini -->
+            </div>
+        </section>
+
+    <!-- Testimoni Section -->
+    <section class="py-16 bg-ivory fade-in-bottom">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold game-font mb-4">Apa Kata <span
+                        class="text-accent-light-green">Alumni?</span></h2>
+                <p class="text-gray-500">Kesan dan pesan nyata dari mereka yang telah lulus dari lembaga kami.</p>
+            </div>
+            
+            <div class="bg-dark-gray p-8 rounded-xl shadow-2xl shadow-highlight-yellow/20 border border-accent-light-green/20">
+                <i class="ri-double-quotes-l text-4xl text-highlight-yellow mb-4"></i>
+                <blockquote class="text-sm italic text-gray-200 mb-6 leading-relaxed text-center">
+                    “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem.  Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.  Donec sed oric di am.  Aenean viverra fringilla nibh, nec pretium nisi.”
+                </blockquote>
+                <div class="text-right border-t border-accent-light-green/30 pt-4">
+                    <p class="font-semibold text-accent-light-green text-lg">Nama Alumni</p>
+                    <p class="text-sm text-gray-400">Angkatan [Tahun] - [Status/Pekerjaan]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+    
+        <!-- Pendaftaran Section -->
+    <section class="py-16 bg-ivory fade-in-bottom" id="pendaftaran">
+        <div class="container mx-auto px-4 text-center max-w-4xl">
+            <h2 class="text-3xl md:text-4xl font-bold game-font mb-4">
+                Pendaftaran Siswa Baru <span class="text-gray-600">Telah Dibuka!</span>
+            </h2>
+            <p class="text-lg text-gray-600 mb-10">
+                Jangan lewatkan kesempatan untuk bergabung menjadi bagian dari keluarga besar kami. Segera daftarkan diri Anda sebelum kuota terpenuhi.
+            </p>
+
+            <div id="bannerPendaftaranSlider" class="w-flex mb-2"></div>
+
+            <div class="flex justify-center mb-8">
+                <div id="sliderDots" class="flex gap-2"></div>
+            </div>
+
+            <div class="flex justify-center">
+                <a href="#kontakkami"
+                    class="inline-flex items-center bg-accent-light-green hover:bg-highlight-yellow text-dark-gray font-bold py-4 px-10 rounded-full transition-all text-xl btn-glow transform hover:scale-105">
+                    <i class="ri-send-plane-line mr-3"></i> Hubungi Kami
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Map Section -->
+    <section class="pb-16 bg-ivory fade-in-bottom">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold game-font mb-6">Lokasi <span class="text-accent-light-green">Kami</span></h2>
+            <p class="text-gray-500 mb-8">Jl. Alamat Lengkap Pesantren, Nama Kota/Kabupaten, Provinsi, Kode Pos</p>
+            <div class="flex justify-center w-full">
+                <!-- Gunakan link map generik atau tetap link asli jika hanya ingin ubah teks -->
+                <iframe
+                    width="100%"
+                    height="450"
+                    style="border:0;"
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade"
+                    class="rounded-xl shadow-2xl shadow-dark-gray/30 border-4 border-dark-gray max-w-4xl"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126917.4333031057!2d106.7891559!3d-6.229728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bfdf368b6035!2sJakarta!5e0!3m2!1sid!2sid!4v1713713156329!5m2!1sid!2sid">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="md:p-16 bg-deep-green border-t-4 border-black pt-16 pb-8" id="kontakkami">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <span class="game-font font-bold text-xl text-ivory">Nama <span
+                                class="text-accent-light-green">Pesantren</span></span>
+                    </div>
+                    <p class="text-gray-400">Menyediakan pendidikan berkualitas tinggi untuk mencetak generasi masa depan yang cerah dan berbudi pekerti luhur sejak tahun [Tahun].</p>
+                </div>
+
+                <div>
+                    <h3 class="text-ivory font-semibold text-lg mb-6 game-font">Hubungi Kami</h3>
+                    <p class="text-gray-400 mb-4">Informasi Selengkapnya:</p>
+                    <div class="space-y-4">
+                        <a href="#" target="_blank"
+                            class="group text-accent-light-green hover:text-ivory transition-colors flex items-center space-x-2">
+                            <i class="ri-whatsapp-line text-5xl social-icon-bounce"></i>
+                            <span class="text-gray-400 group-hover:text-ivory">(+62) 8xx-xxxx-xxxx<br>(Admin Pendaftaran)</span>
+                        </a>
+                        <a href="#" target="_blank" 
+                            class="text-gray-400 flex items-start space-x-2 hover:text-ivory transition-colors">
+                            <i class="ri-map-pin-line text-5xl text-accent-light-green"></i>
+                            <span class="text-sm">Jl. Contoh Alamat No. 123, Nama Kota, Provinsi</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-ivory font-semibold text-lg mb-6 game-font">Ikuti Kami</h3>
+                    <div class="flex space-x-6">
+                        <a href="#" class="group text-accent-light-green hover:text-highlight-yellow transition-colors transform">
+                            <i class="ri-facebook-line text-6xl social-icon-bounce"></i>
+                        </a>
+                        <a href="#" class="group text-accent-light-green hover:text-highlight-yellow transition-colors transform">
+                            <i class="ri-instagram-line text-6xl social-icon-bounce"></i>
+                        </a>
+                        <a href="#" class="group text-accent-light-green hover:text-highlight-yellow transition-colors transform">
+                            <i class="ri-youtube-line text-6xl social-icon-bounce"></i>
+                        </a>
+                        <a href="#" class="group text-accent-light-green hover:text-highlight-yellow transition-colors transform">
+                            <i class="ri-tiktok-line text-6xl social-icon-bounce"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-8 border-t border-gray-700">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-gray-400 text-sm mb-4 md:mb-0">
+                        <a href="#" class="hover:text-ivory transition-colors mb-2 md:mb-0">
+                            © <span class="curr-year">2026</span> Pesantren Smart Digital
+                        </a>
+                        <br> 
+                        <br>
+                        <a href="#" class="hover:text-ivory transition-colors mb-2 md:mb-0">
+                            ©<span class="curr-year">2026</span> PT. Digital Teknologi Perkasa
+                        </a>
+                    </div> 
+                </div>
+            </div> 
+        </div>
+    </footer>
+
+<!-- JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mendapatkan tahun saat ini
+        const currentYear = new Date().getFullYear();
+        
+        // Mencari semua elemen dengan class 'curr-year'
+        const yearElements = document.querySelectorAll('.curr-year');
+        
+        // Mengubah teks di setiap elemen tersebut
+        yearElements.forEach(el => {
+            el.textContent = currentYear;
+        });
+    });
+    
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // --- PREVENT ZOOM & GESTURES ---
+        document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
+        document.addEventListener('gesturechange', function(e) { e.preventDefault(); });
+        document.addEventListener('gestureend', function(e) { e.preventDefault(); });
+
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) { event.preventDefault(); }
+            lastTouchEnd = now;
+        }, false);
+
+        document.addEventListener('wheel', function(e) { if (e.ctrlKey) { e.preventDefault(); } }, { passive: false });
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '=' || e.key === '-' || e.key === '_')) { e.preventDefault(); }
+        });
+
+        // --- MOBILE MENU TOGGLE ---
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navbar = document.getElementById('navbar');
+        
+        if (mobileMenuToggle && mobileMenu) {
+            const navLinks = mobileMenu.querySelectorAll('a');
+            function toggleMobileMenu() {
+                if (mobileMenu.classList.contains('max-h-0')) {
+                    mobileMenu.classList.remove('max-h-0', 'py-0');
+                    mobileMenu.classList.add('max-h-96', 'py-4');
+                    mobileMenuToggle.innerHTML = '<i class="ri-close-line text-2xl"></i>';
+                } else { closeMobileMenu(); }
+            }
+            function closeMobileMenu() {
+                mobileMenu.classList.add('max-h-0', 'py-0');
+                mobileMenu.classList.remove('max-h-96', 'py-4');
+                mobileMenuToggle.innerHTML = '<i class="ri-menu-line text-2xl"></i>';
+            }
+            mobileMenuToggle.addEventListener('click', function (event) {
+                event.stopPropagation();
+                toggleMobileMenu();
+            });
+            navLinks.forEach(link => { link.addEventListener('click', () => { closeMobileMenu(); }); });
+            document.addEventListener('click', function (event) {
+                if (!mobileMenu.classList.contains('max-h-0') && !mobileMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                    closeMobileMenu();
+                }
+            });
+        }
+
+        // --- NAVBAR SCROLL EFFECT ---
+        if (navbar) {
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled', 'py-2', 'bg-dark-gray-85');
+                    navbar.classList.remove('py-4', 'bg-dark-gray-75');
+                } else {
+                    navbar.classList.remove('scrolled', 'py-2', 'bg-dark-gray-85');
+                    navbar.classList.add('py-4', 'bg-dark-gray-75');
+                }
+            });
+        }
+
+        // --- SCROLL REVEAL ---
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in-bottom').forEach(element => { observer.observe(element); });
+
+        // --- CAROUSEL SCRIPT (KEUNGGULAN) ---
+        const misiCarousel = document.getElementById('misiCarousel');
+        if (misiCarousel) {
+            const prevMisiBtn = document.getElementById('prevMisi');
+            const nextMisiBtn = document.getElementById('nextMisi');
+            const misiItems = misiCarousel.querySelectorAll('.carousel-item2');
+            let currentMisiIndex = 0;
+            function getVisibleMisiItems() {
+                if (window.innerWidth >= 1024) return 4;
+                if (window.innerWidth >= 768) return 2;
+                return 1;
+            }
+            function updateMisiCarousel() {
+                if (misiItems.length === 0) return;
+                const visibleItems = getVisibleMisiItems();
+                const maxIndex = Math.max(0, misiItems.length - visibleItems);
+                if (currentMisiIndex > maxIndex) { currentMisiIndex = maxIndex; }
+                const itemWidth = misiItems[0].offsetWidth;
+                const offset = -currentMisiIndex * itemWidth;
+                misiCarousel.style.transform = `translateX(${offset}px)`;
+                prevMisiBtn.disabled = currentMisiIndex === 0;
+                nextMisiBtn.disabled = currentMisiIndex >= maxIndex;
+                prevMisiBtn.classList.toggle('opacity-50', prevMisiBtn.disabled);
+                nextMisiBtn.classList.toggle('opacity-50', nextMisiBtn.disabled);
+            }
+            prevMisiBtn.addEventListener('click', function () { if (currentMisiIndex > 0) { currentMisiIndex--; updateMisiCarousel(); } });
+            nextMisiBtn.addEventListener('click', function () {
+                if (currentMisiIndex < misiItems.length - getVisibleMisiItems()) { currentMisiIndex++; updateMisiCarousel(); }
+            });
+            window.addEventListener('resize', () => setTimeout(updateMisiCarousel, 200));
+            window.addEventListener('load', updateMisiCarousel);
+        }
+
+        // --- READ MORE PROFIL ---
+        function initProfilReadMore() {
+            const profilContent = document.getElementById('profilContent');
+            const toggleBtn = document.getElementById('toggleProfilBtn');
+            const toggleText = document.getElementById('toggleProfilText');
+            const toggleIcon = document.getElementById('toggleProfilIcon');
+            if (!profilContent || !toggleBtn) return;
+            let isExpanded = false;
+            function toggleContent() {
+                isExpanded = !isExpanded;
+                if (isExpanded) {
+                    profilContent.style.maxHeight = profilContent.scrollHeight + 'px';
+                    profilContent.style.opacity = '1';
+                    toggleText.textContent = 'Sembunyikan';
+                    toggleIcon.className = 'ri-arrow-up-s-line text-xl';
+                } else {
+                    profilContent.style.maxHeight = '0';
+                    profilContent.style.opacity = '0';
+                    toggleText.textContent = 'Selengkapnya';
+                    toggleIcon.className = 'ri-arrow-down-s-line text-xl';
+                }
+            }
+            toggleBtn.addEventListener('click', toggleContent);
+        }
+        initProfilReadMore();
+
+        // --- HERO BANNER SLIDER ---
+        class HeroSlider {
+            constructor(containerId, images, options = {}) {
+                this.container = document.getElementById(containerId);
+                if (!this.container) return;
+                this.images = images;
+                this.currentIndex = 0;
+                this.interval = options.interval || 5000;
+                this.autoplay = options.autoplay !== false;
+                this.timer = null;
+                this.init();
+            }
+            init() {
+                this.images.forEach((imageSrc, index) => {
+                    const imgDiv = document.createElement('div');
+                    imgDiv.className = 'hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000';
+                    imgDiv.style.backgroundImage = `url('${imageSrc}')`;
+                    imgDiv.style.opacity = index === 0 ? '1' : '0';
+                    imgDiv.style.zIndex = index === 0 ? '1' : '0';
+                    this.container.appendChild(imgDiv);
+                });
+                this.slides = this.container.querySelectorAll('.hero-slide');
+                this.createIndicators();
+                if (this.autoplay && this.images.length > 1) { this.startAutoplay(); }
+            }
+            createIndicators() {
+                let indicatorContainer = document.createElement('div');
+                indicatorContainer.className = 'slider-indicators absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20';
+                this.container.appendChild(indicatorContainer);
+                this.images.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'slider-dot w-3 h-3 rounded-full transition-all duration-300';
+                    dot.style.backgroundColor = index === 0 ? '#C8E6C9' : 'rgba(255, 255, 255, 0.4)';
+                    dot.addEventListener('click', () => { this.goToSlide(index); });
+                    indicatorContainer.appendChild(dot);
+                });
+                this.indicators = indicatorContainer.querySelectorAll('.slider-dot');
+            }
+            goToSlide(index) {
+                this.slides[this.currentIndex].style.opacity = '0';
+                this.indicators[this.currentIndex].style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+                this.currentIndex = index;
+                this.slides[this.currentIndex].style.opacity = '1';
+                this.indicators[this.currentIndex].style.backgroundColor = '#C8E6C9';
+            }
+            nextSlide() { this.goToSlide((this.currentIndex + 1) % this.images.length); }
+            startAutoplay() { this.timer = setInterval(() => this.nextSlide(), this.interval); }
+        }
+
+        const bannerImages = ["https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1920&q=80"];
+        new HeroSlider('hero-slider', bannerImages);
+
+        // --- GALERI SLIDER ---
+        class GaleriSlider {
+            constructor(containerId, images, options = {}) {
+                this.container = document.getElementById(containerId);
+                if (!this.container) return;
+                this.images = images;
+                this.currentIndex = 0;
+                this.itemsPerView = options.itemsPerView || { mobile: 1, tablet: 2, desktop: 3 };
+                this.init();
+            }
+            init() {
+                const slidesWrapper = document.createElement('div');
+                slidesWrapper.className = 'relative w-full overflow-hidden';
+                const slidesContainer = document.createElement('div');
+                slidesContainer.className = 'flex transition-transform duration-700 ease-in-out';
+                this.images.forEach((imageData) => {
+                    const slideDiv = document.createElement('div');
+                    slideDiv.className = 'flex-shrink-0 px-2';
+                    slideDiv.innerHTML = `<div class="relative overflow-hidden rounded-xl h-64 bg-dark-gray"><img src="${imageData.src}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition"><p class="text-white border-2 p-2 rounded">${imageData.caption}</p></div></div>`;
+                    slidesContainer.appendChild(slideDiv);
+                });
+                slidesWrapper.appendChild(slidesContainer);
+                this.container.appendChild(slidesWrapper);
+                this.slidesContainer = slidesContainer;
+                this.slides = slidesContainer.querySelectorAll('div > div');
+                this.updateSlideWidths();
+            }
+            updateSlideWidths() {
+                const items = (window.innerWidth >= 1024) ? this.itemsPerView.desktop : (window.innerWidth >= 768) ? this.itemsPerView.tablet : this.itemsPerView.mobile;
+                this.slidesContainer.querySelectorAll('.flex-shrink-0').forEach(s => s.style.width = `${100/items}%`);
+            }
+        }
+
+        const galeriData = [{src: "https://placehold.co/600x400", caption: "Kegiatan Belajar"}, {src: "https://placehold.co/600x400", caption: "Fasilitas"}];
+        new GaleriSlider('galeriSliderContainer', galeriData);
+
+        // --- UNIT PENDIDIKAN CAROUSEL ---
+        const unitCarousel = document.getElementById('unitCarousel');
+        if (unitCarousel) {
+            const prevUnitBtn = document.getElementById('prevUnit');
+            const nextUnitBtn = document.getElementById('nextUnit');
+            const unitItems = unitCarousel.querySelectorAll('.carousel-item-unit');
+            let currentUnitIndex = 0;
+            function updateUnitCarousel() {
+                const itemWidth = unitItems[0].offsetWidth;
+                unitCarousel.style.transform = `translateX(${-currentUnitIndex * itemWidth}px)`;
+            }
+            nextUnitBtn.addEventListener('click', () => {
+                if (currentUnitIndex < unitItems.length - 1) { currentUnitIndex++; updateUnitCarousel(); }
+                else { currentUnitIndex = 0; updateUnitCarousel(); }
+            });
+            prevUnitBtn.addEventListener('click', () => {
+                if (currentUnitIndex > 0) { currentUnitIndex--; updateUnitCarousel(); }
+            });
+        }
+    });
+</script>
+</body>
+</html>

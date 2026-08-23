@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Pesantren Smart Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="src/tw-config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Supabase Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- CryptoJS for Encryption -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="src/admin-system.js?v=1.1"></script>
+    <script src="src/chat-widget.js?v=1.1"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Quill.js Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .sidebar-active { background-color: rgba(255, 255, 255, 0.1); border-left: 4px solid #F4C430; }
+        /* Force all sidebar nav links to be white */
+        aside nav a.sidebar-item,
+        aside nav a.sidebar-item:visited,
+        aside nav a.sidebar-item:hover,
+        aside nav a.sidebar-item:active { color: #ffffff !important; text-decoration: none; }
+        /* Custom Quill Style */
+        .ql-editor { min-height: 200px; font-family: 'Poppins', sans-serif; }
+        .ql-toolbar.ql-snow { border-radius: 0.5rem 0.5rem 0 0; }
+        .ql-container.ql-snow { border-radius: 0 0 0.5rem 0.5rem; }
+        /* Custom Scrollbar for Sidebar */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
+    </style>
+</head>
+<body class="bg-gray-100 flex h-screen overflow-hidden">
+    <!-- End Chat Session Modal (Moved to top for stability) -->
+    <div id="endSessionModal" class="fixed inset-0 bg-black/80 z-[10000] flex items-center justify-center p-4" style="display:none !important">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm text-center">
+            <div class="w-16 h-16 bg-red-50 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-exclamation-triangle text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Akhiri Sesi Chat?</h3>
+            <p class="text-gray-500 text-sm mb-8">Semua riwayat percakapan dengan user ini akan dihapus dari tampilan admin.</p>
+            <div class="flex gap-3">
+                <button type="button" onclick="closeEndSessionModal()" class="flex-1 px-4 py-3 border border-gray-200 rounded-xl font-bold text-gray-600 hover:bg-gray-50 transition">Batal</button>
+                <button type="button" onclick="confirmEndSession()" class="flex-1 px-4 py-3 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition">Ya, Akhiri</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Overlay -->
+    <div id="login-overlay" class="fixed inset-0 bg-psd-green z-[100] flex items-center justify-center p-6">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md transform transition-all" data-aos="zoom-in">
+            <div class="text-center mb-8">
+                <img src="src/logo.png" alt="Logo" class="h-16 w-auto mx-auto mb-4">
+                <h2 class="text-2xl font-bold text-gray-800">Admin Login</h2>
+                <p class="text-gray-500 text-sm">Silakan masuk untuk mengelola konten</p>
+            </div>
+            
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                    <input type="text" id="login-username" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-psd-green focus:border-transparent outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="login-password" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-psd-green focus:border-transparent outline-none transition">
+                </div>
+                <button type="submit" class="w-full bg-psd-green text-white font-bold py-3 rounded-xl hover:bg-opacity-90 transition shadow-lg mt-2">
+                    Masuk Sekarang
+                </button>
+            </form>
+            <p id="login-error" class="text-red-500 text-sm text-center mt-4 hidden">Username atau password salah!</p>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-psd-green text-white flex-shrink-0 flex flex-col h-full">
+        <div class="p-6">
+            <img src="src/logo.png" alt="Logo" class="h-12 w-auto mx-auto mb-4">
+            <h2 class="text-center font-bold text-lg uppercase tracking-wider">Admin Panel</h2>
+        </div>
+        
+        <nav class="flex-1 min-h-0 overflow-y-auto custom-scrollbar">
+            <a href="#" onclick="showSection('dashboard')" class="sidebar-item flex items-center px-6 py-3 hover:bg-white/10 transition sidebar-active" id="nav-dashboard">
+                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                Dashboard
+            </a>
+            <a href="#" onclick="showSection('news')" class="sidebar-item flex items-center px-6 py-3 hover:bg-white/10 transition" id="nav-news">
+                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                Kelola Berita
+            </a>
+            <a href="#" onclick="showSection('features')" class="sidebar-item flex items-center px-6 py-3 hover:bg-white/10 transition" id="nav-features">
+                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-7.714 2.143L11 21l-2.286-6.857L1 12l7.714-2.143L11 3z"></path></svg>
+                Kelola Fitur
+            </a>
+            <a href="#" onclick="showSection('testimonials')" class="sidebar-item flex items-center px-6 py-3 hover:bg-white/10 transition" id="nav-testimonials">
+                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                Testimoni
+            </a>
+            <a href="#" onclick="showSection('faq')" class="sidebar-item flex items-center px-6 py-3 hover:bg-white/10 transition" id="nav-faq">
+                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Kelola FAQ
+            </a>
+            <a href="#" onclick="showSection('company')" class="sidebar-item flex items-center px-6 py-3 hover:bg-white/10 transition" id="nav-company">
+                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                Info Perusahaan
+            </a>
+            <a href="#" onclick="showSection('gallery')" class="sidebar-item flex items-center px-6 py-3 hover:bg-white/10 transition" id="nav-gallery">
+                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                Gallery Video
+            </a>
+            <a href="#" onclick="showSection('seo')" class="sidebar-item flex items-center px-6 py-3 hover:bg-white/10 transition" id="nav-seo">
+                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                Pengaturan SEO
+            </a>
+            <a href="#" onclick="showSection('feedback')" class="sidebar-item flex items-center px-6 py-3 hover:bg-white/10 transition" id="nav-feedback">
+                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                Feedback Pesan
+            </a>
+            <a href="#" onclick="showSection('chat')" class="sidebar-item flex items-center px-6 py-3 hover:bg-white/10 transition" id="nav-chat">
+                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                Live Chat
+                <span id="admin-chat-badge" class="ml-auto bg-psd-yellow text-psd-green text-[10px] font-bold px-1.5 py-0.5 rounded-full hidden">NEW</span>
+            </a>
+            <a href="#" onclick="showSection('security')" class="sidebar-item flex items-center px-6 py-3 hover:bg-white/10 transition" id="nav-security">
+                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                Keamanan
+            </a>
+            <a href="#" onclick="showSection('users')" class="sidebar-item flex items-center px-6 py-3 hover:bg-white/10 transition" id="nav-users">
+                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                Manajemen User
+            </a>
+        </nav>
+
+        <div class="p-6 mt-auto border-t border-white/10 space-y-4">
+            <button onclick="logout()" class="flex items-center text-sm text-red-300 hover:text-red-100 transition w-full">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                Logout
+            </button>
+            <a href="index.html" class="flex items-center text-sm text-gray-300 hover:text-white transition">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Kembali ke Web
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto bg-gray-50 p-10" data-aos="fade-in">
+        
+        <!-- Dashboard Section -->
+        <section id="section-dashboard" class="admin-section">
+            <!-- Header Row -->
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">Dashboard Analytics</h1>
+                    <p class="text-gray-500 text-sm mt-1">Pantau performa website Pesantren Smart Digital secara real-time</p>
+                </div>
+                <div class="flex flex-wrap gap-3 items-center">
+                    <!-- Date Filter -->
+                    <div class="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-2 shadow-sm">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <input type="date" id="filter-date-start" class="text-sm text-gray-700 outline-none border-none bg-transparent cursor-pointer">
+                        <span class="text-gray-400 text-sm">–</span>
+                        <input type="date" id="filter-date-end" class="text-sm text-gray-700 outline-none border-none bg-transparent cursor-pointer">
+                    </div>
+                    <button onclick="applyDateFilter()" class="bg-psd-green text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-opacity-90 transition shadow-sm">
+                        Filter
+                    </button>
+                    <button onclick="resetDateFilter()" class="bg-gray-100 text-gray-600 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-gray-200 transition">
+                        Reset
+                    </button>
+                    <button onclick="window.syncLocalToSupabase()" class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-opacity-90 transition font-semibold flex items-center shadow-sm text-sm">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                        Sync ke Database
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stat Cards -->
+            <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-5 rounded-2xl shadow-md">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="bg-white/20 rounded-xl p-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                        </div>
+                        <span class="text-blue-200 text-xs font-medium" id="visits-trend">—</span>
+                    </div>
+                    <h3 id="stat-visits" class="text-3xl font-bold">0</h3>
+                    <p class="text-blue-100 text-xs mt-1 uppercase tracking-wider">Total Pengunjung</p>
+                </div>
+                <div class="bg-gradient-to-br from-emerald-500 to-green-600 text-white p-5 rounded-2xl shadow-md">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="bg-white/20 rounded-xl p-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+                        </div>
+                    </div>
+                    <h3 id="stat-news" class="text-3xl font-bold">0</h3>
+                    <p class="text-green-100 text-xs mt-1 uppercase tracking-wider">Berita Publish</p>
+                </div>
+                <div class="bg-gradient-to-br from-amber-400 to-orange-500 text-white p-5 rounded-2xl shadow-md">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="bg-white/20 rounded-xl p-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                    </div>
+                    <h3 id="stat-feedback" class="text-3xl font-bold">0</h3>
+                    <p class="text-amber-100 text-xs mt-1 uppercase tracking-wider">Pesan Masuk</p>
+                </div>
+                <div class="bg-gradient-to-br from-purple-500 to-violet-600 text-white p-5 rounded-2xl shadow-md">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="bg-white/20 rounded-xl p-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-7.714 2.143L11 21l-2.286-6.857L1 12l7.714-2.143L11 3z"/></svg>
+                        </div>
+                    </div>
+                    <h3 id="stat-features" class="text-3xl font-bold">0</h3>
+                    <p class="text-purple-100 text-xs mt-1 uppercase tracking-wider">Fitur Aktif</p>
+                </div>
+                <div class="bg-gradient-to-br from-rose-500 to-pink-600 text-white p-5 rounded-2xl shadow-md">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="bg-white/20 rounded-xl p-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                    </div>
+                    <h3 id="stat-faq" class="text-3xl font-bold">0</h3>
+                    <p class="text-rose-100 text-xs mt-1 uppercase tracking-wider">Total FAQ</p>
+                </div>
+                <div class="bg-gradient-to-br from-indigo-500 to-blue-600 text-white p-5 rounded-2xl shadow-md">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="bg-white/20 rounded-xl p-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                    </div>
+                    <h3 id="stat-gallery" class="text-3xl font-bold">0</h3>
+                    <p class="text-indigo-100 text-xs mt-1 uppercase tracking-wider">Gallery Video</p>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Line Chart: Traffic Over Time -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800">Grafik Pengunjung</h3>
+                            <p class="text-xs text-gray-400">Jumlah kunjungan per hari</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="setChartPeriod(7)" id="chart-btn-7" class="text-xs px-3 py-1 rounded-lg bg-psd-green text-white font-semibold">7 Hari</button>
+                            <button onclick="setChartPeriod(14)" id="chart-btn-14" class="text-xs px-3 py-1 rounded-lg bg-gray-100 text-gray-600 font-semibold hover:bg-gray-200 transition">14 Hari</button>
+                            <button onclick="setChartPeriod(30)" id="chart-btn-30" class="text-xs px-3 py-1 rounded-lg bg-gray-100 text-gray-600 font-semibold hover:bg-gray-200 transition">30 Hari</button>
+                        </div>
+                    </div>
+                    <canvas id="chart-traffic" height="100"></canvas>
+                </div>
+
+                <!-- Doughnut Chart: Page Popularity -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-gray-800">Halaman Populer</h3>
+                        <p class="text-xs text-gray-400">Distribusi kunjungan per halaman</p>
+                    </div>
+                    <canvas id="chart-pages" height="180"></canvas>
+                    <div id="chart-pages-legend" class="mt-4 space-y-2 text-xs"></div>
+                </div>
+            </div>
+
+            <!-- Traffic Table -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-bold text-gray-800">Log Kunjungan Terkini</h3>
+                    <span id="traffic-count" class="text-xs text-gray-400 bg-gray-50 px-3 py-1 rounded-full">0 kunjungan</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-gray-50 text-gray-500 text-xs uppercase font-bold tracking-wider rounded-lg">
+                            <tr>
+                                <th class="px-5 py-3 rounded-l-lg">Halaman</th>
+                                <th class="px-5 py-3">Waktu</th>
+                                <th class="px-5 py-3 rounded-r-lg">Browser</th>
+                            </tr>
+                        </thead>
+                        <tbody id="analytics-list" class="text-sm text-gray-600 divide-y divide-gray-50">
+                            <!-- Analytics data -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Manage News Section -->
+        <section id="section-news" class="admin-section hidden">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800">Kelola Berita</h1>
+                <button onclick="openNewsModal()" class="bg-psd-green text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition font-semibold">
+                    + Tambah Berita Baru
+                </button>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600">Judul Berita</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600">Tanggal</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600 text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="news-list">
+                        <!-- News items will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Manage Features Section -->
+        <section id="section-features" class="admin-section hidden">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800">Kelola Fitur Unggulan</h1>
+                <button onclick="openGenericModal('features')" class="bg-psd-green text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition font-semibold">
+                    + Tambah Fitur Baru
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="features-list">
+                <!-- Features items -->
+            </div>
+        </section>
+
+        <!-- Manage Testimonials Section -->
+        <section id="section-testimonials" class="admin-section hidden">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800">Kelola Testimoni</h1>
+                <button onclick="openGenericModal('testimonials')" class="bg-psd-green text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition font-semibold">
+                    + Tambah Testimoni
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="testimonials-list">
+                <!-- Testimonials items -->
+            </div>
+        </section>
+
+        <!-- Manage FAQ Section -->
+        <section id="section-faq" class="admin-section hidden">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800">Kelola FAQ</h1>
+                <button onclick="openGenericModal('faq')" class="bg-psd-green text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition font-semibold">
+                    + Tambah FAQ
+                </button>
+            </div>
+            <div class="space-y-4" id="faq-list">
+                <!-- FAQ items -->
+            </div>
+        </section>
+
+        <!-- Company Info Section -->
+        <section id="section-company" class="admin-section hidden">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">Informasi Perusahaan</h1>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="text-lg font-semibold mb-6 border-b pb-4">Identitas Visual</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Logo Perusahaan</label>
+                            <div class="flex items-center space-x-4">
+                                <img src="src/logo.png" id="preview-logo" class="h-16 w-auto bg-gray-100 p-2 rounded">
+                                <input type="file" class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-psd-green/10 file:text-psd-green hover:file:bg-psd-green/20">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 lg:col-span-2">
+                    <h3 class="text-lg font-semibold mb-6 border-b pb-4">Pengaturan Hero Banner (Homepage)</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Headline Utama Hero</label>
+                            <input type="text" id="hero-headline" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Sub-headline Hero</label>
+                            <textarea id="hero-subheadline" rows="2" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent"></textarea>
+                        </div>
+                        <div class="pt-4 border-t">
+                            <label class="block text-sm font-medium text-gray-700 mb-1 font-bold text-psd-green">Headline Solusi Nyata (Section Bawah)</label>
+                            <input type="text" id="solusi-headline" class="w-full px-4 py-2 rounded-lg border border-psd-green/30 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 font-bold text-psd-green">Sub-headline Solusi Nyata</label>
+                            <textarea id="solusi-subheadline" rows="2" class="w-full px-4 py-2 rounded-lg border border-psd-green/30 focus:ring-2 focus:ring-psd-green focus:border-transparent"></textarea>
+                        </div>
+                        <div class="pt-4 border-t">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nomor WhatsApp (Contoh: 62813...)</label>
+                            <input type="text" id="whatsapp-number" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="text-lg font-semibold mb-6 border-b pb-4">Sosial Media & App</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Instagram URL</label>
+                            <input type="url" id="social-instagram" placeholder="https://instagram.com/..." class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Facebook URL</label>
+                            <input type="url" id="social-facebook" placeholder="https://facebook.com/..." class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">TikTok URL</label>
+                            <input type="url" id="social-tiktok" placeholder="https://tiktok.com/@..." class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                        </div>
+                        <div class="pt-4 border-t">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Play Store URL</label>
+                            <input type="url" id="playstore-url" placeholder="https://play.google.com/store/apps/details?id=..." class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="text-lg font-semibold mb-6 border-b pb-4">Kontak & Alamat</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="comp-email" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Telepon</label>
+                            <input type="text" id="comp-phone" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Alamat</label>
+                            <textarea id="comp-address" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent" rows="2"></textarea>
+                        </div>
+                        <button onclick="handleUpdateCompany()" class="bg-psd-green text-white px-6 py-2 rounded-lg font-semibold w-full mt-4 hover:bg-opacity-90 transition">Simpan Semua Perubahan</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feedback Section -->
+        <section id="section-feedback" class="admin-section hidden">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">Feedback & Pesan</h1>
+            
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600">Pengirim</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600">WhatsApp</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600">Pesan</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600">Tanggal</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="feedback-list">
+                        <!-- Feedback items will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Live Chat Section -->
+        <section id="section-chat" class="admin-section hidden">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">Live Chat Pelanggan</h1>
+                    <p class="text-gray-500 text-sm mt-1">Kelola pesan real-time dari pengunjung website Anda.</p>
+                </div>
+                <div class="flex items-center gap-4 bg-white p-2 px-4 rounded-2xl border border-gray-100 shadow-sm">
+                    <span class="text-sm font-bold text-gray-600">Status Chat:</span>
+                    <button id="admin-status-toggle" onclick="toggleAdminStatus()" class="group relative inline-flex h-7 w-14 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-gray-200">
+                        <span id="toggle-circle" class="pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out translate-x-0"></span>
+                    </button>
+                    <div class="flex flex-col">
+                        <span id="status-text" class="text-[10px] font-black uppercase text-gray-400 leading-none">OFFLINE</span>
+                        <span id="status-desc" class="text-[9px] text-gray-500 mt-0.5">User kirim tiket</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex h-[600px]">
+                <!-- Chat List -->
+                <div class="w-1/3 border-r border-gray-100 flex flex-col">
+                    <div class="p-4 bg-gray-50 border-b border-gray-100 font-bold text-gray-700">Daftar Percakapan</div>
+                    <div id="admin-chat-list" class="flex-1 overflow-y-auto">
+                        <!-- Chat users will appear here -->
+                        <div class="p-8 text-center text-gray-400 text-sm">Memuat percakapan...</div>
+                    </div>
+                </div>
+
+                <!-- Chat View -->
+                <div class="flex-1 flex flex-col bg-gray-50">
+                    <div id="active-chat-header" class="p-4 bg-white border-b border-gray-100 font-bold text-psd-green flex justify-between items-center">
+                        <div class="flex flex-col">
+                            <span id="active-chat-name">Pilih percakapan untuk memulai</span>
+                            <span id="active-chat-user-id" class="text-[10px] text-gray-400 font-normal mt-0.5"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="window.playChatSound ? window.playChatSound() : alert('Audio belum siap. Klik di mana saja lalu coba lagi.')" class="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg text-[10px] font-bold transition">
+                                <i class="fas fa-volume-up"></i> Tes Suara
+                            </button>
+                            <button type="button" id="end-session-btn" style="display:none" class="flex items-center gap-1.5 text-xs bg-red-50 text-red-600 border border-red-200 px-3 py-1.5 rounded-lg hover:bg-red-100 transition font-semibold">
+                                <i class="fas fa-times-circle text-xs"></i>
+                                End Session
+                            </button>
+                        </div>
+                    </div>
+                    <div id="admin-chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4 flex flex-col">
+                        <div class="flex-1 flex items-center justify-center text-gray-400 flex-col">
+                            <i class="fas fa-comments text-4xl mb-4 opacity-20"></i>
+                            <p>Klik salah satu user di samping untuk melihat pesan</p>
+                        </div>
+                    </div>
+                    <form id="admin-chat-form" class="p-4 bg-white border-t border-gray-100 flex items-center space-x-2 hidden">
+                        <input type="text" id="admin-chat-input" placeholder="Balas pesan..." class="flex-1 bg-gray-100 border-none rounded-xl px-4 py-3 text-sm text-gray-800 focus:ring-2 focus:ring-psd-green outline-none">
+                        <button type="submit" class="bg-psd-green text-white p-3 rounded-xl hover:bg-opacity-90 transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="section-gallery" class="admin-section hidden">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">Gallery Video</h1>
+                    <p class="text-gray-500 text-sm mt-1">Kelola link video YouTube yang tampil di website</p>
+                </div>
+                <button onclick="openVideoModal()" class="bg-psd-green text-white px-6 py-3 rounded-xl font-bold hover:bg-opacity-90 transition shadow-lg flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    Tambah Video
+                </button>
+            </div>
+
+            <div id="gallery-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Video items will be injected here -->
+            </div>
+        </section>
+
+        <!-- SEO Section -->
+        <section id="section-seo" class="admin-section hidden">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">Pengaturan SEO Global</h1>
+            
+            <div class="max-w-2xl bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-semibold mb-6 border-b pb-4">SEO Metadata</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Global Meta Title</label>
+                        <input type="text" id="seo-meta-title" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Global Meta Description</label>
+                        <textarea id="seo-meta-description" rows="3" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Global Meta Keywords</label>
+                        <input type="text" id="seo-meta-keywords" placeholder="pisahkan dengan koma" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                    </div>
+                    <button onclick="handleUpdateGlobalSEO()" class="bg-psd-green text-white px-6 py-2 rounded-lg font-semibold w-full mt-4 hover:bg-opacity-90 transition">Simpan Pengaturan SEO</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Section -->
+        <section id="section-security" class="admin-section hidden">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">Keamanan & Password</h1>
+            
+            <div class="max-w-md bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-semibold mb-6 border-b pb-4">Ganti Password Admin</h3>
+                <form id="change-password-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Password Baru</label>
+                        <input type="password" id="new-password" required class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password Baru</label>
+                        <input type="password" id="confirm-password" required class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                    </div>
+                    <button type="submit" class="w-full bg-psd-green text-white font-bold py-2 rounded-lg hover:bg-opacity-90 transition">
+                        Update Password
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- User Management Section -->
+        <section id="section-users" class="admin-section hidden">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">Manajemen User</h1>
+                    <p class="text-gray-500 text-sm mt-1">Kelola akun admin yang dapat mengakses panel ini</p>
+                </div>
+                <button onclick="openUserModal()" class="bg-psd-green text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition font-semibold flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    Tambah User
+                </button>
+            </div>
+
+            <!-- Current Login Info -->
+            <div id="current-user-banner" class="mb-6 p-4 bg-psd-green/10 border border-psd-green/20 rounded-xl flex items-center gap-3">
+                <div class="w-10 h-10 bg-psd-green rounded-full flex items-center justify-center text-white font-bold" id="current-user-avatar">A</div>
+                <div>
+                    <div class="font-bold text-psd-green" id="current-user-display">Admin</div>
+                    <div class="text-xs text-gray-500">Sesi login aktif</div>
+                </div>
+                <span class="ml-auto text-xs bg-psd-green text-white px-3 py-1 rounded-full">Sedang Login</span>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600">Nama Tampilan</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600">Username</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600">Role</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600 text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-list">
+                        <!-- User rows populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- News Modal -->
+    <div id="newsModal" class="fixed inset-0 bg-black/50 hidden z-[60] flex items-center justify-center p-6">
+        <div class="bg-white rounded-2xl max-w-2xl w-full flex flex-col shadow-2xl max-h-[90vh]">
+            <div class="p-8 border-b border-gray-100">
+                <h2 id="modalTitle" class="text-2xl font-bold">Tulis Berita Baru</h2>
+            </div>
+            
+            <div class="p-8 overflow-y-auto flex-1">
+                <div class="space-y-4">
+                    <input type="hidden" id="edit-news-id">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Judul Berita</label>
+                        <input type="text" id="news-title" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Foto Berita</label>
+                        <input type="file" id="news-image" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-psd-green/10 file:text-psd-green">
+                        <div id="image-preview-container" class="mt-2 hidden">
+                            <p class="text-xs text-gray-500 mb-1">Preview foto saat ini:</p>
+                            <img id="image-preview" src="" class="h-20 w-auto rounded border border-gray-200">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Isi Berita</label>
+                        <div id="editor-container" class="bg-white min-h-[300px]"></div>
+                    </div>
+                    <div class="border-t pt-4 mt-4">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-800">Advanced SEO</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Meta Title</label>
+                                <input type="text" id="news-meta-title" placeholder="Kosongkan untuk menggunakan judul berita" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Meta Description</label>
+                                <textarea id="news-meta-description" rows="2" placeholder="Deskripsi singkat untuk mesin pencari" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Meta Keywords</label>
+                                <input type="text" id="news-meta-keywords" placeholder="pisahkan, dengan, koma" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-8 border-t border-gray-100 flex justify-end space-x-4">
+                <button onclick="closeNewsModal()" class="px-6 py-2 text-gray-600 font-semibold hover:text-gray-800 transition">Batal</button>
+                <button onclick="saveNews()" class="bg-psd-green text-white px-8 py-2 rounded-lg font-semibold hover:bg-[#084a40] transition">Publish Berita</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Modal -->
+    <div id="userModal" class="fixed inset-0 bg-black/50 hidden z-[60] flex items-center justify-center p-6">
+        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl">
+            <div class="p-8 border-b border-gray-100">
+                <h2 id="userModalTitle" class="text-2xl font-bold text-gray-800">Tambah User Baru</h2>
+                <p class="text-gray-500 text-sm mt-1">User baru akan langsung bisa login ke admin panel</p>
+            </div>
+            <div class="p-8 space-y-4">
+                <input type="hidden" id="edit-user-id">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nama Tampilan</label>
+                    <input type="text" id="user-display-name" placeholder="Contoh: Ahmad Rifai" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Username (untuk login)</label>
+                    <input type="text" id="user-username" placeholder="Contoh: ahmad" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="user-password" placeholder="Minimal 6 karakter" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-psd-green focus:border-transparent">
+                    <p class="text-xs text-gray-400 mt-1" id="user-password-hint">Kosongkan jika tidak ingin mengubah password</p>
+                </div>
+            </div>
+            <div class="p-8 border-t border-gray-100 flex justify-end space-x-4">
+                <button onclick="closeUserModal()" class="px-6 py-2 text-gray-600 font-semibold hover:text-gray-800 transition">Batal</button>
+                <button onclick="saveUserHandler()" class="bg-psd-green text-white px-8 py-2 rounded-lg font-semibold hover:bg-[#084a40] transition">Simpan User</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generic CRUD Modal (Features, Testimonials, FAQ) -->
+    <div id="genericModal" class="fixed inset-0 bg-black/50 hidden z-[60] flex items-center justify-center p-6">
+        <div class="bg-white rounded-2xl max-w-lg w-full flex flex-col shadow-2xl">
+            <div class="p-8 border-b border-gray-100">
+                <h2 id="genericModalTitle" class="text-2xl font-bold">Tambah Data</h2>
+            </div>
+            <div class="p-8 space-y-4" id="genericModalFields">
+                <!-- Dynamic Fields -->
+            </div>
+            <div class="p-8 border-t border-gray-100 flex justify-end space-x-4">
+                <button onclick="closeGenericModal()" class="px-6 py-2 text-gray-600 font-semibold hover:text-gray-800 transition">Batal</button>
+                <button id="genericModalSaveBtn" class="bg-psd-green text-white px-8 py-2 rounded-lg font-semibold hover:bg-[#084a40] transition">Simpan</button>
+            </div>
+        </div>
+
+
+    <!-- Other Libraries -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 50
+        });
+
+        // Initialize Quill
+        var quill = new Quill('#editor-container', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    ['link', 'blockquote', 'code-block'],
+                    ['clean']
+                ]
+            },
+            placeholder: 'Tulis isi berita di sini...'
+        });
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.admin-section').forEach(section => section.classList.add('hidden'));
+            document.getElementById('section-' + sectionId).classList.remove('hidden');
+            document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('sidebar-active'));
+            document.getElementById('nav-' + sectionId).classList.add('sidebar-active');
+            
+            if (sectionId === 'dashboard') { renderAnalytics(); setTimeout(initDashboardCharts, 300); }
+            if (sectionId === 'news') renderNewsTable();
+            if (sectionId === 'features') renderFeatures();
+            if (sectionId === 'testimonials') renderTestimonials();
+            if (sectionId === 'faq') renderFAQ();
+            if (sectionId === 'feedback') renderFeedbackTable();
+            if (sectionId === 'company') populateCompanyInfo();
+            if (sectionId === 'seo') populateGlobalSEO();
+            if (sectionId === 'users') renderUsers();
+            if (sectionId === 'chat') {
+                document.getElementById('admin-chat-badge').classList.add('hidden');
+                renderChat();
+            }
+            if (sectionId === 'gallery') renderVideos();
+
+            // Refresh AOS
+            if (typeof AOS !== 'undefined') {
+                AOS.refresh();
+            }
+        }
+
+        // --- Authentication Logic ---
+        
+        async function checkAuth() {
+            const loginOverlay = document.getElementById('login-overlay');
+            if (window.isLoggedIn && window.isLoggedIn()) {
+                if (loginOverlay) loginOverlay.classList.add('hidden');
+                await renderAnalytics();
+                await renderNewsTable();
+                await renderFeatures();
+                await renderTestimonials();
+                await renderFAQ();
+                await renderFeedbackTable();
+                await renderChat();
+                await populateCompanyInfo();
+                await populateGlobalSEO();
+            } else {
+                if (loginOverlay) loginOverlay.classList.remove('hidden');
+            }
+        }
+
+        window.onload = async () => {
+            console.log('Admin Page window.onload started');
+            
+            const loginForm = document.getElementById('login-form');
+            const loginError = document.getElementById('login-error');
+            const changePasswordForm = document.getElementById('change-password-form');
+
+            if (loginForm) {
+                loginForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const user = document.getElementById('login-username').value;
+                    const pass = document.getElementById('login-password').value;
+                    
+                    if (typeof window.login === 'function') {
+                        const success = await window.login(user, pass);
+                        if (success) {
+                            // Store admin name for chat widget before reload
+                            const currentUser = window.getCurrentUser ? window.getCurrentUser() : { displayName: user };
+                            localStorage.setItem('psd_admin_online_name', currentUser.displayName || user);
+                            window.location.reload();
+                        } else {
+                            if (loginError) loginError.classList.remove('hidden');
+                        }
+                    } else {
+                        alert('Sistem login sedang memuat. Silakan tunggu 1-2 detik dan coba lagi.');
+                    }
+                });
+            } else {
+                console.error('Login form with id "login-form" NOT found in DOM!');
+            }
+
+            if (changePasswordForm) {
+                changePasswordForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const newPass = document.getElementById('new-password').value;
+                    const confirmPass = document.getElementById('confirm-password').value;
+
+                    if (newPass !== confirmPass) {
+                        window.showModal('Password Tidak Cocok', 'Konfirmasi password harus sama dengan password baru.', 'error');
+                        return;
+                    }
+
+                    if (typeof window.updateAdminPassword === 'function') {
+                        const success = await window.updateAdminPassword(newPass);
+                        if (success) {
+                            window.showModal('Berhasil!', 'Password administrator telah diperbarui.', 'success');
+                            changePasswordForm.reset();
+                        } else {
+                            window.showModal('Gagal', 'Terjadi kesalahan saat memperbarui password.', 'error');
+                        }
+                    } else {
+                        console.error('window.updateAdminPassword not found');
+                    }
+                });
+            }
+
+            // On successful auth, update the current user banner and set admin online name
+            if (window.isLoggedIn && window.isLoggedIn()) {
+                const cu = window.getCurrentUser ? window.getCurrentUser() : { displayName: 'Admin', username: 'admin' };
+                const banner = document.getElementById('current-user-display');
+                const avatar = document.getElementById('current-user-avatar');
+                if (banner) banner.textContent = cu.displayName;
+                if (avatar) avatar.textContent = (cu.displayName || 'A').charAt(0).toUpperCase();
+                // Make admin name available for public chat widget
+                localStorage.setItem('psd_admin_online_name', cu.displayName || 'Admin');
+            }
+
+            await checkAuth();
+        };
+
+        async function openNewsModal(newsId) {
+            const modal = document.getElementById('newsModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const editIdInput = document.getElementById('edit-news-id');
+            const imagePreviewContainer = document.getElementById('image-preview-container');
+            const imagePreview = document.getElementById('image-preview');
+            
+            if (newsId) {
+                // Edit Mode
+                const news = await getNews();
+                const newsItem = news.find(item => item.id == newsId);
+                if (newsItem) {
+                    modalTitle.innerText = 'Edit Berita';
+                    editIdInput.value = newsId;
+                    document.getElementById('news-title').value = newsItem.title;
+                    quill.root.innerHTML = newsItem.content;
+                    
+                    if (newsItem.image) {
+                        imagePreview.src = newsItem.image;
+                        imagePreviewContainer.classList.remove('hidden');
+                    } else {
+                        imagePreviewContainer.classList.add('hidden');
+                    }
+                    
+                    document.getElementById('news-meta-title').value = newsItem.meta_title || '';
+                    document.getElementById('news-meta-description').value = newsItem.meta_description || '';
+                    document.getElementById('news-meta-keywords').value = newsItem.meta_keywords || '';
+                }
+            } else {
+                // New Mode
+                modalTitle.innerText = 'Tulis Berita Baru';
+                editIdInput.value = '';
+                document.getElementById('news-title').value = '';
+                quill.setContents([]);
+                imagePreviewContainer.classList.add('hidden');
+                
+                document.getElementById('news-meta-title').value = '';
+                document.getElementById('news-meta-description').value = '';
+                document.getElementById('news-meta-keywords').value = '';
+            }
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeNewsModal() {
+            document.getElementById('newsModal').classList.add('hidden');
+            // Reset fields
+            document.getElementById('news-title').value = '';
+            document.getElementById('edit-news-id').value = '';
+            document.getElementById('news-image').value = '';
+            quill.setContents([]);
+            document.getElementById('news-meta-title').value = '';
+            document.getElementById('news-meta-description').value = '';
+            document.getElementById('news-meta-keywords').value = '';
+        }
+
+        async function saveNews() {
+            const title = document.getElementById('news-title').value;
+            const content = quill.root.innerHTML;
+            const plainText = quill.getText().trim();
+            const fileInput = document.getElementById('news-image');
+            const editId = document.getElementById('edit-news-id').value;
+            
+            const metaTitle = document.getElementById('news-meta-title').value;
+            const metaDesc = document.getElementById('news-meta-description').value;
+            const metaKeywords = document.getElementById('news-meta-keywords').value;
+
+            if(!title || plainText.length === 0) {
+                window.showModal('Data Belum Lengkap', 'Judul dan isi berita wajib diisi.', 'error');
+                return;
+            }
+            
+            const onComplete = async (imageUrl) => {
+                const newsData = {
+                    title,
+                    content,
+                    summary: plainText.substring(0, 150) + '...',
+                    image: imageUrl || 'src/berita1.webp',
+                    date: new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }),
+                    meta_title: metaTitle,
+                    meta_description: metaDesc,
+                    meta_keywords: metaKeywords
+                };
+
+                if (editId) {
+                    newsData.id = parseInt(editId);
+                }
+
+                if (window.saveNewsToDB) {
+                    await window.saveNewsToDB(newsData);
+                }
+                await finishSave();
+            };
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    await onComplete(e.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                // If editing and no new image, keep the old one
+                let existingImage = null;
+                if (editId && window.getNews) {
+                    const newsList = await window.getNews();
+                    const existingItem = newsList.find(item => item.id == editId);
+                    existingImage = existingItem ? existingItem.image : null;
+                }
+                await onComplete(existingImage);
+            }
+        }
+
+        async function finishSave() {
+            await renderNewsTable();
+            closeNewsModal();
+            window.showModal('Berhasil!', 'Berita telah berhasil disimpan dan dipublikasikan.', 'success');
+        }
+
+        async function renderNewsTable() {
+            let news = [];
+            if (window.getNews) {
+                news = await window.getNews();
+            }
+            const tbody = document.getElementById('news-list');
+            if (tbody) {
+                tbody.innerHTML = news.map(item => `
+                    <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                        <td class="px-6 py-4">
+                            <img src="${item.image}" 
+                                 onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(item.title)}&background=0A5C4F&color=fff'" 
+                                 class="h-12 w-12 rounded object-cover">
+                        </td>
+                        <td class="px-6 py-4 font-medium text-gray-800">${item.title}</td>
+                        <td class="px-6 py-4 text-sm text-gray-500">${item.date}</td>
+                        <td class="px-6 py-4">
+                            <div class="flex space-x-2">
+                                <button onclick="openNewsModal(${item.id})" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                </button>
+                                <button onclick="handleDeleteNews(${item.id})" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        async function handleDeleteNews(id) {
+            if(confirm('Hapus berita ini?')) {
+                if (window.deleteNewsFromDB) {
+                    await window.deleteNewsFromDB(id);
+                }
+                await renderNewsTable();
+            }
+        }
+
+        async function renderFeedbackTable() {
+            const tbody = document.getElementById('feedback-list');
+            if (!tbody) return;
+            
+            let feedback = [];
+            if (window.getFeedback) {
+                feedback = await window.getFeedback();
+            }
+            tbody.innerHTML = feedback.map(f => `
+                <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                    <td class="px-6 py-4 font-medium text-gray-800">
+                        <div>${f.name}</div>
+                        <div class="text-xs text-gray-400 font-normal">${f.email}</div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-600 text-sm">
+                        ${f.whatsapp ? `
+                            <a href="https://wa.me/${f.whatsapp.replace(/[^0-9]/g, '')}" target="_blank" class="flex items-center gap-1 text-psd-green hover:underline font-medium">
+                                <i class="fab fa-whatsapp"></i>
+                                ${f.whatsapp}
+                            </a>
+                        ` : '<span class="text-gray-300">-</span>'}
+                    </td>
+                    <td class="px-6 py-4 text-gray-600 text-sm">
+                        <div class="font-bold mb-1">${f.subject || 'No Subject'}</div>
+                        <div class="truncate max-w-xs">${f.message || 'No Message'}</div>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-500">${f.date || '-'}</td>
+                    <td class="px-6 py-4">
+                        <button onclick="handleDeleteFeedback(${f.id})" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function handleDeleteFeedback(id) {
+            if (confirm('Hapus pesan feedback ini?')) {
+                if (window.supabaseInstance && !window.isSupabaseError) {
+                    await window.supabaseInstance.from('feedback').delete().eq('id', id);
+                }
+                // Also update local storage
+                const local = JSON.parse(localStorage.getItem('psd_feedback')) || [];
+                localStorage.setItem('psd_feedback', JSON.stringify(local.filter(f => f.id !== id)));
+                
+                await renderFeedbackTable();
+            }
+        }
+
+        async function populateCompanyInfo() {
+            let info = null;
+            if (window.getCompanyInfo) {
+                info = await window.getCompanyInfo();
+            }
+            if (info) {
+                if (document.getElementById('comp-email')) document.getElementById('comp-email').value = info.email || '';
+                if (document.getElementById('comp-phone')) document.getElementById('comp-phone').value = info.phone || '';
+                if (document.getElementById('comp-address')) document.getElementById('comp-address').value = info.address || '';
+                if (document.getElementById('playstore-url')) document.getElementById('playstore-url').value = info.playstore_url || '';
+                
+                // Hero & Solusi Fields
+                if (document.getElementById('hero-headline')) document.getElementById('hero-headline').value = info.hero_headline || '';
+                if (document.getElementById('hero-subheadline')) document.getElementById('hero-subheadline').value = info.hero_subheadline || '';
+                if (document.getElementById('solusi-headline')) document.getElementById('solusi-headline').value = info.solusi_headline || '';
+                if (document.getElementById('solusi-subheadline')) document.getElementById('solusi-subheadline').value = info.solusi_subheadline || '';
+                if (document.getElementById('whatsapp-number')) document.getElementById('whatsapp-number').value = info.whatsapp_number || '';
+
+                // Populate Social Links
+                if (info.social) {
+                    let social = info.social;
+                    if (typeof social === 'string' && social.trim() !== '') {
+                        try { social = JSON.parse(social); } catch(e) {}
+                    }
+                    if (social && typeof social === 'object') {
+                        if (document.getElementById('social-instagram')) document.getElementById('social-instagram').value = social.instagram || '';
+                        if (document.getElementById('social-facebook')) document.getElementById('social-facebook').value = social.facebook || '';
+                        if (document.getElementById('social-tiktok')) document.getElementById('social-tiktok').value = social.tiktok || '';
+                    }
+                }
+                // Chat Status
+                if (info.hasOwnProperty('chat_status')) {
+                    updateStatusUI(info.chat_status);
+                }
+            }
+        }
+
+        async function toggleAdminStatus() {
+            const btn = document.getElementById('admin-status-toggle');
+            if (!btn) return;
+            const isOnline = btn.classList.contains('bg-psd-green');
+            const newStatus = !isOnline;
+            
+            updateStatusUI(newStatus);
+            
+            if (window.updateCompanyInfoInDB) {
+                try {
+                    await window.updateCompanyInfoInDB({ chat_status: newStatus });
+                } catch (e) {
+                    updateStatusUI(isOnline);
+                    console.error('Chat status update failed:', e);
+                }
+            }
+        }
+
+        function updateStatusUI(isOnline) {
+            const btn = document.getElementById('admin-status-toggle');
+            const circle = document.getElementById('toggle-circle');
+            const text = document.getElementById('status-text');
+            const desc = document.getElementById('status-desc');
+            if (!btn || !circle) return;
+
+            if (isOnline) {
+                btn.classList.remove('bg-gray-200');
+                btn.classList.add('bg-psd-green');
+                circle.style.transform = 'translateX(1.75rem)';
+                text.innerText = 'ONLINE';
+                text.classList.remove('text-gray-400');
+                text.classList.add('text-psd-green');
+                desc.innerText = 'Bisa chat langsung';
+            } else {
+                btn.classList.remove('bg-psd-green');
+                btn.classList.add('bg-gray-200');
+                circle.style.transform = 'translateX(0)';
+                text.innerText = 'OFFLINE';
+                text.classList.remove('text-psd-green');
+                text.classList.add('text-gray-400');
+                desc.innerText = 'User kirim tiket';
+            }
+        }
+
+        async function handleUpdateCompany() {
+            const info = {
+                email: document.getElementById('comp-email').value,
+                phone: document.getElementById('comp-phone').value,
+                address: document.getElementById('comp-address').value,
+                playstore_url: document.getElementById('playstore-url').value,
+                hero_headline: document.getElementById('hero-headline').value,
+                hero_subheadline: document.getElementById('hero-subheadline').value,
+                solusi_headline: document.getElementById('solusi-headline').value,
+                solusi_subheadline: document.getElementById('solusi-subheadline').value,
+                whatsapp_number: document.getElementById('whatsapp-number').value,
+                social: {
+                    instagram: document.getElementById('social-instagram').value,
+                    facebook: document.getElementById('social-facebook').value,
+                    tiktok: document.getElementById('social-tiktok').value
+                },
+                chat_status: document.getElementById('admin-status-toggle').classList.contains('bg-psd-green')
+            };
+            
+            console.log('--- STARTING COMPANY UPDATE ---');
+            console.log('Payload:', info);
+            
+            if (window.updateCompanyInfoInDB) {
+                await window.updateCompanyInfoInDB(info);
+            }
+            
+            // Just sync the website display links, but DON'T re-populate the inputs
+            // to avoid overwriting what the user just typed with potentially old data from DB
+            if (window.syncCompanyInfo) {
+                window.syncCompanyInfo();
+            }
+            
+            window.showModal('Berhasil!', 'Informasi profil perusahaan telah diperbarui.', 'success');
+            console.log('--- COMPANY UPDATE FINISHED ---');
+        }
+
+
+
+
+        async function populateGlobalSEO() {
+            let seo = null;
+            if (window.getGlobalSEO) {
+                seo = await window.getGlobalSEO();
+            }
+            if (seo) {
+                if (document.getElementById('seo-meta-title')) document.getElementById('seo-meta-title').value = seo.meta_title || '';
+                if (document.getElementById('seo-meta-description')) document.getElementById('seo-meta-description').value = seo.meta_description || '';
+                if (document.getElementById('seo-meta-keywords')) document.getElementById('seo-meta-keywords').value = seo.meta_keywords || '';
+            }
+        }
+
+        async function handleUpdateGlobalSEO() {
+            const seo = {
+                meta_title: document.getElementById('seo-meta-title').value,
+                meta_description: document.getElementById('seo-meta-description').value,
+                meta_keywords: document.getElementById('seo-meta-keywords').value
+            };
+            if (window.updateGlobalSEOInDB) {
+                await window.updateGlobalSEOInDB(seo);
+            }
+            window.showModal('Berhasil!', 'Pengaturan SEO dan Meta Tag telah diperbarui.', 'success');
+        }
+
+        // --- NEW SECTION RENDERERS ---
+
+        async function renderAnalytics() {
+            if (window.getAnalyticsStats) {
+                const stats = await window.getAnalyticsStats();
+                document.getElementById('stat-visits').innerText = stats.visits || 0;
+                document.getElementById('stat-news').innerText = stats.news || 0;
+                document.getElementById('stat-feedback').innerText = stats.feedback || 0;
+            }
+            const list = document.getElementById('analytics-list');
+            const data = JSON.parse(localStorage.getItem('psd_analytics')) || [];
+            list.innerHTML = data.reverse().slice(0, 10).map(item => `
+                <tr class="border-b border-gray-50">
+                    <td class="px-6 py-3 font-medium">${item.page_path}</td>
+                    <td class="px-6 py-3">${new Date(item.date).toLocaleString('id-ID')}</td>
+                    <td class="px-6 py-3 text-xs text-gray-400 truncate max-w-xs">${item.referrer || 'Direct'}</td>
+                </tr>
+            `).join('');
+        }
+
+        async function renderFeatures() {
+            const list = await window.getFeatures();
+            document.getElementById('features-list').innerHTML = list.map(f => `
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-psd-green/10 rounded-lg">
+                            <i class="fas fa-${f.icon} text-psd-green"></i>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="openGenericModal('features', ${f.id})" class="text-blue-600 hover:text-blue-800"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+                            <button onclick="handleDeleteGeneric('features', ${f.id})" class="text-red-600 hover:text-red-800"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-gray-800">${f.title}</h3>
+                    <p class="text-sm text-gray-500 mt-2">${f.description}</p>
+                </div>
+            `).join('');
+        }
+
+        async function renderTestimonials() {
+            const list = await window.getTestimonials();
+            document.getElementById('testimonials-list').innerHTML = list.map(t => `
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex space-x-4">
+                    <img src="${t.image}" 
+                         onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(t.name)}&background=0A5C4F&color=fff'" 
+                         class="h-12 w-12 rounded-full object-cover">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-gray-800">${t.name}</h3>
+                            <div class="flex space-x-2">
+                                <button onclick="openGenericModal('testimonials', ${t.id})" class="text-blue-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+                                <button onclick="handleDeleteGeneric('testimonials', ${t.id})" class="text-red-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+                            </div>
+                        </div>
+                        <p class="text-xs text-psd-green font-medium">${t.role}</p>
+                        <p class="text-sm text-gray-500 mt-2 italic">"${t.content}"</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function renderFAQ() {
+            const list = await window.getFAQ();
+            document.getElementById('faq-list').innerHTML = list.map((f, index) => `
+                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex justify-between items-center">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800">${f.question}</h3>
+                        <p class="text-sm text-gray-500 mt-1">${f.answer}</p>
+                    </div>
+                    <div class="flex space-x-2 ml-4 items-center">
+                        <button onclick="window.moveFAQ(${index}, -1)" class="text-gray-400 hover:text-blue-600 disabled:opacity-30 p-1" title="Geser ke atas" ${index === 0 ? 'disabled' : ''}>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+                        </button>
+                        <button onclick="window.moveFAQ(${index}, 1)" class="text-gray-400 hover:text-blue-600 disabled:opacity-30 p-1" title="Geser ke bawah" ${index === list.length - 1 ? 'disabled' : ''}>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="w-px h-6 bg-gray-200 mx-2"></div>
+                        <button onclick="openGenericModal('faq', ${f.id})" class="text-blue-600 p-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+                        <button onclick="handleDeleteGeneric('faq', ${f.id})" class="text-red-600 p-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.moveFAQ = async function(index, direction) {
+            const list = await window.getFAQ();
+            if (index + direction < 0 || index + direction >= list.length) return;
+            
+            let needsFullSave = false;
+            for (let i = 0; i < list.length; i++) {
+                if (list[i].order_num === undefined || list[i].order_num === null) {
+                    list[i].order_num = i;
+                    needsFullSave = true;
+                }
+            }
+            
+            const item1 = list[index];
+            const item2 = list[index + direction];
+            
+            const temp = item1.order_num;
+            item1.order_num = item2.order_num;
+            item2.order_num = temp;
+            
+            if (needsFullSave) {
+                for (const item of list) {
+                    await window.saveFAQ(item);
+                }
+            } else {
+                await window.saveFAQ(item1);
+                await window.saveFAQ(item2);
+            }
+            renderFAQ();
+        };
+
+        // --- GENERIC CRUD MODAL LOGIC ---
+
+        let activeGenericType = null;
+        let activeGenericId = null;
+
+        async function openGenericModal(type, id = null) {
+            activeGenericType = type;
+            activeGenericId = id;
+            const container = document.getElementById('genericModalFields');
+            const title = document.getElementById('genericModalTitle');
+            let data = {};
+
+            if (id) {
+                const list = (type === 'features') ? await window.getFeatures() : (type === 'testimonials') ? await window.getTestimonials() : await window.getFAQ();
+                data = list.find(i => i.id == id) || {};
+                title.innerText = 'Edit Data';
+            } else {
+                title.innerText = 'Tambah Data';
+            }
+
+            if (type === 'features') {
+                container.innerHTML = `
+                    <div><label class="block text-sm font-medium text-gray-700">Judul</label><input type="text" id="g-title" value="${data.title || ''}" class="w-full px-4 py-2 border rounded-lg"></div>
+                    <div><label class="block text-sm font-medium text-gray-700">Deskripsi</label><textarea id="g-desc" class="w-full px-4 py-2 border rounded-lg">${data.description || ''}</textarea></div>
+                    <div><label class="block text-sm font-medium text-gray-700">Icon (FontAwesome)</label><input type="text" id="g-icon" value="${data.icon || 'star'}" class="w-full px-4 py-2 border rounded-lg"></div>
+                `;
+            } else if (type === 'testimonials') {
+                container.innerHTML = `
+                    <div><label class="block text-sm font-medium text-gray-700">Nama</label><input type="text" id="g-name" value="${data.name || ''}" class="w-full px-4 py-2 border rounded-lg"></div>
+                    <div><label class="block text-sm font-medium text-gray-700">Jabatan/Role</label><input type="text" id="g-role" value="${data.role || ''}" class="w-full px-4 py-2 border rounded-lg"></div>
+                    <div><label class="block text-sm font-medium text-gray-700">Isi Testimoni</label><textarea id="g-content" class="w-full px-4 py-2 border rounded-lg">${data.content || ''}</textarea></div>
+                    <div><label class="block text-sm font-medium text-gray-700">Foto (URL)</label><input type="text" id="g-image" value="${data.image || 'src/user1.webp'}" class="w-full px-4 py-2 border rounded-lg"></div>
+                `;
+            } else if (type === 'faq') {
+                container.innerHTML = `
+                    <div><label class="block text-sm font-medium text-gray-700">Pertanyaan</label><input type="text" id="g-q" value="${data.question || ''}" class="w-full px-4 py-2 border rounded-lg"></div>
+                    <div><label class="block text-sm font-medium text-gray-700">Jawaban</label><textarea id="g-a" class="w-full px-4 py-2 border rounded-lg">${data.answer || ''}</textarea></div>
+                `;
+            }
+
+            document.getElementById('genericModalSaveBtn').onclick = handleSaveGeneric;
+            document.getElementById('genericModal').classList.remove('hidden');
+        }
+
+        function closeGenericModal() {
+            document.getElementById('genericModal').classList.add('hidden');
+        }
+
+        async function handleSaveGeneric() {
+            let item = { id: activeGenericId };
+            if (activeGenericType === 'features') {
+                item.title = document.getElementById('g-title').value;
+                item.description = document.getElementById('g-desc').value;
+                item.icon = document.getElementById('g-icon').value;
+                await window.saveFeature(item);
+                renderFeatures();
+            } else if (activeGenericType === 'testimonials') {
+                item.name = document.getElementById('g-name').value;
+                item.role = document.getElementById('g-role').value;
+                item.content = document.getElementById('g-content').value;
+                item.image = document.getElementById('g-image').value;
+                await window.saveTestimonial(item);
+                renderTestimonials();
+            } else if (activeGenericType === 'faq') {
+                item.question = document.getElementById('g-q').value;
+                item.answer = document.getElementById('g-a').value;
+                await window.saveFAQ(item);
+                renderFAQ();
+            }
+            closeGenericModal();
+        }
+
+        async function handleDeleteGeneric(type, id) {
+            if (confirm('Hapus data ini?')) {
+                if (type === 'features') { await window.deleteFeature(id); renderFeatures(); }
+                else if (type === 'testimonials') { await window.deleteTestimonial(id); renderTestimonials(); }
+                else if (type === 'faq') { await window.deleteFAQ(id); renderFAQ(); }
+            }
+        }
+
+        // --- COMPANY INFO UPDATES ---
+
+
+        // --- LIVE CHAT ADMIN LOGIC ---
+
+        let currentChatUser = null;
+
+        async function renderChat() {
+            const listContainer = document.getElementById('admin-chat-list');
+            if (!listContainer) return;
+
+            const messages = await window.getMessages();
+            
+            // Fetch sessions to get name and email
+            let sessions = [];
+            if (window.supabaseInstance) {
+                const { data } = await window.supabaseInstance.from('chat_sessions').select('*');
+                sessions = data || [];
+            }
+            const sessionMap = {};
+            sessions.forEach(s => sessionMap[s.sender_id] = s);
+            
+            // Group messages by sender_id (except admin)
+            const users = {};
+            messages.forEach(m => {
+                const uid = m.sender_id;
+                // Initialize user from customer messages or session map
+                if (!users[uid] && (!m.is_admin || sessionMap[uid])) {
+                    const session = sessionMap[uid] || {};
+                    users[uid] = {
+                        name: session.name || m.sender_name || 'Anonymous User',
+                        email: session.email || '',
+                        lastMsg: m.text,
+                        time: m.created_at
+                    };
+                }
+                // Update last message and time for the preview (from anyone)
+                if (users[uid]) {
+                    users[uid].lastMsg = m.text;
+                    users[uid].time = m.created_at;
+                }
+            });
+
+            const userIds = Object.keys(users).sort((a, b) => new Date(users[b].time) - new Date(users[a].time));
+            
+            if (userIds.length === 0) {
+                listContainer.innerHTML = '<div class="p-8 text-center text-gray-400 text-sm">Belum ada chat masuk.</div>';
+                return;
+            }
+
+            listContainer.innerHTML = userIds.map(uid => `
+                <div onclick="selectChatUser('${uid}', '${users[uid].name}', '${users[uid].email}')" class="p-4 border-b border-gray-50 cursor-pointer hover:bg-gray-50 transition ${currentChatUser === uid ? 'bg-psd-green/5 border-l-4 border-psd-green' : ''}">
+                    <div class="flex justify-between items-start mb-1">
+                        <span class="font-bold text-gray-800 text-sm">${users[uid].name}</span>
+                        <span class="text-[10px] text-gray-400">${new Date(users[uid].time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
+                    </div>
+                    ${users[uid].email ? `<div class="text-[10px] text-psd-green mb-1 font-medium">${users[uid].email}</div>` : ''}
+                    <div class="text-xs text-gray-500 truncate">${users[uid].lastMsg}</div>
+                </div>
+            `).join('');
+
+            if (currentChatUser) {
+                // Strictly filter messages for this user only to prevent mixing.
+                // Note: Legacy admin messages (sender_id: 'admin') cannot be safely assigned to a specific user and are thus hidden.
+                const filtered = messages.filter(m => m.sender_id === currentChatUser);
+                renderMessages(filtered);
+            }
+        }
+
+        async function selectChatUser(userId, name, email) {
+            currentChatUser = userId;
+            const nameEl = document.getElementById('active-chat-name');
+            if (nameEl) nameEl.innerText = 'Chat dengan ' + name;
+            document.getElementById('active-chat-user-id').innerText = email ? `Email: ${email} | ID: ${userId}` : `ID: ${userId}`;
+            document.getElementById('admin-chat-form').classList.remove('hidden');
+            // Show End Session button
+            const endBtn = document.getElementById('end-session-btn');
+            if (endBtn) endBtn.style.display = 'flex';
+            renderChat();
+        }
+
+        function renderMessages(msgs) {
+            const container = document.getElementById('admin-chat-messages');
+            container.innerHTML = msgs.map(m => {
+                const isAdmin = m.is_admin;
+                return `
+                    <div class="max-w-[80%] p-3 rounded-2xl text-sm shadow-sm border ${
+                        isAdmin ? 'self-end bg-psd-green text-white rounded-tr-none border-psd-green/20' : 
+                        'self-start bg-white rounded-tl-none border-gray-100 text-gray-700'
+                    }">
+                        <div>${m.text}</div>
+                        <div class="text-[9px] mt-1 ${isAdmin ? 'text-white/60 text-right' : 'text-gray-400'}">
+                            ${new Date(m.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function openEndSessionModal() {
+            console.log('--- ATTEMPTING TO OPEN MODAL ---');
+            const modal = document.getElementById('endSessionModal');
+            if (modal) {
+                modal.setAttribute('style', 'display: flex !important');
+                console.log('Modal style set to flex !important');
+            } else {
+                console.error('Modal element not found!');
+            }
+        }
+
+        function closeEndSessionModal() {
+            console.log('--- CLOSING MODAL ---');
+            console.trace(); // Find out what is calling this
+            const modal = document.getElementById('endSessionModal');
+            if (modal) {
+                modal.setAttribute('style', 'display: none !important');
+            }
+        }
+
+        // Attach event listener via JS for better reliability
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('end-session-btn');
+            if (btn) {
+                btn.addEventListener('click', (e) => {
+                    console.log('End Session Button Clicked');
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openEndSessionModal();
+                });
+            }
+        });
+
+        async function confirmEndSession() {
+            if (!currentChatUser) return;
+            
+            const userId = currentChatUser; 
+            closeEndSessionModal();
+
+            // 1. Send final message to signal end
+            if (window.sendChatMessage) {
+                const cu = window.getCurrentUser ? window.getCurrentUser() : { displayName: 'Admin PSD' };
+                await window.sendChatMessage('SESI CHAT TELAH BERAKHIR', true, cu.displayName || 'Admin PSD', userId);
+            }
+
+            // Show temporary status in header
+            const nameEl = document.getElementById('active-chat-name');
+            if (nameEl) nameEl.innerHTML = '<span class="text-red-500"><i class="fas fa-hand-paper mr-2"></i>Menutup Sesi...</span>';
+
+            // Wait 3 seconds to ensure delivery
+            await new Promise(r => setTimeout(r, 3000));
+
+            // 2. Delete from localStorage
+            const allMsgs = JSON.parse(localStorage.getItem('psd_messages') || '[]');
+            const filtered = allMsgs.filter(m => m.sender_id !== userId);
+            localStorage.setItem('psd_messages', JSON.stringify(filtered));
+
+            // 3. Delete from Supabase if available
+            if (window.supabaseInstance && !window.isSupabaseError) {
+                await window.supabaseInstance.from('messages').delete().eq('sender_id', userId);
+                await window.supabaseInstance.from('chat_sessions').delete().eq('sender_id', userId);
+            }
+
+            // 4. Reset UI
+            currentChatUser = null;
+            if (nameEl) nameEl.innerText = 'Pilih percakapan untuk memulai';
+            document.getElementById('active-chat-user-id').innerText = '';
+            document.getElementById('admin-chat-form').classList.add('hidden');
+            document.getElementById('admin-chat-messages').innerHTML = `
+                <div class="flex-1 flex items-center justify-center text-gray-400 flex-col">
+                    <i class="fas fa-check-circle text-4xl mb-4 text-green-500"></i>
+                    <h3 class="text-gray-800 font-bold">Sesi Ditutup</h3>
+                    <p class="text-sm">Seluruh riwayat pesan telah dihapus.</p>
+                </div>`;
+            const endBtn = document.getElementById('end-session-btn');
+            if (endBtn) endBtn.style.display = 'none';
+
+            await renderChat();
+        }
+
+        // Subscribe to Realtime
+        setTimeout(() => {
+            if (window.subscribeToMessages) {
+                console.log('Admin setting up message subscription...');
+                window.subscribeToMessages((newMsg) => {
+                    console.log('Realtime message received in Admin callback:', newMsg);
+                    
+                    // Sound for customer messages
+                    if (!newMsg.is_admin) {
+                        console.log('Attempting to play sound for customer message');
+                        if (window.playChatSound) {
+                            window.playChatSound();
+                        } else {
+                            console.warn('window.playChatSound not found!');
+                        }
+                    }
+
+                    const badge = document.getElementById('admin-chat-badge');
+                    if (document.getElementById('section-chat').classList.contains('hidden') && !newMsg.is_admin) {
+                        badge.classList.remove('hidden');
+                    }
+                    renderChat();
+                });
+            } else {
+                console.warn('window.subscribeToMessages not found during setup');
+            }
+        }, 1000);
+
+
+        document.getElementById('admin-chat-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const input = document.getElementById('admin-chat-input');
+            const text = input.value.trim();
+            if (!text || !currentChatUser) return;
+
+            input.value = '';
+            const cu = window.getCurrentUser ? window.getCurrentUser() : { displayName: 'Admin PSD' };
+            const res = await window.sendChatMessage(text, true, cu.displayName || 'Admin PSD', currentChatUser); 
+            if (res.success) {
+                await renderChat();
+            }
+        });
+
+        // ==========================================
+        // DASHBOARD ANALYTICS CHARTS
+        // ==========================================
+        let trafficChart = null;
+        let pagesChart = null;
+        let allAnalyticsData = [];
+        let currentChartDays = 7;
+
+        // Set default date range (last 7 days)
+        function setDefaultDates() {
+            const today = new Date();
+            const past = new Date();
+            past.setDate(today.getDate() - 7);
+            const fmt = d => d.toISOString().split('T')[0];
+            document.getElementById('filter-date-start').value = fmt(past);
+            document.getElementById('filter-date-end').value = fmt(today);
+        }
+
+        async function loadDashboardAnalytics(dateStart = null, dateEnd = null) {
+            if (!window.supabaseInstance || window.isSupabaseError) {
+                renderChartsFromData([]);
+                return;
+            }
+
+            try {
+                let query = window.supabaseInstance.from('analytics').select('*').order('created_at', { ascending: false }).limit(500);
+                if (dateStart) query = query.gte('created_at', dateStart + 'T00:00:00');
+                if (dateEnd)   query = query.lte('created_at', dateEnd + 'T23:59:59');
+
+                const { data, error } = await query;
+                if (error) throw error;
+
+                allAnalyticsData = data || [];
+                renderChartsFromData(allAnalyticsData);
+                renderTrafficTable(allAnalyticsData.slice(0, 50));
+
+                // Update visits stat card
+                document.getElementById('stat-visits').innerText = allAnalyticsData.length;
+                const countEl = document.getElementById('traffic-count');
+                if (countEl) countEl.innerText = allAnalyticsData.length + ' kunjungan';
+
+            } catch (err) {
+                console.error('Error loading analytics:', err);
+            }
+        }
+
+        function renderChartsFromData(data) {
+            // --- Line Chart: Visits per day ---
+            const dayCounts = {};
+            const today = new Date();
+            for (let i = currentChartDays - 1; i >= 0; i--) {
+                const d = new Date(today);
+                d.setDate(today.getDate() - i);
+                dayCounts[d.toISOString().split('T')[0]] = 0;
+            }
+            data.forEach(row => {
+                const day = row.created_at ? row.created_at.split('T')[0] : null;
+                if (day && dayCounts.hasOwnProperty(day)) dayCounts[day]++;
+            });
+
+            const labels = Object.keys(dayCounts).map(d => {
+                const dt = new Date(d);
+                return dt.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+            });
+            const values = Object.values(dayCounts);
+
+            const trafficCtx = document.getElementById('chart-traffic');
+            if (trafficCtx) {
+                if (trafficChart) trafficChart.destroy();
+                trafficChart = new Chart(trafficCtx, {
+                    type: 'line',
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: 'Pengunjung',
+                            data: values,
+                            borderColor: '#1B5E40',
+                            backgroundColor: 'rgba(27,94,64,0.08)',
+                            borderWidth: 2.5,
+                            pointBackgroundColor: '#1B5E40',
+                            pointRadius: 4,
+                            pointHoverRadius: 7,
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { size: 11 } } },
+                            y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { precision: 0, font: { size: 11 } } }
+                        }
+                    }
+                });
+            }
+
+            // --- Doughnut Chart: Page Breakdown ---
+            const pageCounts = {};
+            const pageNames = {
+                '/index.html': 'Beranda', '/': 'Beranda',
+                '/berita.html': 'Berita', '/features.html': 'Fitur',
+                '/about.html': 'Tentang', '/contact.html': 'Kontak',
+                '/admin.html': 'Admin'
+            };
+            data.forEach(row => {
+                const page = row.page_path || '/';
+                let label = pageNames[page] || row.page_path || 'Lainnya';
+                if (page.includes('berita-detail')) label = 'Detail Berita';
+                pageCounts[label] = (pageCounts[label] || 0) + 1;
+            });
+
+            const sortedPages = Object.entries(pageCounts).sort((a, b) => b[1] - a[1]).slice(0, 6);
+            const pColors = ['#1B5E40','#F2C94C','#3B82F6','#8B5CF6','#F97316','#EC4899'];
+
+            const pagesCtx = document.getElementById('chart-pages');
+            if (pagesCtx) {
+                if (pagesChart) pagesChart.destroy();
+                if (sortedPages.length === 0) {
+                    pagesCtx.parentElement.querySelector('#chart-pages-legend').innerHTML = '<p class="text-gray-400 text-center py-4">Belum ada data kunjungan</p>';
+                    return;
+                }
+                pagesChart = new Chart(pagesCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: sortedPages.map(p => p[0]),
+                        datasets: [{
+                            data: sortedPages.map(p => p[1]),
+                            backgroundColor: pColors,
+                            borderWidth: 2,
+                            borderColor: '#fff',
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        cutout: '70%',
+                        plugins: { legend: { display: false } }
+                    }
+                });
+
+                // Custom legend
+                const total = sortedPages.reduce((s, p) => s + p[1], 0);
+                document.getElementById('chart-pages-legend').innerHTML = sortedPages.map((p, i) => `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="inline-block w-2.5 h-2.5 rounded-full" style="background:${pColors[i]}"></span>
+                            <span class="text-gray-600">${p[0]}</span>
+                        </div>
+                        <span class="font-semibold text-gray-700">${p[1]} <span class="text-gray-400">(${Math.round(p[1]/total*100)}%)</span></span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function renderTrafficTable(data) {
+            const tbody = document.getElementById('analytics-list');
+            if (!tbody) return;
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" class="text-center py-8 text-gray-400 italic">Belum ada data kunjungan</td></tr>';
+                return;
+            }
+            tbody.innerHTML = data.map(row => {
+                const time = row.created_at ? new Date(row.created_at).toLocaleString('id-ID', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }) : '-';
+                const browser = (row.browser || '').substring(0, 40);
+                const page = row.page_path || '-';
+                return `<tr class="hover:bg-gray-50 transition">
+                    <td class="px-5 py-3 font-medium text-psd-green">${page}</td>
+                    <td class="px-5 py-3 text-gray-500">${time}</td>
+                    <td class="px-5 py-3 text-gray-400 truncate max-w-xs">${browser}</td>
+                </tr>`;
+            }).join('');
+        }
+
+        function setChartPeriod(days) {
+            currentChartDays = days;
+            ['7','14','30'].forEach(d => {
+                const btn = document.getElementById('chart-btn-' + d);
+                if (btn) {
+                    btn.className = d == days
+                        ? 'text-xs px-3 py-1 rounded-lg bg-psd-green text-white font-semibold'
+                        : 'text-xs px-3 py-1 rounded-lg bg-gray-100 text-gray-600 font-semibold hover:bg-gray-200 transition';
+                }
+            });
+            renderChartsFromData(allAnalyticsData);
+        }
+
+        function applyDateFilter() {
+            const start = document.getElementById('filter-date-start').value;
+            const end   = document.getElementById('filter-date-end').value;
+            if (!start || !end) { alert('Pilih rentang tanggal terlebih dahulu.'); return; }
+            loadDashboardAnalytics(start, end);
+        }
+
+        function resetDateFilter() {
+            setDefaultDates();
+            loadDashboardAnalytics();
+        }
+
+        // Load additional stat counts
+        async function loadAdditionalStats() {
+            try {
+                if (window.getFeatures) {
+                    const f = await window.getFeatures();
+                    const el = document.getElementById('stat-features');
+                    if (el) el.innerText = (f || []).length;
+                }
+                if (window.getFAQ) {
+                    const f = await window.getFAQ();
+                    const el = document.getElementById('stat-faq');
+                    if (el) el.innerText = (f || []).length;
+                }
+                if (window.getVideos) {
+                    const v = await window.getVideos();
+                    const el = document.getElementById('stat-gallery');
+                    if (el) el.innerText = (v || []).length;
+                }
+            } catch(e) { console.error(e); }
+        }
+
+        // Init dashboard when shown
+        const _origShowSection = typeof showSection === 'function' ? showSection : null;
+        function initDashboardCharts() {
+            setDefaultDates();
+            loadDashboardAnalytics();
+            loadAdditionalStats();
+        }
+
+        // Trigger on first load if dashboard is active
+        setTimeout(initDashboardCharts, 800);
+
+        // --- USER MANAGEMENT ---
+        async function renderUsers() {
+            const users = window.getUsers ? await window.getUsers() : [];
+            const currentUser = window.getCurrentUser ? window.getCurrentUser() : {};
+            const tbody = document.getElementById('users-list');
+            if (!tbody) return;
+
+            // Update current user banner
+            const banner = document.getElementById('current-user-display');
+            const avatar = document.getElementById('current-user-avatar');
+            if (banner) banner.textContent = currentUser.displayName || 'Admin';
+            if (avatar) avatar.textContent = (currentUser.displayName || 'A').charAt(0).toUpperCase();
+
+            if (users.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="px-6 py-12 text-center text-gray-400 italic">Belum ada user yang ditambahkan.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = users.map(u => {
+                const isCurrentUser = u.username === currentUser.username;
+                const initial = (u.displayName || u.username || 'U').charAt(0).toUpperCase();
+                return `
+                <tr class="border-b border-gray-100 hover:bg-gray-50 transition ${isCurrentUser ? 'bg-psd-green/5' : ''}">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-full bg-psd-green flex items-center justify-center text-white font-bold text-sm">${initial}</div>
+                            <div>
+                                <div class="font-semibold text-gray-800">${u.displayName || '-'}</div>
+                                ${isCurrentUser ? '<span class="text-[10px] text-psd-green font-bold">● Anda</span>' : ''}
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-600 font-mono text-sm">${u.username}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-3 py-1 bg-psd-green/10 text-psd-green rounded-full text-xs font-semibold">${u.role || 'admin'}</span>
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex justify-end gap-2">
+                            <button onclick="openUserModal('${u.id}')" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition" title="Edit">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                            </button>
+                            ${!isCurrentUser && !u.isLegacy ? `
+                            <button onclick="deleteUserHandler('${u.id}', '${u.displayName || u.username}')" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition" title="Hapus">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                            </button>` : `<span class="p-2 text-gray-300" title="User utama tidak dapat dihapus">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            </span>`}
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        async function openUserModal(userId = null) {
+            const modal = document.getElementById('userModal');
+            const title = document.getElementById('userModalTitle');
+            const idInput = document.getElementById('edit-user-id');
+            const hint = document.getElementById('user-password-hint');
+            
+            document.getElementById('user-display-name').value = '';
+            document.getElementById('user-username').value = '';
+            document.getElementById('user-password').value = '';
+            idInput.value = '';
+
+            if (userId) {
+                const users = window.getUsers ? await window.getUsers() : [];
+                const user = users.find(u => u.id === userId);
+                if (user) {
+                    title.textContent = 'Edit User: ' + (user.displayName || user.username);
+                    idInput.value = userId;
+                    document.getElementById('user-display-name').value = user.displayName || '';
+                    document.getElementById('user-username').value = user.username || '';
+                    hint.textContent = 'Kosongkan jika tidak ingin mengubah password';
+                }
+            } else {
+                title.textContent = 'Tambah User Baru';
+                hint.textContent = 'Wajib diisi untuk user baru';
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeUserModal() {
+            document.getElementById('userModal').classList.add('hidden');
+        }
+
+        async function saveUserHandler() {
+            const id = document.getElementById('edit-user-id').value;
+            const displayName = document.getElementById('user-display-name').value.trim();
+            const username = document.getElementById('user-username').value.trim();
+            const password = document.getElementById('user-password').value;
+
+            if (!displayName || !username) {
+                window.showModal('Data Kurang', 'Nama tampilan dan username wajib diisi!', 'error');
+                return;
+            }
+            if (!id && !password) {
+                alert('Password wajib diisi untuk user baru!');
+                return;
+            }
+            if (password && password.length < 6) {
+                window.showModal('Password Lemah', 'Untuk keamanan, password minimal harus 6 karakter.', 'error');
+                return;
+            }
+
+            const userData = { displayName, username, role: 'admin' };
+            if (id) userData.id = id;
+            if (password) userData.password = password;
+
+            const result = window.saveUser ? await window.saveUser(userData) : { success: false };
+            if (result.success) {
+                closeUserModal();
+                await renderUsers();
+                window.showModal('Berhasil!', 'Data pengguna telah berhasil disimpan.', 'success');
+            } else {
+                window.showModal('Gagal', (result.error || 'Terjadi kesalahan saat menyimpan user.'), 'error');
+            }
+        }
+
+        async function deleteUserHandler(userId, name) {
+            if (!confirm(`Hapus user "${name}"? Tindakan ini tidak dapat dibatalkan.`)) return;
+            const result = window.deleteUser ? await window.deleteUser(userId) : { success: false };
+            if (result.success) {
+                await renderUsers();
+            } else {
+                alert('Gagal menghapus user.');
+            }
+        }
+
+        // --- YOUTUBE GALLERY ADMIN ---
+        async function renderVideos() {
+            const container = document.getElementById('gallery-list');
+            if (!container) return;
+            
+            container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-400 italic">Memuat data...</div>`;
+            
+            const videos = window.getVideos ? await window.getVideos() : [];
+            
+            if (videos.length === 0) {
+                container.innerHTML = `
+                <div class="col-span-full bg-white rounded-2xl p-12 text-center border border-dashed border-gray-200">
+                    <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Belum ada video</h3>
+                    <p class="text-gray-500 text-sm mb-6">Tambahkan link video YouTube pertama Anda untuk ditampilkan di gallery.</p>
+                    <button onclick="openVideoModal()" class="text-psd-green font-bold text-sm hover:underline">Tambah Sekarang</button>
+                </div>`;
+                return;
+            }
+
+            container.innerHTML = videos.map(v => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 group">
+                    <div class="relative aspect-video">
+                        <img src="https://img.youtube.com/vi/${v.video_id}/hqdefault.jpg" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <a href="https://youtube.com/watch?v=${v.video_id}" target="_blank" class="bg-white text-psd-green w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-gray-800 text-sm mb-4 line-clamp-2">${v.title || 'Tanpa Judul'}</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] text-gray-400 font-mono">${v.video_id}</span>
+                            <button onclick="deleteVideoHandler(${v.id})" class="text-red-500 hover:text-red-700 text-xs font-bold transition">Hapus</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openVideoModal() {
+            const modal = document.getElementById('genericModal');
+            const title = document.getElementById('genericModalTitle');
+            const container = document.getElementById('genericModalFields');
+            
+            title.innerText = 'Tambah Video YouTube';
+            container.innerHTML = `
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Link YouTube</label>
+                    <input type="text" id="v-url" placeholder="Contoh: https://youtu.be/..." class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-psd-green outline-none">
+                    <p class="text-[10px] text-gray-400 mt-1">Gunakan link Share dari YouTube</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Judul Video</label>
+                    <input type="text" id="v-title" placeholder="Masukkan judul video" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-psd-green outline-none">
+                </div>
+            `;
+            
+            document.getElementById('genericModalSaveBtn').onclick = saveVideoHandler;
+            modal.classList.remove('hidden');
+        }
+
+        async function saveVideoHandler() {
+            const url = document.getElementById('v-url').value.trim();
+            const title = document.getElementById('v-title').value.trim();
+            
+            if (!url || !title) {
+                alert('Harap isi link dan judul video!');
+                return;
+            }
+
+            try {
+                const btn = document.getElementById('genericModalSaveBtn');
+                btn.disabled = true;
+                btn.innerText = 'Menyimpan...';
+                
+                await window.addVideo(url, title);
+                
+                btn.disabled = false;
+                btn.innerText = 'Simpan';
+                
+                document.getElementById('genericModal').classList.add('hidden');
+                renderVideos();
+                loadAdditionalStats();
+                window.showModal('Berhasil', 'Video telah ditambahkan ke gallery.', 'success');
+            } catch (err) {
+                alert(err.message);
+                document.getElementById('genericModalSaveBtn').disabled = false;
+                document.getElementById('genericModalSaveBtn').innerText = 'Simpan';
+            }
+        }
+
+        async function deleteVideoHandler(id) {
+            if (!confirm('Hapus video ini dari gallery?')) return;
+            try {
+                await window.deleteVideo(id);
+                renderVideos();
+                loadAdditionalStats();
+            } catch (err) {
+                alert('Gagal menghapus video: ' + err.message);
+            }
+        }
+
+    </script>
+</body>
+</html>

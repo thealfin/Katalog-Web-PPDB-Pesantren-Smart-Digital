@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html class="dark" lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Pondok Pesantren Navi Modern</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#353436",
+                    "primary-fixed-dim": "#bdc6e4",
+                    "inverse-on-surface": "#303032",
+                    "on-secondary-fixed-variant": "#50453c",
+                    "error": "#ffb4ab",
+                    "surface-bright": "#39393b",
+                    "surface-dim": "#131315",
+                    "secondary-container": "#50453c",
+                    "on-primary": "#273047",
+                    "surface": "#131315",
+                    "background": "#131315",
+                    "secondary": "#d4c3b9",
+                    "inverse-primary": "#555e78",
+                    "on-secondary-container": "#c2b2a8",
+                    "on-error-container": "#ffdad6",
+                    "outline": "#909097",
+                    "primary": "#bdc6e4",
+                    "tertiary-fixed-dim": "#ddc396",
+                    "inverse-surface": "#e4e2e4",
+                    "primary-container": "#202940",
+                    "secondary-fixed-dim": "#d4c3b9",
+                    "surface-container-lowest": "#0e0e10",
+                    "tertiary-fixed": "#fadfb0",
+                    "secondary-fixed": "#f1dfd4",
+                    "on-surface-variant": "#c6c6ce",
+                    "on-tertiary-fixed-variant": "#564422",
+                    "on-primary-fixed-variant": "#3d465f",
+                    "on-error": "#690005",
+                    "on-secondary": "#382e27",
+                    "on-tertiary": "#3e2e0d",
+                    "on-tertiary-fixed": "#261900",
+                    "on-primary-fixed": "#121b31",
+                    "surface-container": "#1f1f21",
+                    "on-background": "#e4e2e4",
+                    "on-primary-container": "#8790ac",
+                    "on-secondary-fixed": "#231a13",
+                    "on-surface": "#e4e2e4",
+                    "primary-fixed": "#dae2ff",
+                    "surface-container-low": "#1b1b1d",
+                    "tertiary": "#ddc396",
+                    "error-container": "#93000a",
+                    "outline-variant": "#45464d",
+                    "surface-tint": "#bdc6e4",
+                    "tertiary-container": "#362707",
+                    "surface-container-high": "#2a2a2c",
+                    "on-tertiary-container": "#a48d65",
+                    "surface-container-highest": "#353436"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "unit": "8px",
+                    "margin-desktop": "40px",
+                    "xl": "80px"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "display-lg": ["Outfit"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "title-sm": ["Outfit"],
+                    "headline-md": ["Outfit"],
+                    "h1": ["Outfit"],
+                    "h2": ["Outfit"],
+                    "h3": ["Outfit"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-sm": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "500"}],
+                    "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "h2": ["36px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(32, 41, 64, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(202, 170, 152, 0.1);
+        }
+        .hexagon-shape {
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+        /* Mobile Menu Transitions */
+        #mobileMenu {
+            transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+        }
+        /* Animation Classes */
+        .fade-in-bottom {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-bottom.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<!-- Header: TopNavBar -->
+<header id="navbar" class="fixed top-0 w-full z-50 bg-primary-container/80 backdrop-blur-xl border-b border-white/5 shadow-none transition-all duration-300">
+    <nav class="flex items-center justify-between px-8 h-20 max-w-screen-2xl mx-auto">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-on-surface hexagon-shape flex items-center justify-center">
+                <span class="material-symbols-outlined text-surface text-xl">auto_stories</span>
+            </div>
+            <span class="text-2xl font-bold tracking-tighter text-white font-headline-md">NAVI MODERN</span>
+        </div>
+        <div class="hidden md:flex gap-8 items-center">
+            <a class="font-label-caps uppercase text-white border-b-2 border-primary-fixed-dim pb-1 transition-all duration-300" href="#">Beranda</a>
+            <a class="font-label-caps uppercase text-on-surface-variant hover:text-white transition-all duration-300 hover:bg-white/5 px-2 py-1 rounded" href="#">Tentang Kami</a>
+            <a class="font-label-caps uppercase text-on-surface-variant hover:text-white transition-all duration-300 hover:bg-white/5 px-2 py-1 rounded" href="#">Keunggulan</a>
+            <a class="font-label-caps uppercase text-on-surface-variant hover:text-white transition-all duration-300 hover:bg-white/5 px-2 py-1 rounded" href="#">Pendaftaran</a>
+            <a class="font-label-caps uppercase text-on-surface-variant hover:text-white transition-all duration-300 hover:bg-white/5 px-2 py-1 rounded" href="#">Berita</a>
+            <a class="font-label-caps uppercase text-on-surface-variant hover:text-white transition-all duration-300 hover:bg-white/5 px-2 py-1 rounded" href="#">Kontak</a>
+        </div>
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileMenuToggle" class="md:hidden text-white p-2">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+    </nav>
+    <!-- Mobile Menu Container -->
+    <div id="mobileMenu" class="md:hidden bg-primary-container/95 backdrop-blur-xl overflow-hidden max-h-0 px-8">
+        <div class="flex flex-col gap-4 pb-6">
+            <a class="font-label-caps uppercase text-white py-2 border-b border-white/10" href="#">Beranda</a>
+            <a class="font-label-caps uppercase text-on-surface-variant py-2 border-b border-white/10" href="#">Tentang Kami</a>
+            <a class="font-label-caps uppercase text-on-surface-variant py-2 border-b border-white/10" href="#">Keunggulan</a>
+            <a class="font-label-caps uppercase text-on-surface-variant py-2 border-b border-white/10" href="#">Pendaftaran</a>
+            <a class="font-label-caps uppercase text-on-surface-variant py-2 border-b border-white/10" href="#">Berita</a>
+            <a class="font-label-caps uppercase text-on-surface-variant py-2 border-b border-white/10" href="#">Kontak</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center overflow-hidden">
+        <div id="hero-slider" class="absolute inset-0 z-0">
+            <!-- Images will be injected by JS -->
+            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1920&q=80" />
+            <div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/60 to-transparent"></div>
+        </div>
+        <div class="container mx-auto px-12 relative z-10 fade-in-bottom">
+            <div class="max-w-3xl">
+                <span class="inline-block px-4 py-1.5 glass-card rounded-full text-primary font-label-caps mb-6">Mencetak Generasi Qurani</span>
+                <h1 class="font-h1 text-h1 text-white mb-6 leading-tight">Lembaga Pendidikan Pesantren Modern</h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl">
+                    Membangun integritas karakter dan keunggulan intelektual melalui kurikulum terintegrasi yang berlandaskan nilai-nilai keislaman universal.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="px-8 py-4 bg-primary text-on-primary font-label-caps rounded-xl hover:bg-primary-fixed transition-colors">Daftar Sekarang</button>
+                    <button class="px-8 py-4 glass-card text-white font-label-caps rounded-xl flex items-center gap-2 hover:bg-white/10 transition-colors">
+                        <span class="material-symbols-outlined">play_circle</span>
+                        Video Profil
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang Kami -->
+    <section class="py-xl bg-surface">
+        <div class="container mx-auto px-12 fade-in-bottom">
+            <div class="grid lg:grid-cols-2 gap-gutter items-center">
+                <div class="relative">
+                    <div class="w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+                        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC59cL1msuvYAtKZ66clJ44rR6ip30LggzyirJOlGUZXdM0enOWMbyUzRrihy5sgNBKDj8gUlPbIfpMCpkKgA8yCFFj76FSOvkUWIflvHIDeduIa8o0H_3OiCHY3E54ARbQ5A7A73FLIbRIEx6RAytPgIrpsVqaXOvlN1dneTEXLvEEGHk_Jb9owAmbKMLIAmU8kQkz2ZUw1AihvS6mMz4bSWqIv6MGVAdw7BunBjsMD4sOAXQvxYt5sZirxZ9m8S-pbYnj81kqZ0BG"/>
+                    </div>
+                    <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-primary-container p-6 rounded-3xl shadow-2xl glass-card hidden md:flex flex-col justify-center text-center">
+                        <span class="text-h2 font-h2 text-white">25+</span>
+                        <span class="text-label-caps text-on-surface-variant">Tahun Pengabdian</span>
+                    </div>
+                </div>
+                <div class="lg:pl-md">
+                    <h2 class="font-h2 text-h2 text-white mb-8">Warisan Ilmu, Masa Depan Bangsa</h2>
+                    <div class="glass-card p-8 rounded-3xl">
+                        <div id="profilContent" class="overflow-hidden transition-all duration-500 max-h-none opacity-100">
+                            <p class="font-body-md text-on-surface-variant mb-6">
+                                Al-Furqan Academy hadir sebagai oase pendidikan yang memadukan kedalaman spiritual pesantren tradisional dengan metodologi pembelajaran modern kelas dunia.
+                            </p>
+                            <p class="font-body-md text-on-surface-variant mb-8">
+                                Kami berkomitmen untuk melahirkan pemimpin masa depan yang berwawasan global namun tetap berpegang teguh pada prinsip syariat.
+                            </p>
+                        </div>
+                        <button id="toggleProfilBtn" class="flex items-center gap-2 text-primary font-label-caps mb-8 hover:underline">
+                            <span id="toggleProfilText">Selengkapnya</span>
+                            <span id="toggleProfilIcon" class="material-symbols-outlined">expand_more</span>
+                        </button>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                <span class="font-label-caps text-on-surface">Akreditasi A</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                <span class="font-label-caps text-on-surface">Standard Internasional</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keunggulan (Pilar Utama) -->
+    <section class="py-xl bg-surface-container-low overflow-hidden">
+        <div class="container mx-auto px-12 fade-in-bottom">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <span class="font-label-caps text-primary tracking-widest uppercase mb-4 block">Pilar Utama</span>
+                    <h2 class="font-h2 text-h2 text-white">Keunggulan Pendidikan</h2>
+                </div>
+                <div class="flex gap-4">
+                    <button id="prevMisi" class="w-12 h-12 rounded-full border border-outline/30 flex items-center justify-center text-white hover:bg-white/10 transition-all">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <button id="nextMisi" class="w-12 h-12 rounded-full border border-outline/30 flex items-center justify-center text-white hover:bg-white/10 transition-all">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="relative overflow-hidden">
+                <div id="misiCarousel" class="flex transition-transform duration-500 ease-in-out">
+                    <!-- Item 1 -->
+                    <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div class="glass-card p-8 rounded-3xl h-full group hover:bg-white/5 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined text-primary text-3xl">diversity_3</span>
+                            </div>
+                            <h3 class="font-h3 text-white mb-4">Pendidikan Akhlak</h3>
+                            <p class="text-body-sm text-on-surface-variant">Penanaman nilai integritas, kejujuran, dan sopan santun dalam setiap interaksi harian.</p>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div class="glass-card p-8 rounded-3xl h-full group hover:bg-white/5 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined text-primary text-3xl">public</span>
+                            </div>
+                            <h3 class="font-h3 text-white mb-4">Wawasan Global</h3>
+                            <p class="text-body-sm text-on-surface-variant">Kurikulum yang mengintegrasikan bahasa internasional dan perspektif global yang luas.</p>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div class="glass-card p-8 rounded-3xl h-full group hover:bg-white/5 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined text-primary text-3xl">lightbulb</span>
+                            </div>
+                            <h3 class="font-h3 text-white mb-4">Metode Kreatif</h3>
+                            <p class="text-body-sm text-on-surface-variant">Pembelajaran interaktif berbasis proyek yang mendorong daya kritis dan inovasi siswa.</p>
+                        </div>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div class="glass-card p-8 rounded-3xl h-full group hover:bg-white/5 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined text-primary text-3xl">self_improvement</span>
+                            </div>
+                            <h3 class="font-h3 text-white mb-4">Kemandirian</h3>
+                            <p class="text-body-sm text-on-surface-variant">Melatih kedisiplinan dan tanggung jawab melalui sistem asrama yang terstruktur.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jenjang Pendidikan -->
+    <section class="py-xl bg-surface">
+        <div class="container mx-auto px-12 fade-in-bottom">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <span class="font-label-caps text-primary tracking-widest uppercase mb-4 block">Program Akademik</span>
+                    <h2 class="font-h2 text-h2 text-white">Jenjang Pendidikan</h2>
+                </div>
+                <div class="flex gap-4">
+                    <button id="prevUnit" class="w-12 h-12 rounded-full border border-outline/30 flex items-center justify-center text-white hover:bg-white/10 transition-all">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <button id="nextUnit" class="w-12 h-12 rounded-full border border-outline/30 flex items-center justify-center text-white hover:bg-white/10 transition-all">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="relative overflow-hidden">
+                <div id="unitCarousel" class="flex transition-transform duration-500 ease-in-out">
+                    <!-- Unit 1 -->
+                    <div class="carousel-item-unit flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div class="glass-card rounded-3xl overflow-hidden group h-full">
+                            <div class="h-48 relative overflow-hidden">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5VG_uy5Y0qOwGJ_AjrP_5rAbQmLU1eoBzFyndPDxMF3extZtRPkGLDnExJ2Qcew6wiYtsfTI84umFEs488qY01_x9xJ9VfirN3tOZSmSvqd4OZBPZPZsePslwLnOCRxFCj9dqFmM-Jy5o759TNHjF841qGT91GKGuXT2rpfAOHa1_8XzjkdQsfHLtvASWHkc6Srw5JiZEa0PbI90p51Q43X6PNlNXinT9NgZQCO3uLBsFru8w92kQL3NxoNNpYFhfNpFXgAGHqCr5"/>
+                            </div>
+                            <div class="p-8">
+                                <span class="font-label-caps text-primary mb-2 block">Level 01</span>
+                                <h3 class="font-h3 text-white mb-4">Unit Dasar</h3>
+                                <p class="text-body-sm text-on-surface-variant mb-6">Fokus pada pembentukan karakter dasar dan kecintaan pada Al-Quran.</p>
+                                <a class="text-primary font-label-caps flex items-center gap-2 group-hover:gap-4 transition-all" href="#">Selengkapnya <span class="material-symbols-outlined">arrow_right_alt</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Unit 2 -->
+                    <div class="carousel-item-unit flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div class="glass-card rounded-3xl overflow-hidden group h-full">
+                            <div class="h-48 relative overflow-hidden">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA53EgHC_7rRb9xzbidWDc7uVXHTNc2oRIgEIo4AXzApxk-hKavvu5Gi5UsAz6GlDri1piTgmGb1MRC7-Z52ls9CNOXeeJ1w2RN6CiKMl1AA6TKgvKZ29_wOIW_rt9sXPpCyk0FvXdcqj4s34pnyxF97F6rktu7HLi0Z4jOopkRa-taja5t1futQtpMha3TUuEUR25Zm65QpLRYp393AhAEQBFyydsX3AyI7dOKxoPqaQO-fgaDE9r0pW3-f9ljxjSZvyW4BljpT5_Q"/>
+                            </div>
+                            <div class="p-8">
+                                <span class="font-label-caps text-primary mb-2 block">Level 02</span>
+                                <h3 class="font-h3 text-white mb-4">Menengah</h3>
+                                <p class="text-body-sm text-on-surface-variant mb-6">Pengembangan potensi akademik dan eksplorasi bakat minat siswa.</p>
+                                <a class="text-primary font-label-caps flex items-center gap-2 group-hover:gap-4 transition-all" href="#">Selengkapnya <span class="material-symbols-outlined">arrow_right_alt</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri -->
+    <section class="py-xl bg-surface-container-low overflow-hidden">
+        <div class="container mx-auto px-12 fade-in-bottom">
+            <div class="text-center mb-16">
+                <h2 class="font-h2 text-h2 text-white">Kehidupan di Kampus</h2>
+                <p class="text-on-surface-variant mt-4">Momen-momen inspiratif dalam perjalanan pendidikan para santri.</p>
+            </div>
+            
+            <div id="galeriSliderContainer" class="w-full">
+                <!-- Swiper-like slider will be injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimoni -->
+    <section class="py-xl bg-surface relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-5">
+            <span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+        </div>
+        <div class="container mx-auto px-12 fade-in-bottom">
+            <div class="max-w-4xl mx-auto glass-card p-12 md:p-20 rounded-[40px] text-center relative z-10">
+                <div class="w-20 h-20 mx-auto mb-8 rounded-full border-2 border-primary overflow-hidden p-1">
+                    <img class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDNSWu2ilgQh5PZt2WHNu8MLB4oQB-k5mTSsJtta35GlduqZtZwOsCTYsoZ0-Gt0AMgiu2dWgn-WX_eY6Pq_sAgyrbgXj8rQ1Dx2cN-QSQSQwq6WKylajnvi5N5EJQuP0oqWakDueaK-U50j1-8vrnqluVVV3ZYrwFdAuRYc6WnZNARGVNydpRFp3TGC-gQxcZgaK-7Ov356lGH0AbbzAHqb24xD265h_3cGKZpt_0r-89SATi6Ly257RLu_g_1KOl0JyBvtg2cM9W"/>
+                </div>
+                <p class="text-h3 font-h3 italic text-white mb-10 leading-relaxed">
+                    "Pendidikan di sini bukan sekadar transfer ilmu, melainkan transformasi jiwa. Saya belajar bahwa kepemimpinan yang sesungguhnya berakar pada ketakwaan dan kerendahan hati."
+                </p>
+                <div>
+                    <h4 class="font-h3 text-white">Ahmad Zaki, Ph.D.</h4>
+                    <p class="font-label-caps text-primary uppercase">Alumni Angkatan 2012 | Tech Entrepreneur</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pendaftaran: CTA -->
+    <section class="py-xl bg-surface-container-low">
+        <div class="container mx-auto px-12 fade-in-bottom">
+            <div class="bg-primary-container rounded-[40px] p-12 md:p-24 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden border border-white/5">
+                <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                    <div class="absolute top-10 left-10 w-64 h-64 border border-white rounded-full"></div>
+                    <div class="absolute bottom-10 right-10 w-96 h-96 border border-white rounded-full"></div>
+                </div>
+                <div class="max-w-xl relative z-10">
+                    <h2 class="font-h1 text-h1 text-white mb-6">Penerimaan Santri Baru Telah Dibuka</h2>
+                    <p class="font-body-lg text-on-surface-variant mb-8">
+                        Bergabunglah bersama kami dan mulailah perjalanan spiritual serta intelektual yang akan mengubah masa depan Anda.
+                    </p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-white">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Kuota terbatas untuk kualitas terbaik
+                        </li>
+                        <li class="flex items-center gap-3 text-white">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Beasiswa bagi santri berprestasi
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col gap-4 w-full md:w-auto relative z-10">
+                    <button class="px-10 py-5 bg-primary text-on-primary font-label-caps rounded-2xl hover:bg-primary-fixed transition-all text-center">Daftar Online Sekarang</button>
+                    <button class="px-10 py-5 glass-card text-white font-label-caps rounded-2xl hover:bg-white/10 transition-all text-center">Unduh Brosur (PDF)</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Berita Terbaru Section -->
+    <section class="py-xl bg-surface">
+        <div class="container mx-auto px-12 fade-in-bottom">
+            <div class="text-center mb-16">
+                <span class="font-label-caps text-primary tracking-widest uppercase mb-4 block">Informasi Terkini</span>
+                <h2 class="font-h2 text-h2 text-white">Berita Terbaru</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-gutter">
+                <!-- News Card 1 -->
+                <div class="glass-card rounded-3xl overflow-hidden group border border-white/5">
+                    <div class="h-56 relative overflow-hidden">
+                        <img alt="News Image 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5VG_uy5Y0qOwGJ_AjrP_5rAbQmLU1eoBzFyndPDxMF3extZtRPkGLDnExJ2Qcew6wiYtsfTI84umFEs488qY01_x9xJ9VfirN3tOZSmSvqd4OZBPZPZsePslwLnOCRxFCj9dqFmM-Jy5o759TNHjF841qGT91GKGuXT2rpfAOHa1_8XzjkdQsfHLtvASWHkc6Srw5JiZEa0PbI90p51Q43X6PNlNXinT9NgZQCO3uLBsFru8w92kQL3NxoNNpYFhfNpFXgAGHqCr5"/>
+                    </div>
+                    <div class="p-8">
+                        <span class="text-sm text-primary mb-2 block font-label-caps">15 MEI 2024</span>
+                        <h3 class="font-h3 text-white mb-4 line-clamp-2">Peresmian Gedung Perpustakaan Digital Al-Furqan</h3>
+                        <p class="text-on-surface-variant text-body-sm mb-6 line-clamp-3">Menuju era digitalisasi pendidikan, Al-Furqan Academy resmi meluncurkan fasilitas perpustakaan berbasis teknologi mutakhir.</p>
+                        <a class="text-primary font-label-caps inline-flex items-center gap-2 hover:gap-4 transition-all" href="#">Baca Selengkapnya <span class="material-symbols-outlined">east</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="w-full h-[500px] grayscale contrast-125 opacity-80 hover:opacity-100 transition-opacity">
+        <div class="w-full h-full bg-surface-container-low flex items-center justify-center relative">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1W6Tnnnf5aQGxbHt8Hm5E7b5F8hgFLxMH7nZPeRXoYvP1TyjfuQAd7FL0bHD9Yf23FK9yLb5WZ8ZYTFPLT0kqnwHthSKwIQeOH8FIJtME9cvYFVbKNHa7KwEjSc5OlhWLOIJAkgKmkztdhl3p_YLdy1k41PLWTyd06eP8_mM8_-RDCyb_i9NfDgA_Ebf3p6nB9GQH9Vv99cF6VT07JzzuL9X7NGTsqiJgJMeP2SjNnAdqo8AJj3q-xHDRynRhE7TO1l08ykPtoPJv"/>
+            <div class="absolute inset-0 bg-surface/40"></div>
+            <div class="absolute glass-card p-6 rounded-2xl text-center max-w-xs border border-white/10">
+                <span class="material-symbols-outlined text-primary mb-2">location_on</span>
+                <h4 class="text-white font-h3 mb-2">Lokasi Kami</h4>
+                <p class="text-body-sm text-on-surface-variant">Jl. Pendidikan No. 45, Jakarta Selatan, Indonesia</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-surface-container-lowest w-full border-t border-white/5">
+    <div class="container mx-auto py-16 px-12 grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+            <span class="text-xl font-bold text-white mb-4 block font-headline-md uppercase">Navi Modern Academy</span>
+            <p class="font-body-md text-on-surface-variant leading-relaxed max-w-md">
+                Mewujudkan peradaban melalui pendidikan yang mencerahkan hati dan pikiran. Pusat keunggulan bagi pemimpin masa depan.
+            </p>
+            <div class="flex gap-4 mt-6">
+                <a class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-on-surface-variant hover:text-white transition-colors" href="#">
+                    <span class="material-symbols-outlined text-sm">social_leaderboard</span>
+                </a>
+                <a class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-on-surface-variant hover:text-white transition-colors" href="#">
+                    <span class="material-symbols-outlined text-sm">photo_camera</span>
+                </a>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-8">
+            <div>
+                <h5 class="text-white font-label-caps mb-6">Navigasi</h5>
+                <ul class="space-y-3">
+                    <li><a class="font-body-sm text-on-surface-variant hover:text-white hover:underline underline-offset-4" href="#">Beranda</a></li>
+                    <li><a class="font-body-sm text-on-surface-variant hover:text-white hover:underline underline-offset-4" href="#">Tentang Kami</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container mx-auto px-12 py-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <span class="font-body-sm text-on-surface-variant">© <span class="curr-year">2024</span> Navi Modern Islamic School. Elevating Faith through Knowledge.</span>
+        <div class="flex gap-6">
+            <span class="text-on-surface-variant text-sm flex items-center gap-2"><span class="material-symbols-outlined text-xs">mail</span> info@navimodern.sch.id</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mendapatkan tahun saat ini
+        const currentYear = new Date().getFullYear();
+        const yearElements = document.querySelectorAll('.curr-year');
+        yearElements.forEach(el => { el.textContent = currentYear; });
+
+        // --- PREVENT ZOOM & GESTURES ---
+        document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
+        document.addEventListener('gesturechange', function(e) { e.preventDefault(); });
+        document.addEventListener('gestureend', function(e) { e.preventDefault(); });
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) { event.preventDefault(); }
+            lastTouchEnd = now;
+        }, false);
+        document.addEventListener('wheel', function(e) { if (e.ctrlKey) { e.preventDefault(); } }, { passive: false });
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '=' || e.key === '-' || e.key === '_')) { e.preventDefault(); }
+        });
+
+        // --- MOBILE MENU TOGGLE ---
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navbar = document.getElementById('navbar');
+        
+        if (mobileMenuToggle && mobileMenu) {
+            const navLinks = mobileMenu.querySelectorAll('a');
+            function toggleMobileMenu() {
+                if (mobileMenu.classList.contains('max-h-0')) {
+                    mobileMenu.classList.remove('max-h-0', 'py-0');
+                    mobileMenu.classList.add('max-h-96', 'py-4');
+                    mobileMenuToggle.innerHTML = '<span class="material-symbols-outlined">close</span>';
+                } else { closeMobileMenu(); }
+            }
+            function closeMobileMenu() {
+                mobileMenu.classList.add('max-h-0', 'py-0');
+                mobileMenu.classList.remove('max-h-96', 'py-4');
+                mobileMenuToggle.innerHTML = '<span class="material-symbols-outlined">menu</span>';
+            }
+            mobileMenuToggle.addEventListener('click', function (event) {
+                event.stopPropagation();
+                toggleMobileMenu();
+            });
+            navLinks.forEach(link => { link.addEventListener('click', () => { closeMobileMenu(); }); });
+            document.addEventListener('click', function (event) {
+                if (!mobileMenu.classList.contains('max-h-0') && !mobileMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                    closeMobileMenu();
+                }
+            });
+        }
+
+        // --- NAVBAR SCROLL EFFECT ---
+        if (navbar) {
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-primary-container/95', 'py-2');
+                    navbar.classList.remove('bg-primary-container/80', 'py-4');
+                } else {
+                    navbar.classList.remove('bg-primary-container/95', 'py-2');
+                    navbar.classList.add('bg-primary-container/80', 'py-4');
+                }
+            });
+        }
+
+        // --- SCROLL REVEAL ---
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in-bottom').forEach(element => { observer.observe(element); });
+
+        // --- CAROUSEL SCRIPT (KEUNGGULAN) ---
+        const misiCarousel = document.getElementById('misiCarousel');
+        if (misiCarousel) {
+            const prevMisiBtn = document.getElementById('prevMisi');
+            const nextMisiBtn = document.getElementById('nextMisi');
+            const misiItems = misiCarousel.querySelectorAll('.carousel-item2');
+            let currentMisiIndex = 0;
+            function getVisibleMisiItems() {
+                if (window.innerWidth >= 1024) return 4;
+                if (window.innerWidth >= 768) return 2;
+                return 1;
+            }
+            function updateMisiCarousel() {
+                if (misiItems.length === 0) return;
+                const visibleItems = getVisibleMisiItems();
+                const maxIndex = Math.max(0, misiItems.length - visibleItems);
+                if (currentMisiIndex > maxIndex) { currentMisiIndex = maxIndex; }
+                const itemWidth = misiItems[0].offsetWidth;
+                const offset = -currentMisiIndex * itemWidth;
+                misiCarousel.style.transform = `translateX(${offset}px)`;
+                prevMisiBtn.disabled = currentMisiIndex === 0;
+                nextMisiBtn.disabled = currentMisiIndex >= maxIndex;
+                prevMisiBtn.classList.toggle('opacity-50', prevMisiBtn.disabled);
+                nextMisiBtn.classList.toggle('opacity-50', nextMisiBtn.disabled);
+            }
+            prevMisiBtn.addEventListener('click', function () { if (currentMisiIndex > 0) { currentMisiIndex--; updateMisiCarousel(); } });
+            nextMisiBtn.addEventListener('click', function () {
+                if (currentMisiIndex < misiItems.length - getVisibleMisiItems()) { currentMisiIndex++; updateMisiCarousel(); }
+            });
+            window.addEventListener('resize', () => setTimeout(updateMisiCarousel, 200));
+            window.addEventListener('load', updateMisiCarousel);
+        }
+
+        // --- READ MORE PROFIL ---
+        function initProfilReadMore() {
+            const profilContent = document.getElementById('profilContent');
+            const toggleBtn = document.getElementById('toggleProfilBtn');
+            const toggleText = document.getElementById('toggleProfilText');
+            const toggleIcon = document.getElementById('toggleProfilIcon');
+            if (!profilContent || !toggleBtn) return;
+            let isExpanded = true; // Set default to expanded for Navi Modern
+            function toggleContent() {
+                isExpanded = !isExpanded;
+                if (isExpanded) {
+                    profilContent.style.maxHeight = profilContent.scrollHeight + 'px';
+                    profilContent.style.opacity = '1';
+                    toggleText.textContent = 'Sembunyikan';
+                    toggleIcon.textContent = 'expand_less';
+                } else {
+                    profilContent.style.maxHeight = '0';
+                    profilContent.style.opacity = '0';
+                    toggleText.textContent = 'Selengkapnya';
+                    toggleIcon.textContent = 'expand_more';
+                }
+            }
+            toggleBtn.addEventListener('click', toggleContent);
+        }
+        initProfilReadMore();
+
+        // --- HERO BANNER SLIDER ---
+        class HeroSlider {
+            constructor(containerId, images, options = {}) {
+                this.container = document.getElementById(containerId);
+                if (!this.container) return;
+                this.images = images;
+                this.currentIndex = 0;
+                this.interval = options.interval || 5000;
+                this.autoplay = options.autoplay !== false;
+                this.timer = null;
+                this.init();
+            }
+            init() {
+                this.container.innerHTML = ''; // Clear original image
+                this.images.forEach((imageSrc, index) => {
+                    const imgDiv = document.createElement('div');
+                    imgDiv.className = 'hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000';
+                    imgDiv.style.backgroundImage = `url('${imageSrc}')`;
+                    imgDiv.style.opacity = index === 0 ? '1' : '0';
+                    imgDiv.style.zIndex = index === 0 ? '1' : '0';
+                    this.container.appendChild(imgDiv);
+                });
+                const gradientOverlay = document.createElement('div');
+                gradientOverlay.className = 'absolute inset-0 bg-gradient-to-r from-surface via-surface/60 to-transparent z-10';
+                this.container.appendChild(gradientOverlay);
+                this.slides = this.container.querySelectorAll('.hero-slide');
+                this.createIndicators();
+                if (this.autoplay && this.images.length > 1) { this.startAutoplay(); }
+            }
+            createIndicators() {
+                let indicatorContainer = document.createElement('div');
+                indicatorContainer.className = 'slider-indicators absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20';
+                this.container.appendChild(indicatorContainer);
+                this.images.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'slider-dot w-3 h-3 rounded-full transition-all duration-300';
+                    dot.style.backgroundColor = index === 0 ? '#bdc6e4' : 'rgba(255, 255, 255, 0.4)';
+                    dot.addEventListener('click', () => { this.goToSlide(index); });
+                    indicatorContainer.appendChild(dot);
+                });
+                this.indicators = indicatorContainer.querySelectorAll('.slider-dot');
+            }
+            goToSlide(index) {
+                this.slides[this.currentIndex].style.opacity = '0';
+                this.indicators[this.currentIndex].style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+                this.currentIndex = index;
+                this.slides[this.currentIndex].style.opacity = '1';
+                this.indicators[this.currentIndex].style.backgroundColor = '#bdc6e4';
+            }
+            nextSlide() { this.goToSlide((this.currentIndex + 1) % this.images.length); }
+            startAutoplay() { this.timer = setInterval(() => this.nextSlide(), this.interval); }
+        }
+
+        const bannerImages = ["https://lh3.googleusercontent.com/aida-public/AB6AXuCxT_sMgsB-zjVuT4v5u-KcZS-x-1rmAVp_UQlLZ7KbnGfbla6J0S0-UHtAJAol8UvCFRy8FECoQcthQKAccrxE3NiMjWMRkq6RR3K-fusU5urXFu6nimr3jayvbme6V__Ey5ehE4mjtYee_AIICWGXSX0bo2Tg1bdwBCVKDBLSCNr6ZBRdicniFIIqng4ImBysM1yu8LY37z39fBNBnPcxV4wOg1lH_eUJCeoVkYyrIg_BM5_lJHVU6cPl9HPYPysSPk2Cn9HMjlE2"];
+        new HeroSlider('hero-slider', bannerImages);
+
+        // --- GALERI SLIDER ---
+        class GaleriSlider {
+            constructor(containerId, images, options = {}) {
+                this.container = document.getElementById(containerId);
+                if (!this.container) return;
+                this.images = images;
+                this.currentIndex = 0;
+                this.itemsPerView = options.itemsPerView || { mobile: 1, tablet: 2, desktop: 3 };
+                this.init();
+            }
+            init() {
+                const slidesWrapper = document.createElement('div');
+                slidesWrapper.className = 'relative w-full overflow-hidden';
+                const slidesContainer = document.createElement('div');
+                slidesContainer.className = 'flex transition-transform duration-700 ease-in-out';
+                this.images.forEach((imageData) => {
+                    const slideDiv = document.createElement('div');
+                    slideDiv.className = 'flex-shrink-0 px-2';
+                    slideDiv.innerHTML = `<div class="relative overflow-hidden rounded-xl h-64 bg-surface-variant"><img src="${imageData.src}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition"><p class="text-white border-2 p-2 rounded">${imageData.caption}</p></div></div>`;
+                    slidesContainer.appendChild(slideDiv);
+                });
+                slidesWrapper.appendChild(slidesContainer);
+                this.container.appendChild(slidesWrapper);
+                this.slidesContainer = slidesContainer;
+                this.slides = slidesContainer.querySelectorAll('div > div');
+                this.updateSlideWidths();
+                window.addEventListener('resize', () => this.updateSlideWidths());
+            }
+            updateSlideWidths() {
+                const items = (window.innerWidth >= 1024) ? this.itemsPerView.desktop : (window.innerWidth >= 768) ? this.itemsPerView.tablet : this.itemsPerView.mobile;
+                this.slidesContainer.querySelectorAll('.flex-shrink-0').forEach(s => s.style.width = `${100/items}%`);
+            }
+        }
+
+        const galeriData = [
+            {src: "https://lh3.googleusercontent.com/aida-public/AB6AXuC3R7as0zHmB8HjbaiJ8pC7-y4xJjl3d1vk2eBmFWbqDhVeUtO96J2UosjxgGxo-WOmqWUZ5v7gyK72xSbdMI_TU5gNYxHb5D42vjLfK8zeBUiHjLwt059TA-05H_Ifu2UwZ3UTp5mdN7CChJfo1xzDXLceq__Eo074xDwkN12kvOl8U7VI6oKsNU-pH1YANTpgN30Qe7LdqEC39rqlmpL_g9UsJd1vMuQHYzcCd37F2pWwRi0_3oyDjYQ76Eeft8TYHwBYYTrzGYQa", caption: "Kegiatan Belajar"},
+            {src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDXvVXdAey1mTAnx4ARFNAs4OF-9tDQfrovD64OI0jVwy8g8wZNC4_WS0U1RMtggr14mAPymy_vqR9fZltGYHHxmevWsbf-2DBN5BcmiDv07K59ezIF4HDqGI6bWqhEoMd9Ys878siJwQqnaudFKGT1Gw7l-BzOXWK8z8Q5YWWvgECB8WyVzlTHk18SMvmYiuESmdrOx6QXDsprs9WkAS_-g_T7Rf6kFJRAh-tEgflGsSqLrG-4foaOrWKJm4O04_HCW_2xdJ2MWVJR", caption: "Fasilitas Kampus"},
+            {src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDk1iMD2W7GIZl9fFcSmtB9OufiVqJd4TUAVN5n_DgrfgaRFAFHDACKmw1qJvr-r25lS4ZhX7fRIGjhBN35yYdV6Wst1g-saSZ6e1jLFnKLoJe1E7P_E-nnkdq85reYnuTYxgUIVGxKgC_mVo5GyLqEsSXubxkWAybJiU7_MJyW4llfzWcAGpyl29tEfL1mEaKUbvM1NtnbYPiZvq3DTeetw95G80_wYQ5SM1xHOlk94g5jhvrolmTJM3b1_bmQ8RIRxeg0Nq1a2tEw", caption: "Momen Santri"}
+        ];
+        new GaleriSlider('galeriSliderContainer', galeriData);
+
+        // --- UNIT PENDIDIKAN CAROUSEL ---
+        const unitCarousel = document.getElementById('unitCarousel');
+        if (unitCarousel) {
+            const prevUnitBtn = document.getElementById('prevUnit');
+            const nextUnitBtn = document.getElementById('nextUnit');
+            const unitItems = unitCarousel.querySelectorAll('.carousel-item-unit');
+            let currentUnitIndex = 0;
+            function updateUnitCarousel() {
+                const itemWidth = unitItems[0].offsetWidth;
+                unitCarousel.style.transform = `translateX(${-currentUnitIndex * itemWidth}px)`;
+                prevUnitBtn.disabled = currentUnitIndex === 0;
+                nextUnitBtn.disabled = currentUnitIndex >= unitItems.length - (window.innerWidth >= 1024 ? 4 : (window.innerWidth >= 768 ? 2 : 1));
+                prevUnitBtn.classList.toggle('opacity-50', prevUnitBtn.disabled);
+                nextUnitBtn.classList.toggle('opacity-50', nextUnitBtn.disabled);
+            }
+            nextUnitBtn.addEventListener('click', () => {
+                if (currentUnitIndex < unitItems.length - 1) { currentUnitIndex++; updateUnitCarousel(); }
+            });
+            prevUnitBtn.addEventListener('click', () => {
+                if (currentUnitIndex > 0) { currentUnitIndex--; updateUnitCarousel(); }
+            });
+            window.addEventListener('resize', updateUnitCarousel);
+            updateUnitCarousel();
+        }
+    });
+</script>
+</body>
+</html>

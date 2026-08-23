@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html class="light" lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Pondok Pesantren darul ikhlas merupakan lembaga pendidikan Islam yang berbasis pada penguatan Al-Qur’an sebagai fondasi utama dalam seluruh aspek pendidikan. Didirikan pada tahun 22 november 2025, pesantren ini berkomitmen untuk membina santri agar menjadi hafidz-hafidzah Qur’an yang energik, berprestasi dalam bidang akademik-selfskill, berahlak mulia dan menjadi pribadi yang Tangguh, yang siap meneruskan estafet perjuangan islam. "/>
+    <link href="Media%20Darul%20Ikhlas/LOGO%20PONDOK%20DARUL%20IKHLAS.webp" rel="icon" type="image/webp"/>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;600&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#002c1d",
+                        "surface-container": "#f0eded",
+                        "inverse-surface": "#303030",
+                        "surface-dim": "#dcd9d9",
+                        "surface-tint": "#3b6753",
+                        "on-tertiary-fixed-variant": "#474743",
+                        "on-surface-variant": "#414944",
+                        "on-secondary-container": "#795930",
+                        "surface-container-high": "#eae7e7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#224f3c",
+                        "on-background": "#1b1c1c",
+                        "primary-container": "#154331",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c9c6c1",
+                        "tertiary-container": "#3b3b37",
+                        "on-tertiary-container": "#a7a5a0",
+                        "on-primary-container": "#81b098",
+                        "surface-container-low": "#f6f3f2",
+                        "outline-variant": "#c0c8c2",
+                        "inverse-on-surface": "#f3f0ef",
+                        "outline": "#717973",
+                        "background": "#fcf9f8",
+                        "secondary-fixed": "#ffddb7",
+                        "inverse-primary": "#a1d1b8",
+                        "secondary-container": "#fed39f",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#fcf9f8",
+                        "on-primary-fixed": "#002115",
+                        "on-secondary-fixed-variant": "#5e411a",
+                        "surface": "#fcf9f8",
+                        "primary-fixed-dim": "#a1d1b8",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e5e2e1",
+                        "on-surface": "#1b1c1c",
+                        "on-secondary-fixed": "#2a1700",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#eabf8d",
+                        "on-tertiary-fixed": "#1c1c18",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#e5e2dc",
+                        "primary-fixed": "#bdedd4",
+                        "tertiary": "#262622",
+                        "secondary": "#78582f",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin": "32px",
+                        "container-max": "1200px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "section-padding": "80px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Work Sans"],
+                        "body-md": ["Work Sans"],
+                        "label-lg": ["Work Sans"],
+                        "headline-md": ["Newsreader"],
+                        "label-md": ["Work Sans"],
+                        "headline-xl": ["Newsreader"],
+                        "headline-lg": ["Newsreader"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "label-md": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .amanah-card {
+            background: #ffffff;
+            border: 1px solid #e5e2e1;
+            box-shadow: 0 4px 20px rgba(0, 44, 29, 0.05);
+        }
+        .hexagon-shape {
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .brand-icon {
+            display: inline-block;
+            width: 1.25em;
+            height: 1.25em;
+            background-color: currentColor;
+            -webkit-mask: var(--icon-src) no-repeat center / contain;
+            mask: var(--icon-src) no-repeat center / contain;
+            vertical-align: middle;
+        }
+        .brand-icon-lg {
+            width: 1.75em;
+            height: 1.75em;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transform: scale(1.08);
+            transition: opacity 1.2s ease, transform 1.8s ease;
+            z-index: 0;
+        }
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 1;
+        }
+        .hero-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        .hero-dot.active {
+            background: #002c1d;
+            width: 28px;
+        }
+        .slide-img {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transform: scale(1.05);
+            transition: opacity 1.2s ease, transform 1.8s ease;
+            z-index: 0;
+        }
+        .slide-img.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<!-- TopNavBar -->
+<nav id= "beranda" class="bg-primary backdrop-blur-xl border-b border-white/10 fixed top-0 w-full z-50 shadow-sm">
+    <div class="flex items-center justify-between px-8 h-20 max-w-screen-2xl mx-auto">
+        <div class="flex items-center gap-3">
+            <div class="w-11 h-11 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-sm">
+                <img class="w-full h-full object-contain p-1" src="Media%20Darul%20Ikhlas/LOGO%20PONDOK%20DARUL%20IKHLAS.webp" alt="Logo Pondok Pesantren Darul Ikhlas"/>
+            </div>
+            <div class="text-2xl font-headline-md tracking-tight text-white uppercase">DARUL IKLHAS</div>
+            <div class="hidden sm:block text-white/70 font-label-md">SMPQ Dai Pringsewu</div>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <button class="font-label-lg tracking-wide uppercase text-white border-b-2 border-white pb-1" onclick="document.getElementById('beranda').scrollIntoView({ behavior: 'smooth' })">Beranda</button>
+            <button onclick="document.getElementById('tentang').scrollIntoView({ behavior: 'smooth' })" class="font-label-lg tracking-wide uppercase text-white/70 hover:text-white transition-all duration-300">Tentang Kami</button>
+            <button onclick="document.getElementById('keunggulan').scrollIntoView({ behavior: 'smooth' })" class="font-label-lg tracking-wide uppercase text-white/70 hover:text-white transition-all duration-300">Keunggulan</button>
+            <button onclick="document.getElementById('pendaftaran').scrollIntoView({ behavior: 'smooth' })" class="font-label-lg tracking-wide uppercase text-white/70 hover:text-white transition-all duration-300">Pendaftaran</button>
+            <button onclick="document.getElementById('kontak').scrollIntoView({ behavior: 'smooth' })" class="font-label-lg tracking-wide uppercase text-white/70 hover:text-white transition-all duration-300">Kontak</button>
+        </div>
+        <button id="menuToggle" class="md:hidden text-white p-2" aria-label="Buka menu">
+            <span class="material-symbols-outlined" id="menuIcon">menu</span>
+        </button>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden bg-primary border-t border-white/10 px-8 py-4 flex-col gap-3">
+        <button class="font-label-lg tracking-wide uppercase text-white py-2" onclick="document.getElementById('beranda').scrollIntoView({ behavior: 'smooth' })">Beranda</button>
+        <button class="font-label-lg tracking-wide uppercase text-white/70 hover:text-white transition-all py-2" onclick="document.getElementById('tentang').scrollIntoView({ behavior: 'smooth' })">Tentang Kami</button>
+        <button class="font-label-lg tracking-wide uppercase text-white/70 hover:text-white transition-all py-2" onclick="document.getElementById('keunggulan').scrollIntoView({ behavior: 'smooth' })">Keunggulan</button>
+        <button class="font-label-lg tracking-wide uppercase text-white/70 hover:text-white transition-all py-2" onclick="document.getElementById('pendaftaran').scrollIntoView({ behavior: 'smooth' })">Pendaftaran</button>
+        <button class="font-label-lg tracking-wide uppercase text-white/70 hover:text-white transition-all py-2" onclick="document.getElementById('kontak').scrollIntoView({ behavior: 'smooth' })">Kontak</button>
+    </div>
+</nav>
+
+<main class="pt-20">
+    <!-- Hero Section (Morph Fade Slider) -->
+    <section class="relative h-[85vh] flex items-center overflow-hidden" id="beranda">
+        <div class="absolute inset-0 z-0">
+            <div id="hero-slider" class="absolute inset-0"></div>
+            <div class="absolute inset-0 bg-white/60"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-background/20"></div>
+            <div class="absolute bottom-10 left-8 flex gap-2 z-10" id="hero-dots"></div>
+        </div>
+        <div class="container mx-auto px-margin relative z-10">
+            <div class="max-w-80-h-80 bg-white/70 rounded-xl p-8 md:p-10 shadow-xl border border-white/40">
+                <span class="inline-block px-4 py-1.5 bg-primary-fixed text-primary font-label-lg rounded-full mb-6">Mencetak Generasi Qur'ani</span>
+                <h1 class="font-headline-xl text-headline-xl text-primary mb-6 leading-tight">Pondok Pesantren Darul Ikhlas Pringsewu</h1>
+                <p class="font-body-lg text-on-surface-variant mb-10 max-w-xl">
+                    Membina santri agar menjadi hafidz-hafidzah Qur'an yang energik, berprestasi dalam bidang akademik dan selfskill, berakhlak mulia, serta tangguh sebagai penerus estafet perjuangan Islam.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="px-8 py-4 bg-primary text-on-primary font-label-lg rounded-xl hover:opacity-90 transition-opacity" onclick="document.getElementById('pendaftaran').scrollIntoView({ behavior: 'smooth' })">Daftar Sekarang</button>
+                    <a class="px-8 py-4 bg-white text-primary border border-outline-variant font-label-lg rounded-xl flex items-center gap-2 hover:bg-surface-container-low transition-colors shadow-sm" href="https://www.youtube.com/watch?v=ioyoqa2XXzA" target="_blank" rel="noopener">
+                        <span class="brand-icon text-green/70" style="--icon-src: url('https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/youtube/mono.svg')"></span>
+                        Video Profil
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang Kami -->
+    <section class="py-section-padding bg-white">
+        <div class="container mx-auto px-margin">
+            <div class="grid lg:grid-cols-2 gap-gutter items-center">
+                <div class="relative">
+                    <div class="w-full aspect-[4/5] rounded-xl overflow-hidden shadow-xl">
+                        <img class="w-full h-full object-cover" src="Media%20Darul%20Ikhlas/PRESTASI/HAYA%20NADHIFA%20QUROTA%20AYUN%20JUARA%201%20MISYTION.jpeg" alt="Santri berprestasi Darul Ikhlas"/>
+                    </div>
+                    <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-primary p-6 rounded-xl shadow-2xl flex flex-col justify-center text-center">
+                        <span class="text-headline-lg font-headline-lg text-white">5 Juz</span>
+                        <span class="text-label-md text-on-primary/80 uppercase">Target Hafalan</span>
+                    </div>
+                </div>
+                <div class="lg:pl-8" id="tentang">
+                    <span class="font-label-lg text-primary tracking-widest uppercase mb-4 block">Angkatan Perdana</span>
+                    <h2 class="font-headline-lg text-headline-lg text-primary mb-8">Fondasi Qur'ani untuk Generasi Penerus</h2>
+                    <div class="amanah-card p-8 rounded-xl">
+                        <p class="font-body-md text-on-surface-variant mb-6">
+                            Pondok Pesantren Darul Ikhlas merupakan lembaga pendidikan Islam yang berbasis pada penguatan Al-Qur'an sebagai fondasi utama dalam seluruh aspek pendidikan. Didirikan pada 22 November 2025, pesantren ini hadir dengan semangat baru untuk membina generasi Qur'ani yang energik, berprestasi, dan berakhlak mulia.
+                        </p>
+                        <p class="font-body-md text-on-surface-variant mb-8">
+                            Kami berkomitmen membina santri agar menjadi hafidz-hafidzah Qur'an yang siap berprestasi di bidang akademik maupun selfskill, memiliki pribadi yang tangguh, serta siap meneruskan estafet perjuangan Islam di tengah masyarakat.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                <span class="font-label-lg text-on-surface">Target Tahfidz 5 Juz</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                <span class="font-label-lg text-on-surface">Pembinaan Karakter & Kepemimpinan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keunggulan (Pilar Utama) -->
+    <section class="py-section-padding bg-surface-container-low">
+        <div class="container mx-auto px-margin">
+            <div class="text-center mb-16" id="keunggulan">
+                <span class="font-label-lg text-primary tracking-widest uppercase mb-4 block">Program Unggulan</span>
+                <h2 class="font-headline-lg text-headline-lg text-primary">Keunggulan Pendidikan Kami</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                <div class="amanah-card p-8 rounded-xl group hover:border-primary transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-primary/5 rounded-lg flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">menu_book</span>
+                    </div>
+                    <h3 class="font-headline-md text-primary mb-4">Tahfidz Al-Qur'an</h3>
+                    <p class="text-body-md text-on-surface-variant">Program hafalan Al-Qur'an dengan target 5 juz, dibina secara intensif dan berjenjang untuk membentuk hafidz-hafidzah yang istiqomah.</p>
+                </div>
+                <div class="amanah-card p-8 rounded-xl group hover:border-primary transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-primary/5 rounded-lg flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">public</span>
+                    </div>
+                    <h3 class="font-headline-md text-primary mb-4">Bahasa Arab & Inggris</h3>
+                    <p class="text-body-md text-on-surface-variant">Penguasaan dua bahasa internasional sebagai bekal komunikasi global dan pemahaman sumber ilmu keislaman secara langsung.</p>
+                </div>
+                <div class="amanah-card p-8 rounded-xl group hover:border-primary transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-primary/5 rounded-lg flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">lightbulb</span>
+                    </div>
+                    <h3 class="font-headline-md text-primary mb-4">Karakter & Kepemimpinan</h3>
+                    <p class="text-body-md text-on-surface-variant">Pengembangan karakter dan jiwa kepemimpinan santri melalui pembinaan harian dan program public speaking.</p>
+                </div>
+                <div class="amanah-card p-8 rounded-xl group hover:border-primary transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-primary/5 rounded-lg flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">diversity_3</span>
+                    </div>
+                    <h3 class="font-headline-md text-primary mb-4">Ekstrakurikuler & Sosial</h3>
+                    <p class="text-body-md text-on-surface-variant">Kegiatan ekstrakurikuler islami dan sosial kemasyarakatan yang melatih kepedulian dan kontribusi santri di tengah masyarakat.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jenjang Pendidikan -->
+    <section class="py-section-padding bg-background">
+        <div class="container mx-auto px-margin">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+                <div>
+                    <span class="font-label-lg text-primary tracking-widest uppercase mb-4 block">Tahapan Program</span>
+                    <h2 class="font-headline-lg text-headline-lg text-primary">Jenjang Pembinaan Santri</h2>
+                </div>
+                <div class="flex gap-4">
+                    <!-- <button class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center text-primary hover:bg-surface-container">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <button class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center text-primary hover:bg-surface-container">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button> -->
+                </div>
+            </div>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="amanah-card rounded-xl overflow-hidden group">
+                    <div class="h-48 relative overflow-hidden">
+                        <div class="jenjang-photo w-full h-full relative" data-tag="01"></div>
+                    </div>
+                    <div class="p-8">
+                        <span class="font-label-md text-primary/70 mb-2 block uppercase">Tahap 01</span>
+                        <h3 class="font-headline-md text-primary mb-4">Fondasi Tahfidz</h3>
+                        <p class="text-body-md text-on-surface-variant mb-6">Pembiasaan tilawah, tahsin, dan hafalan awal sebagai dasar menuju target 5 juz.</p>
+                    </div>
+                </div>
+                <div class="amanah-card rounded-xl overflow-hidden group">
+                    <div class="h-48 relative overflow-hidden">
+                        <div class="jenjang-photo w-full h-full relative" data-tag="02"></div>
+                    </div>
+                    <div class="p-8">
+                        <span class="font-label-md text-primary/70 mb-2 block uppercase">Tahap 02</span>
+                        <h3 class="font-headline-md text-primary mb-4">Penguatan Hafalan & Bahasa</h3>
+                        <p class="text-body-md text-on-surface-variant mb-6">Peningkatan hafalan disertai pembelajaran Bahasa Arab dan Inggris secara intensif.</p>
+                        
+                    </div>
+                </div>
+                <div class="amanah-card rounded-xl overflow-hidden group">
+                    <div class="h-48 relative overflow-hidden">
+                        <div class="jenjang-photo w-full h-full relative" data-tag="03"></div>
+                    </div>
+                    <div class="p-8">
+                        <span class="font-label-md text-primary/70 mb-2 block uppercase">Tahap 03</span>
+                        <h3 class="font-headline-md text-primary mb-4">Karakter & Kepemimpinan</h3>
+                        <p class="text-body-md text-on-surface-variant mb-6">Pembinaan akhlak, kemandirian, dan kepemimpinan melalui program public speaking dan organisasi santri.</p>
+                       
+                    </div>
+                </div>
+                <div class="amanah-card rounded-xl overflow-hidden group">
+                    <div class="h-48 relative overflow-hidden">
+                        <div class="jenjang-photo w-full h-full relative" data-tag="04"></div>
+                    </div>
+                    <div class="p-8">
+                        <span class="font-label-md text-primary/70 mb-2 block uppercase">Program Khusus</span>
+                        <h3 class="font-headline-md text-primary mb-4">Tasmi' & Kaderisasi Da'i</h3>
+                        <p class="text-body-md text-on-surface-variant mb-6">Program lanjutan bagi santri berprestasi menuju tasmi' hafalan dan kaderisasi sebagai pengajar/da'i.</p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri -->
+    <section class="py-section-padding bg-surface-container-low">
+        <div class="container mx-auto px-margin">
+            <div class="text-center mb-16">
+                <h2 class="font-headline-lg text-headline-lg text-primary">Kehidupan di Pesantren</h2>
+                <p class="text-on-surface-variant mt-4 font-body-md">Momen-momen inspiratif dalam perjalanan santri Darul Ikhlas.</p>
+            </div>
+            <div class="grid grid-cols-12 gap-4" id="galeri-grid">
+                <div class="galeri-box col-span-12 md:col-span-8 md:row-span-2 relative rounded-xl overflow-hidden shadow-lg h-72 md:h-auto" data-folder="MPLS & DAUROH SANTRI BARU 2026">
+                    <div class="galeri-photo w-full h-full relative"></div>
+                    <span class="galeri-label absolute bottom-3 left-3 z-10 px-4 py-1.5 bg-primary/85 text-white font-label-md rounded-full">MPLS & Daurah Santri Baru</span>
+                </div>
+                <div class="galeri-box col-span-12 sm:col-span-6 md:col-span-4 relative rounded-xl overflow-hidden shadow-lg h-72" data-folder="JUMAT SEHAT">
+                    <div class="galeri-photo w-full h-full relative"></div>
+                    <span class="galeri-label absolute bottom-3 left-3 z-10 px-4 py-1.5 bg-primary/85 text-white font-label-md rounded-full">Jumat Sehat</span>
+                </div>
+                <div class="galeri-box col-span-12 sm:col-span-6 md:col-span-4 relative rounded-xl overflow-hidden shadow-lg h-72" data-folder="JUMAT LITERASI">
+                    <div class="galeri-photo w-full h-full relative"></div>
+                    <span class="galeri-label absolute bottom-3 left-3 z-10 px-4 py-1.5 bg-primary/85 text-white font-label-md rounded-full">Jumat Literasi</span>
+                </div>
+                <div class="galeri-box col-span-12 sm:col-span-6 md:col-span-6 relative rounded-xl overflow-hidden shadow-lg h-72" data-folder="JUMAT NUMERASI">
+                    <div class="galeri-photo w-full h-full relative"></div>
+                    <span class="galeri-label absolute bottom-3 left-3 z-10 px-4 py-1.5 bg-primary/85 text-white font-label-md rounded-full">Jumat Numerasi</span>
+                </div>
+                <div class="galeri-box col-span-12 sm:col-span-6 md:col-span-6 relative rounded-xl overflow-hidden shadow-lg h-72" data-folder="PRESTASI">
+                    <div class="galeri-photo w-full h-full relative"></div>
+                    <span class="galeri-label absolute bottom-3 left-3 z-10 px-4 py-1.5 bg-primary/85 text-white font-label-md rounded-full">Prestasi Santri</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Testimoni -->
+    <section class="py-section-padding bg-background relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-5 text-primary">
+            <span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+        </div>
+        <div class="container mx-auto px-margin">
+            <div class="text-center mb-16">
+                <span class="font-label-lg text-primary tracking-widest uppercase mb-4 block">Amanah Orang Tua</span>
+                <h2 class="font-headline-lg text-headline-lg text-primary">Testimoni Wali Santri</h2>
+            </div>
+            <div class="max-w-4xl mx-auto relative z-10">
+                <div class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-6 pb-4" id="testimoni-track">
+                    <!-- Testimoni 1 -->
+                    <div class="snap-center shrink-0 w-full amanah-card p-10 md:p-16 rounded-xl text-center border-none bg-surface-container/30">
+                        <div class="w-20 h-20 mx-auto mb-8 rounded-full border-2 border-primary overflow-hidden p-1">
+                            <span class="w-full h-full rounded-full bg-primary/10 flex items-center justify-center material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">person</span>
+                        </div>
+                        <p class="text-headline-md font-headline-md text-primary mb-10 leading-relaxed">
+                            "Ananda sangat membanggakan dengan hafalan 5 juz yang sudah ditasmi'kan dan termasuk kategori santri teladan 2024–2025. Kemandirian dan akhlaknya juga sangat terlihat selama di rumah, bahkan pernah mengisi kultum di mushola lingkungan kami."
+                        </p>
+                        <div>
+                            <h4 class="font-headline-md text-primary">Bapak Sobri</h4>
+                            <p class="font-label-lg text-secondary uppercase tracking-wider">Wali Santri Ahmad Fatir</p>
+                        </div>
+                    </div>
+                    <!-- Testimoni 2 -->
+                    <div class="snap-center shrink-0 w-full amanah-card p-10 md:p-16 rounded-xl text-center border-none bg-surface-container/30">
+                        <div class="w-16 h-16 mx-auto mb-8 rounded-full border-2 border-primary overflow-hidden p-1">
+                            <span class="w-full h-full rounded-full bg-primary/10 flex items-center justify-center material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">person</span>
+                        </div>
+                        <p class="text-headline-md font-headline-md italic text-primary mb-10 leading-relaxed">
+                            "Kemandirian Ananda sangat terlihat selama di rumah — aktif membantu pekerjaan rumah, menjaga sholat 5 waktu, bahkan menjadi pelopor kemakmuran masjid di lingkungan kami. Tilawah dan murojaah tetap rutin meski masa liburan."
+                        </p>
+                        <div>
+                            <h4 class="font-headline-md text-primary">Ibu Puji Utari</h4>
+                            <p class="font-label-lg text-secondary uppercase tracking-wider">Wali Santri Asyrof Chairu Azam</p>
+                        </div>
+                    </div>
+                    <!-- Testimoni 3 -->
+                    <div class="snap-center shrink-0 w-full amanah-card p-10 md:p-16 rounded-xl text-center border-none bg-surface-container/30">
+                        <div class="w-16 h-16 mx-auto mb-8 rounded-full border-2 border-primary overflow-hidden p-1">
+                            <span class="w-full h-full rounded-full bg-primary/10 flex items-center justify-center material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">person</span>
+                        </div>
+                        <p class="text-headline-md font-headline-md italic text-primary mb-10 leading-relaxed">
+                            "Pihak pondok menjadikan Ananda sebagai kader untuk melanjutkan pengajaran tahfizhul Qur'an di Jawa. Salah satu capaian paling membanggakan, Ananda pernah diminta menjadi khatib Jumat di masjid sekitar rumah kami, padahal usianya masih setingkat SMP."
+                        </p>
+                        <div>
+                            <h4 class="font-headline-md text-primary">Bapak Ali Borkat Sipahutar</h4>
+                            <p class="font-label-lg text-secondary uppercase tracking-wider">Wali Santri Fardan Zaidan Mufid Sipahutar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pendaftaran: CTA -->
+    <section class="py-section-padding bg-background">
+        <div class="container mx-auto px-margin">
+            <div class="bg-primary rounded-xl p-12 md:p-24 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden shadow-2xl">
+                <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+                    <div class="absolute top-10 left-10 w-64 h-64 border border-white rounded-full"></div>
+                    <div class="absolute bottom-10 right-10 w-96 h-96 border border-white rounded-full"></div>
+                </div>
+                <div class="max-w-xl relative z-10" id="pendaftaran">
+                    <img class="w-28 h-28 bg-white rounded-2xl p-2 object-contain mb-6 shadow-lg" src="Media%20Darul%20Ikhlas/LOGO%20PONDOK%20DARUL%20IKHLAS.webp" alt="Logo Pondok Pesantren Darul Ikhlas"/>
+                    <h2 class="font-headline-xl text-headline-xl text-white mb-6">Penerimaan Santri Baru Telah Dibuka</h2>
+                    <p class="font-body-lg text-white/80 mb-8">
+                        Bergabunglah bersama Pondok Pesantren Darul Ikhlas dan mulailah perjalanan menghafal Al-Qur'an, membentuk karakter, serta meraih prestasi akademik dan selfskill.
+                    </p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-white">
+                            <span class="material-symbols-outlined text-primary-fixed">check_circle</span>
+                            Pembinaan tahfidz intensif menuju target 5 juz
+                        </li>
+                        <li class="flex items-center gap-3 text-white">
+                            <span class="material-symbols-outlined text-primary-fixed">check_circle</span>
+                            Program bahasa, kepemimpinan & public speaking
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col gap-4 w-full md:w-auto relative z-10">
+
+                    <!-- UNTUK LINK PENDAFTARAN Pesantren Smart Digital/PSD BISA DI TAUTKAN DI SINI https://pendaftaran..........-->
+                    <a class="px-10 py-5 bg-white text-primary font-label-lg rounded-xl hover:bg-surface-container transition-all text-center" href="#
+                    
+                    ">Daftar Online Sekarang</a>
+
+
+                    <!-- UNTUK LINK PENDAFTARAN Pesantren Smart Digital/PSD BISA DI TAUTKAN DI SINI https://pendaftaran..........-->
+
+
+
+                    <a class="px-10 py-5 border border-white/20 text-white font-label-lg rounded-xl hover:bg-white/10 transition-all text-center flex items-center justify-center gap-2" href="https://wa.me/6283150415977" target="_blank" rel="noopener">
+                        <span class=" text-3xl brand-icon" text- style="--icon-src: url('https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/whatsapp/mono.svg')"></span>
+                        Hubungi via WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Map Section -->
+    <section id="kontak" class="w-full h-[500px] grayscale contrast-125 opacity-80 hover:opacity-100 transition-opacity">
+        <div class="w-full h-full bg-surface-container flex items-center justify-center relative">
+            <iframe class="w-full h-full" src="https://www.google.com/maps?q=Jl.+A.+Yani+Gg.+Rawa+4+RT.+09+RW.+03+Pekon+Sidoharjo,+Kec.+Pringsewu,+Kab.+Pringsewu,+Lampung+35373&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lokasi Pondok Pesantren Darul Ikhlas"></iframe>
+            <div class="absolute inset-0 pointer-events-none"></div>
+            <div class="absolute bg-white/90 backdrop-blur p-6 rounded-xl text-center max-w-sm border border-outline-variant shadow-xl">
+                <span class="brand-icon text-primary mb-2 text-3xl" style="--icon-src: url('https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google-maps/mono.svg')"></span>
+                <h4 class="text-primary font-headline-md mb-2">Lokasi Kami</h4>
+                <p class="text-body-md text-on-surface-variant">Jl. A. Yani Gg. Rawa 4 RT. 09 RW. 03 Pekon Sidoharjo, Kec. Pringsewu, Kab. Pringsewu, Prov. Lampung 35373</p>
+                <div class="flex flex-col gap-2 mt-4 text-left">
+                    <a class="text-body-md text-on-surface-variant flex items-center gap-2" href="https://wa.me/6283150415977" target="_blank" rel="noopener">
+                        <span class="brand-icon text-primary text-lg" style="--icon-src: url('https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/whatsapp/mono.svg')"></span> WhatsApp: 0831-5041-5977
+                    </a>
+                    <a class="text-body-md text-on-surface-variant flex items-center gap-2" href="mailto:ponpesmpqdai@gmail.com" target="_blank" rel="noopener">
+                        <span class="material-symbols-outlined text-primary text-lg">mail</span> ponpesmpqdai@gmail.com
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-primary w-full border-t border-white/10 mt-20">
+    <div class="container mx-auto py-16 px-12 grid grid-cols-1 md:grid-cols-3 gap-12">
+        <!-- Brand Column -->
+        <div class="space-y-6">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 bg-white rounded-xl flex items-center justify-center overflow-hidden shadow-sm shrink-0">
+                    <img class="w-full h-full object-contain p-1" src="Media%20Darul%20Ikhlas/LOGO%20PONDOK%20DARUL%20IKHLAS.webp" alt="Logo Pondok Pesantren Darul Ikhlas"/>
+                </div>
+                <span class="text-xl font-headline-md text-white uppercase mb-4 block">DARUL IKLHAS</span>
+            </div>
+            <p class="font-body-md text-white/70 leading-relaxed">
+                Lembaga pendidikan Islam yang berdedikasi mencetak hafidz-hafidzah Qur'an yang energik, berakhlak mulia, dan tangguh meneruskan perjuangan Islam.
+            </p>
+            <div class="flex gap-4">
+                <a class="text-white/60 hover:text-white transition-colors" href="https://www.instagram.com/darulikhlas.pringsewu" target="_blank" rel="noopener" aria-label="Instagram">
+                    <span class="brand-icon brand-icon-lg" style="--icon-src: url('https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/instagram/mono.svg')"></span>
+                </a>
+                <a class="text-white/60 hover:text-white transition-colors" href="https://www.facebook.com/darulikhlas.pringsewu?locale=id_ID" target="_blank" rel="noopener" aria-label="Facebook">
+                    <span class="brand-icon brand-icon-lg" style="--icon-src: url('https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/facebook/mono.svg')"></span>
+                </a>
+                <a class="text-white/60 hover:text-white transition-colors" href="https://www.youtube.com/@darulikhlas.pringsewu" target="_blank" rel="noopener" aria-label="YouTube">
+                    <span class="brand-icon brand-icon-lg" style="--icon-src: url('https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/youtube/mono.svg')"></span>
+                </a>
+                <a class="text-white/60 hover:text-white transition-colors" href="https://wa.me/6283150415977" target="_blank" rel="noopener" aria-label="WhatsApp">
+                    <span class="brand-icon brand-icon-lg" style="--icon-src: url('https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/whatsapp/mono.svg')"></span>
+                </a>
+            </div>
+        </div>
+        <!-- Quick Links -->
+        <div>
+            <h4 class="font-label-lg text-white mb-6 uppercase tracking-widest">Informasi</h4>
+            <ul class="space-y-4 font-body-md text-white/60">
+                <li><button class="hover:text-white transition-colors" onclick="document.getElementById('tentang').scrollIntoView({ behavior: 'smooth' })">Tentang Pesantren</button></li>
+                <li><button class="hover:text-white transition-colors" onclick="document.getElementById('keunggulan').scrollIntoView({ behavior: 'smooth' })">Program Tahfidz</button></li>
+                <li><button class="hover:text-white transition-colors" onclick="document.getElementById('pendaftaran').scrollIntoView({ behavior: 'smooth' })">Pendaftaran Santri</button></li>
+                <li><button class="hover:text-white transition-colors" onclick="document.getElementById('kontak').scrollIntoView({ behavior: 'smooth' })">Kontak Kami</button></li>
+            </ul>
+        </div>
+        <!-- Contact Info -->
+        <div>   
+            <h4 class="font-label-lg text-white mb-6 uppercase tracking-widest">Kontak</h4>
+            <ul class="space-y-4 font-body-md text-white/60">
+                <li class="flex items-center gap-2">
+                    <span class="text-5xl brand-icon text-white/70"style="--icon-src: url('https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google-maps/mono.svg')"></span>
+                    Jl. A. Yani Gg. Rawa 4 RT. 09 RW. 03 Pekon Sidoharjo, Kec. Pringsewu, Kab. Pringsewu, Prov. Lampung 35373
+                </li>
+                <li class="flex items-center gap-2">
+                    <span class="brand-icon text-white/70" style="--icon-src: url('https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/whatsapp/mono.svg')"></span>
+                    <a href="https://wa.me/6283150415977" target="_blank" rel="noopener" class="hover:text-white transition-colors">0831-5041-5977 (Ustadz .......)</a>
+                </li>
+                <li class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-white/70">mail</span>
+                    <a href="mailto:ponpesmpqdai@gmail.com" target="_blank" rel="noopener" class="hover:text-white transition-colors">ponpesmpqdai@gmail.com</a>
+                </li>
+            </ul>
+        </div>  
+    </div>
+    <!-- Copyright -->
+    <div class="border-t border-white/5 py-8 text-center px-12">
+        <p class="font-label-lg text-white/30">
+            © <script>document.write(new Date().getFullYear())</script> Pondok Pesantren Darul Ikhlas Pringsewu. All rights reserved.
+        </p>
+        <a href="https://pesantrensmartdigital.com/" class="font-label-lg text-white/30 hover:text-ivory transition-colors mb-2 md:mb-0">© <script>document.write(new Date().getFullYear())</script> Pesantren Smart Digital</a>
+        <br> 
+        <a href="https://digitekperkasa.com/" class="font-label-lg text-white/30 hover:text-ivory transition-colors mb-2 md:mb-0">© <script>document.write(new Date().getFullYear())</script> PT. Digital Teknologi Perkasa</a>
+    </div>
+</footer>
+
+<script>
+/* ============================================================
+   PENGATURAN FOTO / MEDIA
+   Tulis nama file persis seperti di folder "Media Darul Ikhlas".
+   Cukup edit daftar di bawah ini untuk mengubah foto yang tampil.
+   ============================================================ */
+var MEDIA = {
+    /* Foto slider HERO (banner atas). 1 foto = 1 slide. */
+    hero: [
+        'JUMAT SEHAT/WhatsApp Image 2026-08-05 at 16.52.03 (1).jpeg',
+        'MPLS & DAUROH SANTRI BARU 2026/WhatsApp Image 2026-08-05 at 16.53.05.jpeg',
+        'JUMAT LITERASI/WhatsApp Image 2026-08-05 at 16.54.57.jpeg',
+        'PRESTASI/ATLET TAPAK SUCI.jpeg',
+        'JUMAT NUMERASI/WhatsApp Image 2026-08-05 at 16.53.47.jpeg'
+    ],
+    /* Foto section TENTANG KAMI (kolom kiri), berjalan otomatis */
+    tentang: [
+        'MPLS & DAUROH SANTRI BARU 2026/WhatsApp Image 2026-08-05 at 16.53.07.jpeg',
+        'MPLS & DAUROH SANTRI BARU 2026/WhatsApp Image 2026-08-05 at 16.53.08.jpeg'
+    ],
+    /* Foto 4 kartu JENJANG/Tahapan (data-tag 01-04) */
+    jenjang: {
+        '01': [
+            'JUMAT LITERASI/WhatsApp Image 2026-08-05 at 16.54.57 (1).jpeg',
+            'JUMAT LITERASI/WhatsApp Image 2026-08-05 at 16.54.57 (2).jpeg'
+        ],
+        '02': [
+            'JUMAT NUMERASI/WhatsApp Image 2026-08-05 at 16.53.47 (1).jpeg',
+            'JUMAT NUMERASI/WhatsApp Image 2026-08-05 at 16.53.48.jpeg'
+        ],
+        '03': [
+            'JUMAT SEHAT/WhatsApp Image 2026-08-05 at 16.52.04.jpeg',
+            'JUMAT SEHAT/WhatsApp Image 2026-08-05 at 16.52.04 (1).jpeg'
+        ],
+        '04': [
+            'PRESTASI/HAYA NADHIFA QUROTA AYUN JUARA 1 MISYTION.jpeg',
+            'PRESTASI/WhatsApp Image 2026-08-05 at 16.35.21.jpeg'
+        ]
+    },
+    /* GALERI: setiap folder = 1 kotak, semua foto di folder akan di-load
+       dan berganti otomatis di dalam kotak tersebut. */
+    galeri: {
+        'JUMAT SEHAT': [
+            'JUMAT SEHAT/WhatsApp Image 2026-08-05 at 16.52.03.jpeg',
+            'JUMAT SEHAT/WhatsApp Image 2026-08-05 at 16.52.03 (1).jpeg',
+            'JUMAT SEHAT/WhatsApp Image 2026-08-05 at 16.52.04.jpeg',
+            'JUMAT SEHAT/WhatsApp Image 2026-08-05 at 16.52.04 (1).jpeg'
+        ],
+        'JUMAT LITERASI': [
+            'JUMAT LITERASI/WhatsApp Image 2026-08-05 at 16.54.57.jpeg',
+            'JUMAT LITERASI/WhatsApp Image 2026-08-05 at 16.54.57 (1).jpeg',
+            'JUMAT LITERASI/WhatsApp Image 2026-08-05 at 16.54.57 (2).jpeg',
+            'JUMAT LITERASI/WhatsApp Image 2026-08-05 at 16.54.57 (3).jpeg'
+        ],
+        'JUMAT NUMERASI': [
+            'JUMAT NUMERASI/WhatsApp Image 2026-08-05 at 16.53.47.jpeg',
+            'JUMAT NUMERASI/WhatsApp Image 2026-08-05 at 16.53.47 (1).jpeg',
+            'JUMAT NUMERASI/WhatsApp Image 2026-08-05 at 16.53.47 (2).jpeg',
+            'JUMAT NUMERASI/WhatsApp Image 2026-08-05 at 16.53.47 (3).jpeg',
+            'JUMAT NUMERASI/WhatsApp Image 2026-08-05 at 16.53.48.jpeg'
+        ],
+        'PRESTASI': [
+            'PRESTASI/ATLET TAPAK SUCI.jpeg',
+            'PRESTASI/HAYA NADHIFA QUROTA AYUN JUARA 1 MISYTION.jpeg',
+            'PRESTASI/WhatsApp Image 2026-08-05 at 16.35.21.jpeg'
+        ],
+        'MPLS & DAUROH SANTRI BARU 2026': [
+            'MPLS & DAUROH SANTRI BARU 2026/WhatsApp Image 2026-08-05 at 16.53.05.jpeg',
+            'MPLS & DAUROH SANTRI BARU 2026/WhatsApp Image 2026-08-05 at 16.53.06.jpeg',
+            'MPLS & DAUROH SANTRI BARU 2026/WhatsApp Image 2026-08-05 at 16.53.07.jpeg',
+            'MPLS & DAUROH SANTRI BARU 2026/WhatsApp Image 2026-08-05 at 16.53.07 (1).jpeg',
+            'MPLS & DAUROH SANTRI BARU 2026/WhatsApp Image 2026-08-05 at 16.53.07 (2).jpeg',
+            'MPLS & DAUROH SANTRI BARU 2026/WhatsApp Image 2026-08-05 at 16.53.08.jpeg',
+            'MPLS & DAUROH SANTRI BARU 2026/WhatsApp Image 2026-08-05 at 16.53.08 (1).jpeg',
+            'MPLS & DAUROH SANTRI BARU 2026/WhatsApp Image 2026-08-05 at 16.53.08 (2).jpeg'
+        ]
+    }
+};
+
+(function () {
+    function enc(p) { return encodeURI('Media Darul Ikhlas/' + p); }
+
+    /* Generic slideshow: isi container dengan foto-foto yang berganti otomatis */
+    function buildSlideshow(container, items, cls, interval) {
+        if (!container || !items || !items.length) return;
+        container.innerHTML = '';
+        items.forEach(function (src, i) {
+            var d = document.createElement('div');
+            d.className = cls + (i === 0 ? ' active' : '');
+            var img = document.createElement('img');
+            img.className = 'w-full h-full object-cover';
+            img.src = enc(src);
+            img.alt = 'Foto kegiatan';
+            img.onerror = function () { d.style.display = 'none'; };
+            d.appendChild(img);
+            container.appendChild(d);
+        });
+        var slides = container.querySelectorAll('.' + cls);
+        if (slides.length < 2) return;
+        var cur = 0;
+        setInterval(function () {
+            slides[cur].classList.remove('active');
+            cur = (cur + 1) % slides.length;
+            slides[cur].classList.add('active');
+        }, interval);
+    }
+
+    /* HERO slider (dengan dots + morph fade) */
+    var heroBox = document.getElementById('hero-slider');
+    if (heroBox && MEDIA.hero.length) {
+        buildSlideshow(heroBox, MEDIA.hero, 'hero-slide', 5000);
+        var slides = heroBox.querySelectorAll('.hero-slide');
+        var dotsWrap = document.getElementById('hero-dots');
+        var dots = [];
+        slides.forEach(function (_, i) {
+            var d = document.createElement('button');
+            d.className = 'hero-dot' + (i === 0 ? ' active' : '');
+            d.setAttribute('aria-label', 'Slide ' + (i + 1));
+            d.addEventListener('click', function () { go(i); });
+            dotsWrap.appendChild(d);
+            dots.push(d);
+        });
+        var current = 0, timer;
+        function go(n) {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = (n + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+            restart();
+        }
+        function next() { go(current + 1); }
+        function restart() { clearInterval(timer); timer = setInterval(next, 5000); }
+        window.heroGo = function (dir) { go(current + dir); };
+        restart();
+    }
+
+    /* JENJANG (kartu tahapan) */
+    document.querySelectorAll('.jenjang-photo').forEach(function (box) {
+        var tag = box.getAttribute('data-tag');
+        if (MEDIA.jenjang[tag]) buildSlideshow(box, MEDIA.jenjang[tag], 'slide-img', 4000);
+    });
+
+    /* GALERI (1 kotak per folder, load semua foto folder) */
+    document.querySelectorAll('.galeri-box').forEach(function (box) {
+        var folder = box.getAttribute('data-folder');
+        if (MEDIA.galeri[folder]) buildSlideshow(box.querySelector('.galeri-photo'), MEDIA.galeri[folder], 'slide-img', 3500);
+    });
+})();
+
+(function () {
+    var toggle = document.getElementById('menuToggle');
+    var menu = document.getElementById('mobileMenu');
+    var icon = document.getElementById('menuIcon');
+    if (!toggle || !menu) return;
+    function closeMenu() {
+        menu.classList.add('hidden');
+        menu.classList.remove('flex');
+        icon.textContent = 'menu';
+    }
+    toggle.addEventListener('click', function () {
+        var isHidden = menu.classList.contains('hidden');
+        if (isHidden) {
+            menu.classList.remove('hidden');
+            menu.classList.add('flex');
+            icon.textContent = 'close';
+        } else {
+            closeMenu();
+        }
+    });
+    menu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+    });
+})();
+</script>
+
+</body>
+</html>

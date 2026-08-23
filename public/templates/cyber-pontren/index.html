@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Furqan Academy | Institusi Pendidikan Islam Masa Depan</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- AOS Library for Scroll Animations -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        :root {
+            --primary: #ff2d78;
+            --secondary: #00ffcc;
+            --background: #0a0a12;
+            --glitch-width: 100%;
+        }
+
+        body {
+            background-color: var(--background);
+            font-family: 'Inter', sans-serif;
+            color: #e8e0f0;
+            overflow-x: hidden;
+        }
+
+        .font-headline { font-family: 'Sora', sans-serif; }
+        .font-label { font-family: 'Space Grotesk', sans-serif; }
+
+        /* Glitch Effect */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
+            color: var(--secondary);
+        }
+
+        /* Neon Pulse */
+        @keyframes neon-pulse {
+            0%, 100% { box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary); }
+            50% { box-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary); }
+        }
+
+        .neon-pulse {
+            animation: neon-pulse 2s infinite;
+        }
+
+        .neon-text-primary { text-shadow: 0 0 8px #ff2d78; }
+        .neon-text-secondary { text-shadow: 0 0 8px #00ffcc; }
+        
+        .neon-border-primary {
+            border: 1px solid rgba(255, 45, 120, 0.5);
+            box-shadow: inset 0 0 12px rgba(255, 45, 120, 0.1), 0 0 12px rgba(255, 45, 120, 0.1);
+        }
+        .neon-border-secondary {
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            box-shadow: inset 0 0 8px rgba(0, 255, 204, 0.05);
+        }
+
+        .grid-bg {
+            background-image: linear-gradient(rgba(255, 45, 120, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 45, 120, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .scanline {
+            background: linear-gradient(to bottom, transparent 50%, rgba(255, 45, 120, 0.02) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+        }
+
+        .page { display: none; }
+        .page.active { display: block; }
+        
+        [data-lucide] {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(255, 45, 120, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* Mobile Menu Animations */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+        }
+        #mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        @keyframes menu-float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-5px) translateX(2px); }
+            50% { transform: translateY(0) translateX(4px); }
+            75% { transform: translateY(5px) translateX(2px); }
+        }
+
+        .menu-item-anim {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+        #mobile-menu.active .menu-item-anim {
+            opacity: 1;
+            transform: translateY(0);
+            animation: menu-float 4s ease-in-out infinite;
+        }
+
+        /* Exit Button Styling */
+        .exit-btn {
+            position: absolute;
+            top: 2rem;
+            right: 1.5rem;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 0.5rem 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            background: rgba(255, 45, 120, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .exit-btn:hover {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        /* Clip path for tech buttons */
+        .tech-clip {
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0% 30%);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ff2d78',
+                        'primary-container': '#b3004e',
+                        secondary: '#00ffcc',
+                        tertiary: '#ffe04a',
+                        background: '#0a0a12',
+                        surface: '#0f0f1a',
+                        'surface-container': '#141422',
+                        'surface-container-high': '#1e1e30',
+                        'on-surface': '#e8e0f0',
+                        'on-surface-variant': '#a098b0',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="fixed inset-0 grid-bg z-0"></div>
+    <div class="scanline"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-[80] bg-background/80 backdrop-blur-md border-b border-primary/30 shadow-[0_0_20px_rgba(255,45,120,0.15)]">
+        <div class="flex justify-between items-center px-6 md:px-8 py-4 max-w-7xl mx-auto">
+            <div data-nav="beranda" onclick="navigateTo('beranda')" class="text-xl md:text-2xl font-headline font-bold text-primary drop-shadow-[0_0_8px_#ff2d78] cursor-pointer glitch-hover">
+                Al-Furqan Academy
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <button data-nav="beranda" onclick="navigateTo('beranda')" class="nav-link font-label uppercase tracking-wider transition-all duration-300 text-primary border-b-2 border-primary font-bold drop-shadow-[0_0_5px_#ff2d78]">Beranda</button>
+                <button class="nav-link font-label uppercase tracking-wider transition-all duration-300 text-on-surface hover:text-secondary hover:drop-shadow-[0_0_8px_#00ffcc] glitch-hover">Tentang Kami</button>
+                <button class="nav-link font-label uppercase tracking-wider transition-all duration-300 text-on-surface hover:text-secondary hover:drop-shadow-[0_0_8px_#00ffcc] glitch-hover">Pendaftaran</button>
+                <button data-nav="berita" onclick="navigateTo('berita')" class="nav-link font-label uppercase tracking-wider transition-all duration-300 text-on-surface hover:text-secondary hover:drop-shadow-[0_0_8px_#00ffcc] glitch-hover">Berita</button>
+            </div>
+
+            <!-- Hamburger Button -->
+            <button id="menu-toggle" class="md:hidden text-primary p-2 relative z-[100]">
+                <i data-lucide="menu" id="hamburger-icon"></i>
+                <i data-lucide="x" id="close-icon" class="hidden"></i>
+            </button>
+
+            <button class="hidden md:block bg-primary/10 border border-primary text-primary px-6 py-2 font-label font-bold uppercase tracking-widest transition-all hover:bg-primary hover:text-white tech-clip glow-hover">
+                Daftar Sekarang
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[90] bg-background/95 backdrop-blur-xl flex flex-col items-center justify-center pointer-events-none md:hidden">
+        <div class="absolute inset-0 grid-bg opacity-20"></div>
+        
+        <!-- Explicit Exit Button -->
+        <button onclick="toggleMenu()" class="exit-btn menu-item-anim z-50">
+            [ EXIT_SYSTEM ]
+        </button>
+
+        <div class="flex flex-col gap-8 text-center relative z-10 w-full px-12">
+            <button onclick="navigateTo('beranda')" style="transition-delay: 0.1s" class="menu-item-anim text-3xl font-headline font-bold text-primary neon-text-primary">BERANDA</button>
+            <button style="transition-delay: 0.2s" class="menu-item-anim text-3xl font-headline font-bold text-white hover:text-secondary">TENTANG KAMI</button>
+            <button style="transition-delay: 0.3s" class="menu-item-anim text-3xl font-headline font-bold text-white hover:text-secondary">PENDAFTARAN</button>
+            <button onclick="navigateTo('berita')" style="transition-delay: 0.4s" class="menu-item-anim text-3xl font-headline font-bold text-white hover:text-secondary">BERITA</button>
+            <button style="transition-delay: 0.5s" class="menu-item-anim mt-4 bg-primary text-on-primary py-4 px-8 tech-clip font-label font-bold uppercase tracking-widest neon-pulse">DAFTAR SEKARANG</button>
+        </div>
+    </div>
+
+    <!-- PAGE: BERANDA -->
+    <main id="page-beranda" class="page active relative z-20 pt-16">
+        <!-- Hero Section -->
+        <section class="relative h-[100vh] md:h-[90vh] flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 opacity-40">
+                <img alt="Hero" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB_heQ1AVL5q_mg3kh2bGaiZLf7F5oN5xDGwtclQAYlrDUar5I5D-aAGNbXiQbTvHhZy_K2PMm3OHBK2POfRz3inIo3haxhVBpn2ODxYKMuSWRE5U6ChW3vGPBh1p6h-PPWXS3ljFPjszc0aCZp5H2lL4YeIbiGESu-vSlaRqCTqRLyewRRYxjJvVGutYMEL55y7Jfyu__1DlKf0egxS0Q46H5pNkxSQDgH9WRBu9f-6AGo8wPMcjSWTg7cyxNf21eyXu20KbAjtSF">
+                <div class="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30"></div>
+            </div>
+            <div class="relative z-10 text-center px-6 max-w-4xl" data-aos="zoom-out" data-aos-duration="1200">
+                <span class="font-label text-secondary tracking-[0.3em] md:tracking-[0.5em] uppercase text-xs md:text-sm mb-4 block neon-text-secondary" data-aos="fade-up" data-aos-delay="200">Evolusi Pendidikan Masa Depan</span>
+                <h1 class="font-headline font-extrabold text-4xl md:text-8xl text-white leading-tight mb-6" data-aos="fade-up" data-aos-delay="400">
+                    AL-FURQAN <span class="text-primary neon-text-primary glitch-hover">ACADEMY</span>
+                </h1>
+                <p class="text-on-surface-variant text-base md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed" data-aos="fade-up" data-aos-delay="600">
+                    Mencetak generasi rabbani dengan integritas teknologi tinggi di tengah gemerlap peradaban modern.
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 md:gap-6 justify-center" data-aos="fade-up" data-aos-delay="800">
+                    <button class="px-8 py-4 bg-primary text-on-primary font-bold font-label uppercase tracking-widest tech-clip glow-hover transition-all">Mulai Penjelajahan</button>
+                    <button class="px-8 py-4 border border-secondary text-secondary font-bold font-label uppercase tracking-widest hover:bg-secondary/10 transition-all">Lihat Kurikulum</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visi & Misi -->
+        <section class="py-24 px-6 md:px-8 max-w-7xl mx-auto" data-aos="fade-up">
+            <div class="grid md:grid-cols-2 gap-12 items-center bg-surface-container border border-primary/20 p-8 md:p-12 rounded-none relative overflow-hidden neon-border-primary">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl"></div>
+                <div data-aos="fade-right" data-aos-delay="200">
+                    <h2 class="font-headline font-bold text-3xl md:text-4xl mb-6 text-white"><span class="text-primary mr-2">/</span>Visi & Misi</h2>
+                    <p class="text-on-surface-variant mb-8 leading-relaxed text-lg">
+                        Menjadi institusi pendidikan islam terdepan yang mengintegrasikan nilai spiritualitas dengan penguasaan teknologi mutakhir untuk menghadapi era global.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-start translate-x-0 hover:translate-x-4 transition-transform duration-300">
+                            <i data-lucide="terminal" class="text-secondary mt-1"></i>
+                            <p class="text-on-surface">Mengembangkan kurikulum berbasis kompetensi digital dan karakter akhlakul karimah.</p>
+                        </div>
+                        <div class="flex gap-4 items-start translate-x-0 hover:translate-x-4 transition-transform duration-300">
+                            <i data-lucide="shield-check" class="text-secondary mt-1"></i>
+                            <p class="text-on-surface">Membangun ekosistem belajar yang aman, inovatif, dan berorientasi pada masa depan.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4" data-aos="fade-left" data-aos-delay="400">
+                    <div class="h-48 rounded-none overflow-hidden neon-border-primary hover:scale-105 transition-all duration-500">
+                        <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA94-Ho-sbb8LjCrTXUrwD6oVLui1-eR6nHMfAPpEKDo4Mos5--1RUnc2fcv-31rYPfLn22G6eU8ylxczY7Aory1Cs1DtJpr1K7dW5FzXIWWLwZi4R8m9-jNRoefE2aGzA3LAddSGvbnS1_zIMd3CyxSSq0cL7YrHxAMvrV-dmnb93Y7EQ-Y5GPFZ06IR5Zabognwyv3_-1C40pLr_LSW6gtD1LLnqj9UpeRoF5I7DsuhDJgJpTWgCKsHlo8fXZLbxgnJIrXe6JFvv6">
+                    </div>
+                    <div class="h-48 rounded-none overflow-hidden mt-8 neon-border-secondary hover:scale-105 transition-all duration-500">
+                        <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcgi5bfLPdLcrkEQAtswtxMeQ6FnYne_MM1a2qEbl5b6axmWCNn1Q29CpfKOAjqSvMJaNY4WSzpxWeslbncYlHoeWl-7mP0GV30g0a-YuFEIks0x0AXggA5i1e6oeq45LG1yFQfYS-JE_nmKaXNV2AQlZsZuO0b5SyhJGNpMhdlTPsS9ntV1sFjVnRrhIkyn-ltzlFBebJFunRmG9Pnvy-UwseJ87_EXwbovddkuXD2eiPpgyNMFoDcaHTI-8to-xvminnefEHUW4R">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pilar Utama -->
+        <section class="py-24 px-6 md:px-8 max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="zoom-in">
+                <h2 class="font-headline font-bold text-3xl md:text-4xl text-white mb-4 uppercase tracking-tighter">Pilar Utama Pendidikan</h2>
+                <div class="h-1 w-24 bg-primary mx-auto shadow-[0_0_15px_#ff2d78]"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Pillars with staggered AOS -->
+                <div class="md:col-span-2 bg-surface-container-high p-8 border border-primary/20 hover:neon-border-primary transition-all duration-500 cursor-pointer group" data-aos="fade-up" data-aos-delay="100">
+                    <i data-lucide="sparkles" class="text-primary mb-4 w-10 h-10 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-headline font-bold text-2xl text-white mb-2">Iman & Taqwa</h3>
+                    <p class="text-on-surface-variant">Fondasi spiritual yang kokoh sebagai navigasi di tengah distorsi zaman.</p>
+                </div>
+                <div class="bg-surface-container-high p-8 border border-secondary/20 hover:neon-border-secondary transition-all cursor-pointer group" data-aos="fade-up" data-aos-delay="200">
+                    <i data-lucide="cpu" class="text-secondary mb-4 w-10 h-10 group-hover:rotate-12 transition-transform"></i>
+                    <h3 class="font-headline font-bold text-xl text-white mb-2">High Tech</h3>
+                    <p class="text-on-surface-variant">Penguasaan AI, Coding, dan Robotika.</p>
+                </div>
+                <div class="bg-surface-container-high p-8 border border-secondary/20 hover:neon-border-secondary transition-all cursor-pointer group" data-aos="fade-up" data-aos-delay="300">
+                    <i data-lucide="globe" class="text-secondary mb-4 w-10 h-10 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-headline font-bold text-xl text-white mb-2">Global Comms</h3>
+                    <p class="text-on-surface-variant">Multilingual proficiency: Arabic & English.</p>
+                </div>
+                <div class="bg-surface-container p-8 border border-white/5 md:col-span-1" data-aos="fade-up" data-aos-delay="400">
+                    <i data-lucide="brain" class="text-tertiary mb-4 w-10 h-10"></i>
+                    <h3 class="font-headline font-bold text-xl text-white mb-2">Leadership</h3>
+                    <p class="text-on-surface-variant">Membangun jiwa pemimpin masa depan.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galeri -->
+        <section class="py-24 px-6 md:px-8 max-w-7xl mx-auto">
+            <h2 class="font-headline font-bold text-3xl md:text-4xl text-white mb-12 text-center uppercase tracking-tighter" data-aos="fade-down">Galeri Aktivitas <span class="text-secondary neon-text-secondary">#LIVE</span></h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="col-span-2 row-span-2 h-[300px] md:h-[500px] overflow-hidden neon-border-primary" data-aos="zoom-in" data-aos-delay="100">
+                    <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgSmgVCtaylVoTez6bjDPNTn6gyU778dHrCX8nzQfY-OSNAtDn86WuLKc7RLl2Gw6o3jujQ6-vG5ZNvDNo7Fdwwee4zG8S198TPny3PX8-MTXIh1xWaYP1THww0BLyzUkzCpXAiVgKFx62a2btwHnvxnODeeNz3KQ7SBRUw82b-GoevGPbDT46BZbjkFuVuYBHyReGu2m20pYGWeHUqRmN3YRta82eX6X7iJ3zkKMo1YJPhzhtDb1oTMgTHZT5RZazAgbDQZTIyMXO">
+                </div>
+                <div class="h-40 md:h-60 overflow-hidden neon-border-secondary" data-aos="zoom-in" data-aos-delay="200">
+                    <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXzESE88nauYmfmm-C2Cq6YlSrcYnQbw3geRMXEMLBr5L6lmAph2vbeEBVb5WPS95fSubhh44lZkf3p_1i0XepZIp9PFLFNHCL0wOJmdNI_PBcaYCt45EqIcqC3kr1OA25lIBCsgTru4c9QJDWjbv7xE4neSonNuDhV6So4zpCXkgBCgWFTbhx-ScVqxgMQG7kcdV9OkYSQdztyTTgTM5rjD3NaEUEhDr6XnQ6eS4Z2ovVLARmz2fLkQU2M6wGt_z8hFuERSLoNny4">
+                </div>
+                <div class="h-40 md:h-60 overflow-hidden border border-white/5" data-aos="zoom-in" data-aos-delay="300">
+                    <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTq-DQGcHAeELCF9XjjUlk6aP1X_1XJlb_hROPv6j0NKnCCK1PoGNcwKhpXzu3hacy4b6O36_86_2-XVVecOGnDpk-36Tx7Ip4uV_yBfWGgbShbozxsWlozUwx6V3aSFfdXccmSAZK_Co86Q_eAR4A9_xVqcfmbxdKg01YCBWLeb86_im2Yf088bFUkooh_gS31qi9p2pCx6htCtKshxPK1F7lh0TGCLrDdo2LR-ovpwokbWRNs27gYMk-txD2Ob7N3pymOmUjYAOT">
+                </div>
+                <div class="h-40 md:h-60 overflow-hidden border border-white/5" data-aos="zoom-in" data-aos-delay="400">
+                    <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfCuwnISH1dtnbxbeJmhTNqvsDAIvR98OOJxrCjJcMN6ZCp6ieQbASCTa812dAesobrygDxhCKBXakNUyYfT8hZyktHx1hBKBHf882aeA_KCubod13f588-9QQo7_J_yg1IakPz0S0W3lFUZU-PIa_fgWfK-odoiYG7Z15zAr3N7lxDaMzXvifJvH0v-huviYKA2Jk4TCEoZ4lYcl9VH2tDDOoW8mXumxb1_S0DQTyRJ4D3DKrghMFa8UGfgf6KSkK8mVyGPaJ0S7P">
+                </div>
+                <div class="h-40 md:h-60 overflow-hidden neon-border-secondary" data-aos="zoom-in" data-aos-delay="500">
+                    <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0xqWmKYUa3ShnpZccWeosbY1P-_INlPlowaCUNbckdTsLq04XHThd1kUMEywmiTzu6K-Vj_tRrb1jRaajK-F4w5i1-rcsE3OagIEulGQvvg5PpVlCLV_Vtg7y3dehdQgZJXJ1PkHEJWs9b-GvHfMpeJ9oM5zJEcI65QPLzfwrIQUalWdDezRhdNuGPJWcR0FDzu7FDJQ84YW30MyxT9UI1CJwk4T4BisXRfGYYRHDIpfXtQilmW2_fmwN9Z3MSJvtGNYEICd0n4Hq">
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-24 px-6 md:px-8" data-aos="zoom-in">
+            <div class="max-w-5xl mx-auto bg-gradient-to-br from-primary-container to-surface-container-highest p-8 md:p-12 rounded-none text-center relative overflow-hidden tech-clip border border-primary">
+                <div class="absolute inset-0 opacity-10 pointer-events-none grid-bg"></div>
+                <h2 class="font-headline font-bold text-3xl md:text-4xl text-white mb-6">Siap Menjadi Bagian dari Masa Depan?</h2>
+                <p class="text-on-primary-container mb-10 max-w-xl mx-auto">
+                    Jangan lewatkan kesempatan untuk bergabung dengan komunitas belajar paling inovatif. Pendaftaran gelombang pertama terbatas.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+                    <button class="bg-white text-primary px-10 py-4 font-label font-bold uppercase tracking-widest hover:shadow-[0_0_20px_rgba(255,255,255,0.6)] transition-all tech-clip">Daftar Online</button>
+                    <button class="border border-white text-white px-10 py-4 font-label font-bold uppercase tracking-widest hover:bg-white/10 transition-all tech-clip">Download Brosur</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PAGE: BERITA -->
+    <main id="page-berita" class="page relative z-20 pt-20 min-h-screen">
+        <section class="max-w-7xl mx-auto px-6 md:px-8 py-16">
+            <div class="flex flex-col items-center text-center mb-16" data-aos="fade-down">
+                <h1 class="text-4xl md:text-7xl font-headline font-extrabold mb-6 tracking-tighter text-on-surface uppercase overflow-hidden">
+                    Pusat <span class="text-primary neon-text-primary block md:inline-block translate-y-0 animate-pulse">Informasi</span> Digital
+                </h1>
+                <p class="max-w-2xl text-on-surface-variant font-body text-base md:text-lg leading-relaxed mb-10 opacity-80">
+                    Eksplorasi berita terbaru, pengumuman penting, dan pencapaian gemilang dari Al-Furqan Academy.
+                </p>
+
+                <div class="w-full max-w-2xl relative group">
+                    <div class="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
+                    <div class="relative flex items-center bg-surface-container-high border-b-2 border-primary/50 focus-within:border-primary transition-all">
+                        <i data-lucide="search" class="ml-4 text-primary"></i>
+                        <input class="w-full bg-transparent border-none py-4 px-4 text-on-surface placeholder:text-on-surface-variant/40 focus:ring-0 font-label tracking-wide outline-none" placeholder="Cari berita atau artikel..." type="text">
+                        <button class="bg-primary px-8 py-4 text-on-primary font-label font-bold uppercase tracking-wider hover:bg-primary-container transition-colors tech-clip">Cari</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- News Cards with staggered animations -->
+                <div class="group flex flex-col bg-surface-container-low border border-primary/20 hover:neon-border-secondary transition-all duration-500 overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative h-64 overflow-hidden">
+                        <img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida/ADBb0ui7BSta_Ff_0MP46f4nwTkyVnVd-p0UC1TC3rc_8osjSj-FwLuhAHP5_trmNb2JU3hIoPlsrXl0bhHOdTcdYg40IJSlcqbkTy_KPQhLFWXjvV0YukBcxGk8agcnEW7go11a3pYTaV8hIUUB4Ya7fv2voNwU1HgHpGYbOckve7__5S4bn9a1I2tj6SzgOgr_tLQtazdvNLFRE-dvVq5D5X9SIbuZ1C6_Hb139affSqKjW1F_-lsKClHfOh5qXkKmeyYo0An2IzTARHQ">
+                        <div class="absolute top-4 left-4 bg-primary text-white text-[10px] font-label font-bold px-3 py-1 uppercase tracking-tighter">Kegiatan</div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-4 text-xs font-label text-secondary mb-4 neon-text-secondary">
+                            <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> 12 Nov 2024</span>
+                        </div>
+                        <h3 class="text-xl font-headline font-bold text-white mb-4 transition-colors group-hover:text-primary">Digitalisasi Tahfidz: Metode Baru Menghafal Al-Qur'an</h3>
+                        <p class="text-on-surface-variant text-sm mb-6">Implementasi aplikasi cerdas untuk memantau progress hafalan santri...</p>
+                        <a class="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-widest group-hover:gap-4 transition-all" href="#">Baca Selengkapnya <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+
+                <div class="group flex flex-col bg-surface-container-low border border-primary/20 hover:neon-border-secondary transition-all duration-500 overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative h-64 overflow-hidden bg-surface-container-high flex items-center justify-center">
+                        <i data-lucide="award" class="w-16 h-16 text-tertiary drop-shadow-[0_0_10px_#ffe04a] animate-bounce"></i>
+                        <div class="absolute top-4 left-4 bg-tertiary text-black text-[10px] font-label font-bold px-3 py-1 uppercase tracking-tighter">Prestasi</div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-4 text-xs font-label text-secondary mb-4 neon-text-secondary">
+                            <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> 10 Nov 2024</span>
+                        </div>
+                        <h3 class="text-xl font-headline font-bold text-white mb-4 transition-colors group-hover:text-primary">Santri Al-Furqan Raih Juara 1 Robotik Nasional</h3>
+                        <p class="text-on-surface-variant text-sm mb-6">Kolaborasi antara nilai-nilai spiritual dan kecakapan teknologi membawa tim robotik...</p>
+                        <a class="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-widest" href="#">Baca Selengkapnya <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+
+                <div class="group flex flex-col bg-surface-container-low border border-primary/20 hover:neon-border-secondary transition-all duration-500 overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative h-64 overflow-hidden bg-surface-container-high flex items-center justify-center">
+                        <i data-lucide="megaphone" class="w-16 h-16 text-secondary drop-shadow-[0_0_10px_#00ffcc] animate-pulse"></i>
+                        <div class="absolute top-4 left-4 bg-secondary text-black text-[10px] font-label font-bold px-3 py-1 uppercase tracking-tighter">Pengumuman</div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-4 text-xs font-label text-secondary mb-4 neon-text-secondary">
+                            <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> 08 Nov 2024</span>
+                        </div>
+                        <h3 class="text-xl font-headline font-bold text-white mb-4 transition-colors group-hover:text-primary">Pendaftaran Semester Baru Angkatan 2025</h3>
+                        <p class="text-on-surface-variant text-sm mb-6">Kesempatan bagi generasi muda untuk bergabung dalam ekosistem pendidikan masa depan...</p>
+                        <a class="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-widest" href="#">Baca Selengkapnya <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Map Section -->
+    <section class="max-w-7xl mx-auto px-6 md:px-8 py-20 relative z-20 border-t border-primary/20">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-3xl md:text-5xl font-headline font-extrabold mb-4 tracking-tighter text-on-surface uppercase">Lokasi <span class="text-primary neon-text-primary">Kampus</span></h2>
+            <div class="h-1 w-24 bg-primary mx-auto shadow-[0_0_8px_#ff2d78]"></div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="relative h-[300px] md:h-[400px] w-full rounded-none overflow-hidden neon-border-primary bg-surface-container-high" data-aos="fade-right">
+                <div class="absolute inset-0 grid-bg opacity-30"></div>
+                <div class="absolute inset-0 flex flex-col items-center justify-center bg-background/40 backdrop-blur-sm">
+                    <i data-lucide="map-pin" class="text-primary w-16 md:w-20 h-16 md:h-20 mb-4 drop-shadow-[0_0_15px_#ff2d78] animate-pulse"></i>
+                    <p class="font-label text-secondary tracking-widest uppercase text-xs md:text-sm">Interactive Map Loading...</p>
+                </div>
+            </div>
+            <div class="space-y-8" data-aos="fade-left">
+                <div class="p-8 bg-surface-container border border-white/5 rounded-none hover:neon-border-secondary transition-all">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-none bg-primary/10 flex items-center justify-center border border-primary/30">
+                            <i data-lucide="home" class="text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-headline font-bold text-xl text-white">Alamat Pusat</h3>
+                        </div>
+                    </div>
+                    <p class="text-on-surface text-lg mb-6 leading-relaxed">Jl. Pendidikan No. 45, Kompleks Ilmu,<br> Jawa Barat, Indonesia</p>
+                    <div class="flex flex-col gap-4">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="phone" class="text-secondary w-4 h-4"></i>
+                            <span class="text-on-surface-variant text-sm">+62 21 0000 000</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="mail" class="text-secondary w-4 h-4"></i>
+                            <span class="text-on-surface-variant text-sm">info@al-furqan.ac.id</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-surface-container-lowest border-t border-primary/20 py-12 px-6 md:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+            <div class="flex flex-col gap-4">
+                <div class="text-xl font-headline font-black text-primary glitch-hover cursor-pointer" onclick="navigateTo('beranda')">AL-FURQAN ACADEMY</div>
+                <p class="text-on-surface-variant text-sm max-w-xs">Membentuk intelektual muslim yang unggul di perbatasan tradisi dan masa depan digital.</p>
+            </div>
+            <div class="flex gap-6">
+                <i data-lucide="terminal" class="text-secondary opacity-50 hover:opacity-100 cursor-pointer hover:neon-text-secondary transition-all"></i>
+                <i data-lucide="code" class="text-secondary opacity-50 hover:opacity-100 cursor-pointer hover:neon-text-secondary transition-all"></i>
+                <i data-lucide="database" class="text-secondary opacity-50 hover:opacity-100 cursor-pointer hover:neon-text-secondary transition-all"></i>
+            </div>
+            <p class="text-on-surface-variant text-xs opacity-60">© 2024 Al-Furqan Academy. Future-Proofing Generations.</p>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS with repeated animations
+        AOS.init({
+            duration: 800,
+            once: false, // Animations will trigger every time you scroll
+            easing: 'ease-out-cubic',
+            mirror: true // Elements can animate out as you scroll past
+        });
+
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Single Page Navigation
+        function navigateTo(targetPage) {
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            pages.forEach(page => {
+                page.classList.remove('active');
+                if (page.id === `page-${targetPage}`) {
+                    page.classList.add('active');
+                }
+            });
+
+            // Update Desktop Nav UI
+            navLinks.forEach(btn => {
+                btn.classList.remove('text-primary', 'border-b-2', 'border-primary', 'font-bold', 'drop-shadow-[0_0_5px_#ff2d78]');
+                btn.classList.add('text-on-surface', 'hover:text-secondary');
+            });
+
+            const activeBtn = Array.from(navLinks).find(b => b.innerText.trim().toLowerCase() === targetPage);
+            if (activeBtn) {
+                activeBtn.classList.add('text-primary', 'border-b-2', 'border-primary', 'font-bold', 'drop-shadow-[0_0_5px_#ff2d78]');
+                activeBtn.classList.remove('text-on-surface');
+            }
+
+            // Close Mobile Menu if open
+            if (document.getElementById('mobile-menu').classList.contains('active')) {
+                toggleMenu();
+            }
+
+            window.scrollTo(0, 0);
+            AOS.refresh();
+        }
+
+        // Hamburger Menu Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('pointer-events-none');
+            hamburgerIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+    </script>
+</body>
+</html>

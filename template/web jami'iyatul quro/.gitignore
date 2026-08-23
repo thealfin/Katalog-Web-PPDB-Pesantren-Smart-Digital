@@ -1,0 +1,17 @@
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project specific
+node_modules/
+dist/
+build/
+.env
+
+.vercel

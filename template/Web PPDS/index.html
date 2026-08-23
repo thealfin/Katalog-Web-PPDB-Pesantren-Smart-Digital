@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pondok Pesantren Darussalam Mojoasri, Pasir Sakti, Lampung Timur.</title>
+    <link rel="icon" type="image/png" href="img/logo ppds 123.png"> 
+    <meta name="description"
+        content="Pondok Pesantren Darussalam Mojoasri, Pasir Sakti, adalah pondok pesantren yang berkomitmen membentuk generasi `Alim Rabbani dengan sanad keilmuan, nilai keislaman, keimanan, dan akhlaq karimah.">
+    <meta name="keywords"
+        content="Pondok Pesantren Darussalam Mojoasri, Pasir Sakti, Pondok Pesantren Darussalam Mekarsari, Pondok Darussalam Lampung Timur, Darussalam Mojoasri, Darussalam Mekarsari, PPDS,Pon-Pes Darussalam Mekarsari, Pendidikan Islam, Akhlaq Karimah, Sanad Keilmuan, Pesantren Lampung Timur, Pesantren Lampung, Darussalam Blok Agung, Darussalam lamtim">
+    <meta name="author" content="Pondok Pesantren Darussalam Mojoasri">
+
+    <meta property="og:title"
+        content="Pondok Pesantren Darussalam Mojoasri: Membentuk Generasi Berakhlaqul Karimah" />
+    <meta property="og:description"
+        content="Membentuk Generasi Berakhlaqul Karimah, Unggul dalam Keilmuan dan Keimanan, Berlandaskan Ahlussunnah Wal Jamaah An-Nahdliyah." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://darussalammojoasri.ponpes.id/" />
+    <meta property="og:image:alt" content="Suasana atau kegiatan di Pondok Pesantren Darussalam Mojoasri" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content="Pondok Pesantren Darussalam Mojoasri" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@darussalammojoasri" />
+    <meta name="twitter:creator" content="@darussalammojoasri" />
+    <meta name="twitter:title"
+        content="Pondok Pesantren Darussalam Mojoasri" />
+    <meta name="twitter:description"
+        content="Pondok Pesantren Darussalam Mojoasri. Mendidik generasi 'Alim Rabbani dengan sanad keilmuan, nilai keislaman, dan akhlaq karimah untuk mencetak generasi berakhlaqul karimah" />
+    
+    <!-- 1. MEMUAT TAILWIND CSS DULU (MEMPERBAIKI REFERENCE ERROR) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. BARU MEMUAT KONFIGURASI TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Palet Warna Baru
+                        'dark-green': '#1C352D', // Hijau Tua
+                        'contrast-green': '#16423C', // Hijau Kontras
+                        'semi-macha': '#A6B28B', // Grey Semi Macha (Warna Utama Aksen)
+                        'slate': '#0f172a', // Tetap menggunakan dark slate sebagai fallback
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        /* Definisi variabel CSS menggunakan palet baru */
+        :root {
+            --primary: #16423C; /* contrast-green */
+            --primary-glow: #A6B28B; /* semi-macha */
+            --secondary: #A6B28B; /* semi-macha */
+            --dark: #1C352D; /* dark-green */
+            --darker: #16423C; /* contrast-green */
+        }
+
+        /* CSS Tambahan untuk Menyembunyikan Audio Player */
+        #background-audio {
+            position: fixed;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+            z-index: -10;
+        }
+        
+        /* Animasi Ikon Sosial Media - Diterapkan pada elemen Ikon di dalam 'group' */
+        .group:hover .social-icon-bounce {
+            /* Transform scale dan bounce */
+            animation: bounce 0.8s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0) scale(1.1); } /* Sedikit diperbesar saat awal bounce */
+            50% { transform: translateY(-10px) scale(1.2); }
+            100% { transform: translateY(0) scale(1.1); }
+        }
+        /* -------------------------------------------------------- */
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark); /* Menggunakan warna dark-green sebagai latar belakang utama */
+            color: white;
+        }
+
+        h1,
+        h2,
+        h3,
+        .game-font {
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .hero-gradient {
+            /* Menyesuaikan gradient dengan dark-green */
+            background: linear-gradient(to bottom, rgba(28, 53, 45, 0.3), rgba(28, 53, 45, 0.95)); 
+        }
+
+        .neon-glow {
+            text-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--primary-glow);
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 15px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-glow);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-items {
+            transition: all 0.3s ease;
+        }
+
+        /* Sisanya dari animasi fade in dan carousel CSS (tidak diubah) */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .animate-fade-in-delay-1 {
+            animation: fadeIn 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .animate-fade-in-delay-2 {
+            animation: fadeIn 1s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .fade-in-bottom {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-bottom.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .category-card {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .category-card.appear {
+            animation: fadeUpIn 0.5s forwards;
+        }
+
+        @keyframes fadeUpIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- ELEMEN AUDIO TERSEMBUNYI -->
+    <audio id="background-audio" loop>
+        <source src="media/Mars PPDS.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    <!-- AKHIR ELEMEN AUDIO -->
+
+    <!-- Header Section dengan Sticky Navbar -->
+    <!-- Mengganti bg-green-950 dengan bg-contrast-green -->
+    <header id="navbar"
+        class="fixed w-full top-0 z-50 bg-opacity-90 backdrop-blur-md bg-contrast-green transition-all duration-300">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                
+                <!-- KELOMPOK KIRI: Logo dan Navigasi -->
+                <div class="flex items-center space-x-12"> 
+
+                    <!-- Logo PPSD -->
+                    <div class="flex items-center">
+                        <a href="#" class="flex items-center space-x-2 group">
+                            <div
+                                class="w-13 h-13 rounded-full flex items-center justify-center bg-white overflow-hidden">
+                                <img src="img/LOGO PPDS.png" alt="Logo Pesantren Darussalam Mojoasri"
+                                    class="w-12 object-contain bg-transparent">
+                            </div>
+                            <span
+                                class="game-font font-bold text-xl md:text-2xl text-white group-hover:text-semi-macha transition-all">
+                                Pon-Pes<br><span class="text-semi-macha">Darussalam Mojoasri
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+
+                    <!-- Main Navigation - Desktop -->
+                    <nav class="hidden md:flex items-center space-x-6">
+                        <!-- Perbaikan link desktop: # untuk Beranda, #id untuk lainnya -->
+                        <a href="#"
+                            class="text-white hover hover:text-semi-macha py-2 border-b border-contrast-green transition-all">Beranda</a>
+                        <a href="#tentangkami"
+                            class="text-white hover hover:text-semi-macha py-2 border-b border-contrast-green transition-all"
+                            id="">Tentang Kami</a>
+                        <a href="#visimisi"
+                            class="text-white hover hover:text-semi-macha py-2 border-b border-contrast-green transition-all"
+                            id="">Visi dan Misi</a>
+                        <a href="#pendaftaran"
+                            class="text-white hover hover:text-semi-macha py-2 border-b border-contrast-green transition-all"
+                            id="">Pendaftaran</a>
+                        <a href="#kontakkami"
+                            class="text-white hover hover:text-semi-macha py-2 border-b border-contrast-green transition-all"
+                            id="">Kontak</a>
+                    </nav>
+                
+                </div> <!-- END: KELOMPOK KIRI -->
+
+                <!-- KELOMPOK KANAN: Mobile Menu Toggle -->
+                <div class="flex items-center space-x-3">
+                    <!-- Mobile Menu Toggle (Garis 3) di pojok kanan atas -->
+                    <button id="mobileMenuToggle" class="md:hidden p-2 text-semi-macha hover:text-white transition-all">
+                        <i class="ri-menu-line text-2xl"></i>
+                    </button>
+                </div>
+                <!-- End Right Side Elements -->
+
+            </div>
+            <!-- Mobile Navigation Menu (Hidden by default) -->
+            <div id="mobileMenu" class="navbar-items h-0 md:hidden overflow-hidden transition-all">
+                <nav class="flex flex-col space-y-4 mt-4 px-2">
+                    <!-- Perbaikan link mobile: # untuk Beranda, #id untuk lainnya -->
+                    <a href="#"
+                        class="text-white hover:text-semi-macha py-2 border-b border-contrast-green transition-all">Beranda</a>
+                    <a href="#tentangkami"
+                        class="text-white hover:text-semi-macha py-2 border-b border-contrast-green transition-all">Tentang
+                        Kami</a>
+                    <a href="#visimisi"
+                        class="text-white hover:text-semi-macha py-2 border-b border-contrast-green transition-all">Visi dan
+                        Misi</a>
+                    <a href="#pendaftaran"
+                        class="text-white hover:text-semi-macha py-2 border-b border-contrast-green transition-all">Pendaftaran</a>
+                    <a href="#kontakkami"
+                        class="text-white hover:text-semi-macha py-2 border-b border-contrast-green transition-all">Kontak</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-16">
+        <!-- Video Background -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <video autoplay loop muted playsinline class="object-cover w-full h-full">
+                <source src="media/PPDS drone.mp4" type="video/mp4" onerror="this.onerror=null;this.closest('div').style.backgroundColor='#1C352D'; this.remove();">
+            </video>
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="container mx-auto px-4 z-10 text-center md:text-left">
+            <div class="max-w-3xl mx-auto md:mx-0 ">
+                <h1
+                    class="text-4xl md:text-6xl font-bold mb-4 game-font tracking-wider animate-fade-in neon-glow md:ms-10">
+                    Pondok Pesantren <span class="text-semi-macha">Darussalam</span> <br>Mojoasri
+                </h1>
+                <p class="text-lg md:text-xl text-semi-macha mb-8 animate-fade-in-delay-1 md:ms-10">
+                    Membentuk Generasi Berakhlaqul Karimah, Unggul dalam Keilmuan dan Keimanan, Berlandaskan Ahlussunnah Wal Jamaah An-Nahdliyah.
+                </p>
+                <div
+                    class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in-delay-2 md:ms-10">
+                    <!-- Mengganti bg-green-600 dan border-green-600 dengan semi-macha/contrast-green -->
+                    <a href="https://ppdb.darussalammekarsari.com/"
+                        class="btn-glow bg-semi-macha hover:bg-contrast-green text-dark-green font-medium py-3 px-8 rounded-full transition-all flex items-center justify-center space-x-2">
+                        <i class="ri-graduation-cap-line"></i>
+                        <span>Pendaftaran</span>
+                    </a>
+                    <a href="https://www.youtube.com/@dssakti6930" target="_blank"
+                        class="btn-glow bg-transparent border-2 border-semi-macha text-semi-macha hover:bg-contrast-green hover:text-white font-medium py-3 px-8 rounded-full transition-all flex items-center justify-center space-x-2">
+                        <i class="ri-youtube-line"></i>
+                        <span>Youtube</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="ri-arrow-down-line text-2xl text-semi-macha"></i>
+        </div>
+    </section>
+
+
+    <!-- Featured Games Carousel Section -->
+    <!-- Mengganti bg-slate-900 dengan bg-dark-green -->
+    <section class="p-16 bg-dark-green" id="tentangkami">
+        <div class="container mx-auto px-4">
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <div class="text-center md:text-left mb-6 md:mb-0">
+                    <h2 class="text-3xl md:text-4xl font-bold game-font mb-2">Profil Pondok Pesantren<span
+                            class="text-semi-macha"> Darussalam Mojoasri</span></h2>
+                    <!-- MENAMBAHKAN REDAKSI BARU -->
+                    <p class="text-semi-macha">
+                        Pondok Pesantren Darussalam Mojoasri merupakan salah satu sekolah jenjang Pondok Pesantren 
+                        berstatus Swasta yang berada di wilayah Kec. Pasir Sakti, Kab. Lampung Timur, Lampung.
+                    </p>
+                    <p class="text-semi-macha mt-4">
+                        Yayasan dan Panti Pondok Pesantren Darussalam berdiri pada tanggal <b>04 Februari 2003</b> oleh Kyai M. Masturul Huda Rs melalui Akte Notaris Helmi, SH. NO. 03/06 di Dusun Mojoasri Desa Mekarsari Kec. Pasir Sakti Kab. Lampung Timur. 
+                        Seiring dengan berjalannya waktu, guna untuk melengkapi administrasi Pondok Pesantren sesuai dengan peraturan Negara Republik Indonesia, pada tanggal <b>01 Juli 2016</b> Pon-Pes Darussalam melalui Notaris Rega Siti Fatimah, SH. M.KN terdaftar pada Kementrian Hukum dan Hak Asasi Manusia dengan Nomor: AHU-0031063.AH-.01.12.2016, dengan nama <b>Yayasan Darussalam Mojoasri Mekarsari</b>.
+                    </p>
+                    <!-- PPDS diresmikan pada tanggal 4 Februari 2003 dengan Nomor SK Pendirian (Dihapus karena redaksi baru mencakup informasi ini) -->
+                </div>
+                <div class="flex p-2 space-x-4">
+                    <!-- Mengganti bg-slate-800 dan text-blue-500 dengan contrast-green/semi-macha -->
+                    <button id="prevGame"
+                        class="p-2 bg-contrast-green hover:bg-semi-macha rounded-full text-semi-macha hover:text-dark-green transition-all">
+                        <i class="ri-arrow-left-s-line text-xl"></i>
+                    </button>
+                    <button id="nextGame"
+                        class="p-2 bg-contrast-green hover:bg-semi-macha rounded-full text-semi-macha hover:text-dark-green transition-all">
+                        <i class="ri-arrow-right-s-line text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Picture Carousel -->
+            <div class="relative overflow-hidden">
+                <div id="gamesCarousel" class="flex transition-transform duration-500 ease-in-out">
+                    <!-- Picture Array (bg-slate-800 diganti bg-contrast-green) -->
+                    <div class="carousel-item flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-3">
+                        <div
+                            class="bg-contrast-green rounded-xl overflow-hidden shadow-lg hover:shadow-semi-macha/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <img src="img/ppds1.jpg" alt="Game Cover" class="w-full h-90 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-3">
+                        <div
+                            class="bg-contrast-green rounded-xl overflow-hidden shadow-lg hover:shadow-semi-macha/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <img src="img/ppds2.jpg" alt="Game Cover" class="w-full h-90 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-3">
+                        <div
+                            class="bg-contrast-green rounded-xl overflow-hidden shadow-lg hover:shadow-semi-macha/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <img src="img/ppds3.jpg" alt="Game Cover" class="w-full h-90 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-3">
+                        <div
+                            class="bg-contrast-green rounded-xl overflow-hidden shadow-lg hover:shadow-semi-macha/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <img src="img/ppds4.jpg" alt="Game Cover" class="w-full h-90 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-3">
+                        <div
+                            class="bg-contrast-green rounded-xl overflow-hidden shadow-lg hover:shadow-semi-macha/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <img src="img/ppds5.jpg" alt="Game Cover" class="w-full h-90 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-3">
+                        <div
+                            class="bg-contrast-green rounded-xl overflow-hidden shadow-lg hover:shadow-semi-macha/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <img src="img/ppds6.jpg" alt="Game Cover" class="w-full h-90 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-3">
+                        <div
+                            class="bg-contrast-green rounded-xl overflow-hidden shadow-lg hover:shadow-semi-macha/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <img src="img/ppds7.jpg" alt="Game Cover" class="w-full h-90 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Visi Misi Section -->
+    <!-- Mengganti bg-slate-900 dengan bg-dark-green -->
+    <section class="p-16 bg-dark-green" id="visimisi">
+        <div class="container">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-4xl font-bold game-font mb-4 relative inline-block">
+                    Visi <span class="text-semi-macha">& Misi</span>
+                    <span
+                        class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-semi-macha to-contrast-green"></span>
+                </h2>
+                <p class="text-semi-macha">Tujuan dan Arah Pendidikan Pondok Pesantren Darussalam Mojoasri
+                    <br>Mekarsari, Kec. Pasir Sakti, Lampung Timur.
+                </p>
+            </div>
+
+            <!-- Mengganti bg-slate-800 dengan bg-contrast-green -->
+            <div class="text-center mb-12 bg-contrast-green rounded-xl overflow-hidden shadow-lg p-6">
+                <h2 class="text-1xl md:text-2xl font-bold game-font mb-4 relative inline-block">
+                    <span class="text-semi-macha">Visi</span> Kami
+                </h2>
+                <p class="text-semi-macha max-w-2xl mx-auto">"Mewujudkan generasi Islam yang unggul, beriman, bertakwa, dan berakhlakul karimah."</p>
+            </div>
+
+            <div class="mb-12">
+                <div class="flex flex-col items-center mb-12">
+                    <div class="text-center md:text-left mb-6 md:mb-0">
+                        <h2 class="text-1xl md:text-2xl font-bold game-font mb-2">Misi <span
+                                class="text-semi-macha">Kami</span></h2>
+                    </div>
+                    <div class="flex space-x-4">
+                        <!-- Mengganti bg-slate-800 dan text-blue-500 dengan contrast-green/semi-macha -->
+                        <button id="prevMisi"
+                            class="p-2 bg-contrast-green hover:bg-semi-macha rounded-full text-semi-macha hover:text-dark-green transition-all">
+                            <i class="ri-arrow-left-s-line text-xl"></i>
+                        </button>
+                        <button id="nextMisi"
+                            class="p-2 bg-contrast-green hover:bg-semi-macha rounded-full text-semi-macha hover:text-dark-green transition-all">
+                            <i class="ri-arrow-right-s-line text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <!-- Misi Array (bg-slate-800 diganti bg-contrast-green) -->
+                <div class="relative overflow-hidden">
+                    <div id="misiCarousel" class="flex transition-transform duration-500 ease-in-out">
+                        <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-3">
+                            <div
+                                class="bg-contrast-green rounded-xl overflow-hidden shadow-lg hover:shadow-semi-macha/30 transition-all duration-300 transform hover:-translate-y-2">
+
+                                <div class="p-6 text-center">
+                                    <div class="mb-3">
+                                        <h3 class="font-bold text-xl game-font">Keseimbangan Ilmu Agama dan Ilmu Umum</h3>
+                                    </div>
+                                    <p class="text-semi-macha text-sm mb-4">Menyelenggarakan pendidikan yang menyeluruh (formal dan non-formal) untuk membekali santri dengan penguasaan Ilmu Agama mendalam dan Pengetahuan Umum yang relevan agar mereka siap berkhidmat dan berkarier, semuanya berdasarkan manhaj Ahlussunah wal Jama'ah an-Nahdliyah.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-3">
+                            <div
+                                class="bg-contrast-green rounded-xl overflow-hidden shadow-lg hover:shadow-semi-macha/30 transition-all duration-300 transform hover:-translate-y-2">
+
+                                <div class="p-6 text-center">
+                                    <div class="mb-3">
+                                        <h3 class="font-bold text-xl game-font">Pembinaan Karakter Aswaja</h3>
+                                    </div>
+                                    <p class="text-semi-macha text-sm mb-4">Mencetak generasi yang memiliki karakter kuat, berbudi luhur, berakhlak mulia (Budi Luhur dan Akhlakul Karimah), serta memegang teguh nilai-nilai Ahlussunah wal Jama'ah an-Nahdliyah dalam kehidupan sehari-hari dan bermasyarakat.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-3">
+                            <div
+                                class="bg-contrast-green rounded-xl overflow-hidden shadow-lg hover:shadow-semi-macha/30 transition-all duration-300 transform hover:-translate-y-2">
+
+                                <div class="p-6 text-center">
+                                    <div class="mb-3">
+                                        <h3 class="font-bold text-xl game-font">Pengabdian Masyarakat, Dakwah, dan Kontribusi Negara</h3>
+                                    </div>
+                                    <p class="text-semi-macha text-sm mb-4">Menguatkan peran santri & pesantren sebagai pusat Dakwah dan Pengabdian Sosial yang aktif, menyebarkan ajaran Islam yang damai, dan berkontribusi nyata demi kemajuan agama dan negara.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-3">
+                            <div
+                                class="bg-contrast-green rounded-xl overflow-hidden shadow-lg hover:shadow-semi-macha/30 transition-all duration-300 transform hover:-translate-y-2">
+
+                                <div class="p-6 text-center">
+                                    <div class="mb-3">
+                                        <h3 class="font-bold text-xl game-font">Keterampilan Modern</h3>
+                                    </div>
+                                    <p class="text-semi-macha text-sm mb-4">Membekali para santri dengan ilmu keterampilan (skill) seperti teknologi komputer dan komunikasi, Bahasa asing (Arab, Inggris)sebagai media pengembangan diri dan Dakwah.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Pendaftaran Section -->
+    <!-- Mengganti bg-slate-900 dengan bg-dark-green -->
+    <section class="p-16 md:p-0 mb-16 bg-dark-green" id="pendaftaran">
+        <!-- Community CTA -->
+        <div class="text-center">
+            <!-- Mengganti gradient dari green-950/green-600/violet-700/indigo-700 dengan palet baru -->
+            <a href="#"
+                class="inline-flex items-center bg-gradient-to-r from-contrast-green to-semi-macha hover:from-semi-macha hover:to-contrast-green text-dark-green font-medium py-3 px-8 rounded-full transition-all btn-glow">
+                <i class="ri-team-line mr-2"></i> Mari Mendaftar di Pesantren Kami
+            </a>
+        </div>
+    </section>
+    <!-- Map Section -->
+    <!-- Mengganti bg-slate-900 dengan bg-dark-green -->
+    <section class="p-16 md:p-0 mb-16 bg-dark-green flex justify-center w-full">
+        <iframe 
+            src="https://maps.google.com/maps?q=Pondok Pesantren Darussalam (NU),%20Mekar%20Sari,%20Pasir%20Sakti,%20Lampung%20Timur&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+            width="800" 
+            height="450" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </section>
+
+    <!-- Footer Section -->
+    <!-- Mengganti bg-green-950 dan border-green-950/green-800 dengan palet baru -->
+    <footer class="md:p-16 bg-contrast-green border-t border-dark-green pt-16 pb-8" id="kontakkami">
+        <div class="container mx-auto px-4">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Company Info -->
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <span class="game-font font-bold text-xl text-white"><small>Didukung</small> <a
+                                href="https://pesantrensmartdigital.com" target="_blank"
+                                class="text-semi-macha">Pesantren Smart Digital</a></span>
+                    </div>
+                    <p class="text-semi-macha">Revolusi digital dalam pengelolaan pesantren dan sekolah dengan sistem
+                        terintegrasi yang inovatif</p>
+                    
+                    <!-- ICON SOSIAL MEDIA DIBESARKAN 5X DAN DIBERI ANIMASI -->
+                    <!-- Menambahkan kelas group pada <a> dan social-icon-bounce pada <i> -->
+                    <div class="flex space-x-6 mt-6">
+                        <!-- Facebook -->
+                        <a href="https://www.facebook.com/pondokpesantrendarussalammekarsari" target="_blank"
+                            class="group text-semi-macha hover:text-white transition-colors transform hover:scale-110">
+                            <!-- text-5xl untuk 5x lebih besar dari default (text-base) -->
+                            <i class="ri-facebook-line text-5xl social-icon-bounce"></i> 
+                        </a>
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/darussalammojoasri/" target="_blank"
+                            class="group text-semi-macha hover:text-white transition-colors transform hover:scale-110">
+                            <i class="ri-instagram-line text-5xl social-icon-bounce"></i>
+                        </a>
+                        <!-- Youtube -->
+                        <a href="https://www.youtube.com/@dssakti6930" target="_blank"
+                            class="group text-semi-macha hover:text-white transition-colors transform hover:scale-110">
+                            <i class="ri-youtube-line text-5xl social-icon-bounce"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-white font-semibold text-lg mb-6 game-font">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-semi-macha hover:text-white transition-colors flex items-center">
+                                <i class="ri-arrow-right-s-line mr-2 text-semi-macha"></i>Beranda
+                            </a></li>
+                        <li><a href="#tentangkami"
+                                class="text-semi-macha hover:text-white transition-colors flex items-center">
+                                <i class="ri-arrow-right-s-line mr-2 text-semi-macha"></i>Tentang Kami
+                            </a></li>
+                        <li><a href="#visimisi"
+                                class="text-semi-macha hover:text-white transition-colors flex items-center">
+                                <i class="ri-arrow-right-s-line mr-2 text-semi-macha"></i>Visi dan Misi
+                            </a></li>
+                        <li><a href="#pendaftaran"
+                                class="text-semi-macha hover:text-white transition-colors flex items-center">
+                                <i class="ri-arrow-right-s-line mr-2 text-semi-macha"></i>Pendaftaran
+                            </a></li>
+                        <li><a href="#kontakkami"
+                                class="text-semi-macha hover:text-white transition-colors flex items-center">
+                                <i class="ri-arrow-right-s-line mr-2 text-semi-macha"></i>Kontak Kami
+                            </a></li>
+
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-semibold text-lg mb-6 game-font">Kontak Kami</h3>
+                    <p class="text-semi-macha mb-4">Jika ada perihal yang ingin Anda tanyakan kepada Pondok Pesantren
+                        Darussalam Mojoasri, silakan hubungi kami melalui informasi di bawah ini:</p>
+                    <div class="space-y-3">
+                         <!-- ICON WHATSAPP DENGAN ANIMASI YANG SAMA -->
+                         <!-- Menambahkan kelas group pada <a> dan social-icon-bounce pada <i> -->
+                        <a href="https://wa.me/+6285366684112"
+                            class="group text-semi-macha hover:text-white transition-colors flex items-center space-x-2">
+                            <i class="ri-whatsapp-line text-5xl social-icon-bounce"></i>
+                            <span class="text-semi-macha hover:text-white">0853-6668-4112 (Gus Huda)</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Kolom Kosong untuk merapikan footer, ini adalah div keempat -->
+                <div class="hidden lg:block">
+                    <!-- Audio player dihapus dari sini -->
+                </div>
+
+            </div>
+            
+            <!-- Bottom Footer (border-green-800 diganti border-dark-green) -->
+            <div class="pt-8 border-t border-dark-green">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-semi-macha text-sm mb-4 md:mb-0">
+                        © 2025 <a href="https://pesantrensmartdigital.com" target="_blank">Pesantren Smart Digital</a>
+                    </div>
+                    <div class="flex flex-wrap justify-center space-x-4 text-sm text-semi-macha">
+                        <!-- Mengganti hover:text-violet-400 dengan hover:text-white -->
+                        <a href="#" class="hover:text-white transition-colors mb-2 md:mb-0">Terms of Service</a>
+                        <a href="#" class="hover:text-white transition-colors mb-2 md:mb-0">Privacy Policy</a>
+                        <a href="#" class="hover:text-white transition-colors mb-2 md:mb-0">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Variabel untuk melacak apakah musik sudah dimulai
+        let isAudioPlayed = false;
+
+        // Mendapatkan elemen audio
+        const backgroundAudio = document.getElementById('background-audio');
+        
+        /**
+         * Fungsi untuk memulai pemutaran audio.
+         */
+        function tryPlayAudio() {
+            if (isAudioPlayed) return; 
+
+            const playPromise = backgroundAudio.play();
+
+            if (playPromise !== undefined) {
+                playPromise
+                    .then(() => {
+                        // Pemutaran berhasil
+                        console.log("Musik latar belakang dimulai.");
+                        isAudioPlayed = true;
+                        
+                        // Hapus listener setelah berhasil
+                        document.removeEventListener('click', tryPlayAudio);
+                        document.removeEventListener('scroll', tryPlayAudio);
+                        document.removeEventListener('touchstart', tryPlayAudio);
+                    })
+                    .catch(error => {
+                        console.warn("Autoplay gagal, mencoba lagi pada interaksi berikutnya:", error);
+                    });
+            }
+        }
+
+        // --- TAMBAHKAN LISTENER INTERAKSI ---
+        document.addEventListener('click', tryPlayAudio);
+        document.addEventListener('scroll', tryPlayAudio);
+        document.addEventListener('touchstart', tryPlayAudio);
+
+
+        // Sticky Navbar Effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            // Mengganti bg-green-950 dengan bg-contrast-green
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2', 'bg-contrast-green');
+                navbar.classList.remove('py-4', 'bg-opacity-90');
+            } else {
+                navbar.classList.add('py-4', 'bg-opacity-90');
+                navbar.classList.remove('py-2', 'bg-contrast-green');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuToggle.addEventListener('click', function () {
+            if (mobileMenu.classList.contains('h-0')) {
+                mobileMenu.classList.remove('h-0');
+                mobileMenu.classList.add('h-auto');
+                mobileMenuToggle.innerHTML = '<i class="ri-close-line text-2xl"></i>';
+            } else {
+                mobileMenu.classList.add('h-0');
+                mobileMenu.classList.remove('h-auto');
+                mobileMenuToggle.innerHTML = '<i class="ri-menu-line text-2xl"></i>';
+            }
+        });
+
+
+    </script>
+    <script>
+        // Carousel Script 1 (Games Carousel)
+        document.addEventListener('DOMContentLoaded', function () {
+            const carousel = document.getElementById('gamesCarousel');
+            const prevBtn = document.getElementById('prevGame');
+            const nextBtn = document.getElementById('nextGame');
+            const items = document.querySelectorAll('.carousel-item');
+
+            let currentIndex = 0;
+            
+            function updateCarousel() {
+                if (items.length === 0) return;
+                
+                const itemContainer = items[0].closest('.carousel-item');
+                const computedStyle = window.getComputedStyle(itemContainer);
+                const itemWidth = itemContainer.offsetWidth + parseFloat(computedStyle.marginLeft) + parseFloat(computedStyle.marginRight);
+
+                let visibleItems = 1;
+                if (window.innerWidth >= 1024) {
+                    visibleItems = 3;
+                } else if (window.innerWidth >= 768) {
+                    visibleItems = 2;
+                } else {
+                    visibleItems = 1;
+                }
+                
+                if (currentIndex > items.length - visibleItems) {
+                    currentIndex = Math.max(0, items.length - visibleItems);
+                }
+
+                const offset = -currentIndex * itemWidth;
+                carousel.style.transform = `translateX(${offset}px)`;
+
+                // Disable/enable buttons based on position
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex >= items.length - visibleItems;
+
+                prevBtn.classList.toggle('opacity-50', prevBtn.disabled);
+                nextBtn.classList.toggle('opacity-50', nextBtn.disabled);
+            }
+
+            prevBtn.addEventListener('click', function () {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+
+            nextBtn.addEventListener('click', function () {
+                let visibleItems = 1;
+                if (window.innerWidth >= 1024) {
+                    visibleItems = 3;
+                } else if (window.innerWidth >= 768) {
+                    visibleItems = 2;
+                }
+                
+                if (currentIndex < items.length - visibleItems) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', function () {
+                currentIndex = 0;
+                updateCarousel();
+            });
+
+            // Initialize
+            updateCarousel();
+        });
+    </script>
+
+    <script>
+        // Carousel Script 2 (Misi Carousel)
+        document.addEventListener('DOMContentLoaded', function () {
+            const carousel = document.getElementById('misiCarousel');
+            const prevBtn = document.getElementById('prevMisi');
+            const nextBtn = document.getElementById('nextMisi');
+            const items = document.querySelectorAll('.carousel-item2');
+
+            let currentIndex = 0;
+            
+            function updateCarousel() {
+                 if (items.length === 0) return;
+                 
+                const itemContainer = items[0].closest('.carousel-item2');
+                const computedStyle = window.getComputedStyle(itemContainer);
+                const itemWidth = itemContainer.offsetWidth + parseFloat(computedStyle.marginLeft) + parseFloat(computedStyle.marginRight);
+
+
+                let visibleItems = 1;
+                if (window.innerWidth >= 1024) {
+                    visibleItems = 3;
+                } else if (window.innerWidth >= 768) {
+                    visibleItems = 2;
+                } else {
+                    visibleItems = 1;
+                }
+
+                if (currentIndex > items.length - visibleItems) {
+                    currentIndex = Math.max(0, items.length - visibleItems);
+                }
+
+                const offset = -currentIndex * itemWidth;
+                carousel.style.transform = `translateX(${offset}px)`;
+
+                // Disable/enable buttons based on position
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex >= items.length - visibleItems;
+
+                prevBtn.classList.toggle('opacity-50', prevBtn.disabled);
+                nextBtn.classList.toggle('opacity-50', nextBtn.disabled);
+            }
+
+            prevBtn.addEventListener('click', function () {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+
+            nextBtn.addEventListener('click', function () {
+                let visibleItems = 1;
+                if (window.innerWidth >= 1024) {
+                    visibleItems = 3;
+                } else if (window.innerWidth >= 768) {
+                    visibleItems = 2;
+                }
+                
+                if (currentIndex < items.length - visibleItems) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', function () {
+                currentIndex = 0;
+                updateCarousel();
+            });
+
+            // Initialize
+            updateCarousel();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Pondok Pesantren Daaruttaqwa Cianjur</title>
+    <!-- Ganti dengan link ikon Anda -->
+    <link rel="icon" type="image/png" href="img/Logo PPDT.Webp" />
+    <meta name="description"
+        content="Pondok Pesantren Daaruttaqwa adalah pesantren kombinasi salaf dan modern di Cianjur, berkomitmen membentuk generasi Ulamaul Amilin, Imamal Muttaqin, dan Muttaqin.">
+    <meta name="keywords"
+        content="Pondok Pesantren, Pesantren Daaruttaqwa, Daaruttaqwa Cianjur, Pesantren Salaf Modern, Tahfidz Al-Qur'an, SMP IT, SMA IT, Cianjur, KH. Muhamad Solihin.">
+    <meta name="author" content="Pondok Pesantren Daaruttaqwa">
+    <meta property="og:title" content="Pondok Pesantren Daaruttaqwa - Cianjur" />
+    <meta property="og:description"
+        content="Membentuk generasi yang berilmu, beramal, dan bertakwa melalui pendidikan terpadu Salaf dan Modern." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://daruttaqwa.ponpes.id/" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content="Pondok Pesantren Daaruttaqwa" />
+
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Konfigurasi Tailwind dengan Palet Warna Baru -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ivory': '#F9F5F0',
+                        'dark-gray': '#334443',
+                        'text-gray': '#456882',
+                        'accent-light-green': '#B0CE88',
+                        'highlight-yellow': '#FFFD8F',
+                        'logo-border': '#BFD83F',
+                    },
+                    spacing: {
+                        '13': '3.25rem',
+                    },
+                    // TAMBAHKAN INI UNTUK BACKDROP BLUR
+                    backdropBlur: {
+                        xs: '2px',
+                    },
+                    // TAMBAHKAN INI UNTUK BACKGROUND OPACITY CUSTOM
+                    backgroundColor: {
+                        'dark-gray-75': 'rgba(51, 68, 67, 0.75)',
+                        'dark-gray-85': 'rgba(51, 68, 67, 0.85)',
+                        'dark-gray-95': 'rgba(51, 68, 67, 0.95)',
+                    },
+                    borderColor: {
+                        'accent-light-green-10': 'rgba(176, 206, 136, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            touch-action: pan-y;
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            max-width: 100%;
+        }
+
+        /* Mencegah horizontal scroll */
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+
+        /* Navbar Transparan dengan Blur Effect */
+        #navbar {
+            background: rgba(51, 68, 67, 0.75) !important; /* Lebih transparan */
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+            border-bottom: 1px solid rgba(176, 206, 136, 0.1);
+        }
+
+        /* Navbar saat scroll - sedikit lebih solid */
+        #navbar.scrolled {
+            background: rgba(51, 68, 67, 0.85) !important;
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+        }
+
+        /* Mobile Menu Background juga transparan */
+        #mobileMenu {
+            background: rgba(51, 68, 67, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Container responsiveness fix */
+        .container {
+            width: 100%;
+            max-width: 100%;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .container {
+                max-width: 640px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 768px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1024px;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .container {
+                max-width: 1280px;
+            }
+        }
+
+        /* Mencegah pinch zoom pada gambar */
+        img {
+            pointer-events: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Allow click pada link dalam gambar */
+        a img {
+            pointer-events: auto;
+        }
+
+
+        /* Definisi variabel CSS menggunakan palet baru */
+        :root {
+            --primary: #334443;       /* dark-gray */
+            --primary-glow: #FFFD8F;  /* highlight-yellow */
+            --secondary: #B0CE88;     /* accent-light-green */
+            --background: #F9F5F0;    /* ivory */
+        }
+        
+        /* --- CSS UNTUK SEGI ENAM (HEXAGON) --- */
+        .hexagon-clip {
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            width: 52px; 
+            height: 52px; 
+        }
+        /* --- AKHIR CSS HEKSAGON --- */
+        
+        /* --- ANIMASI LATAR BELAKANG --- */
+        /* @keyframes subtle-move {
+            from { background-position: 0 0; }
+            to { background-position: 400px -400px; }
+        }
+
+        .animated-bg {
+            background-color: var(--background);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' opacity='0.1'%3E%3Cpolygon points='50 0, 100 25, 100 75, 50 100, 0 75, 0 25' fill='%23456882'/%3E%3C/svg%3E");
+            background-size: 40px 40px; 
+            animation: subtle-move 120s linear infinite;
+        } */
+        /* --- AKHIR ANIMASI LATAR BELAKANG --- */
+
+        /* Animasi Ikon */
+        .group:hover .social-icon-bounce {
+            animation: bounce 0.8s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0) scale(1.1); }
+            50% { transform: translateY(-10px) scale(1.2); }
+            100% { transform: translateY(0) scale(1.1); }
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #456882; /* Warna font utama (text-gray) */
+        }
+
+        h1, h2, h3, .game-font {
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .hero-gradient {
+            /* Gradient dari Dark Gray transparan ke Dark Gray solid */
+            background: linear-gradient(to bottom, rgba(51, 68, 67, 0.3), rgba(51, 68, 67, 0.95));
+        }
+
+        .neon-glow {
+            /* Neon glow menggunakan highlight-yellow */
+            text-shadow: 0 0 15px var(--primary-glow), 0 0 30px var(--primary-glow);
+        }
+
+        .btn-glow:hover {
+            /* Shadow menggunakan highlight-yellow */
+            box-shadow: 0 0 20px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Classes untuk Scroll Reveal */
+        .fade-in-bottom {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-bottom.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<!-- Menambahkan class bg-ivory dan text-text-gray pada <body> -->
+<body class="min-h-screen animated-bg bg-ivory text-text-gray">
+
+        <!-- ELEMEN AUDIO TERSEMBUNYI -->
+        <!-- <audio id="background-audio" loop>
+            <source src="media/" type="audio/mp3"
+                onerror="console.warn('Audio file not found: Mars_PPDS.mp3')">
+            Your browser does not support the audio element.
+        </audio> -->
+        <!-- AKHIR ELEMEN AUDIO -->
+
+        <!-- Header Section dengan Sticky Navbar -->
+        <header id="navbar" 
+        class="fixed w-full top-0 z-50 bg-dark-gray-75 backdrop-blur-xl backdrop-saturate-150 shadow-lg border-b border-accent-light-green-10 transition-all duration-300">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- KELOMPOK KIRI: Logo dan Navigasi -->
+                <div class="flex items-center space-x-12">
+                    <!-- Logo PPSD -->
+                    <div class="flex items-center">
+                        <a href="#" class="flex items-center space-x-2 group">
+                            <div class="w-13 h-13 hexagon-clip flex items-center justify-center bg-logo-border overflow-hidden shadow-md">
+                                <img src="img/Logo PPDT.Webp" alt="Logo Pesantren Daaruttaqwa"
+                                    class="w-12 object-contain bg-transparent" 
+                                    onerror="this.onerror=null;this.src='https://placehold.co/48x48/B0CE88/334443?text=D';">
+                            </div>
+                            <span class="game-font font-bold text-xl md:text-2xl text-ivory group-hover:text-accent-light-green transition-all">
+                                Pon-Pes<br><span class="text-accent-light-green">Daaruttaqwa</span>
+                            </span>
+                        </a>
+                    </div>
+
+                    <!-- Main Navigation - Desktop -->
+                    <nav class="hidden md:flex items-center space-x-6">
+                        <a href="#" class="nav-link text-ivory hover:text-highlight-yellow transition-all">Beranda</a>
+                        <a href="#tentangkami" class="nav-link text-ivory hover:text-highlight-yellow transition-all">Tentang Kami</a>
+                        <a href="#keunggulan" class="nav-link text-ivory hover:text-highlight-yellow transition-all">Keunggulan</a>
+                        <a href="#pendaftaran" class="nav-link text-ivory hover:text-highlight-yellow transition-all">Pendaftaran</a>
+                        <a href="#kontakkami" class="nav-link text-ivory hover:text-highlight-yellow transition-all">Kontak</a>
+                    </nav>
+                </div>
+
+                <!-- KELOMPOK KANAN: Mobile Menu Toggle -->
+                <div class="flex items-center space-x-3">
+                    <button id="mobileMenuToggle"
+                        class="md:hidden p-2 text-accent-light-green hover:text-ivory transition-all">
+                        <i class="ri-menu-line text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu - DENGAN BACKGROUND TRANSPARAN -->
+            <div id="mobileMenu" 
+                class="navbar-items max-h-0 md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-dark-gray-95 backdrop-blur-lg backdrop-saturate-150 rounded-b-xl mt-4">
+                <nav class="flex flex-col space-y-2 px-4 py-0">
+                    <a href="#" 
+                        class="text-ivory hover:text-highlight-yellow hover:bg-dark-gray-85 py-3 px-3 rounded-lg border-b border-dark-gray transition-all">
+                        Beranda
+                    </a>
+                    <a href="#tentangkami" 
+                        class="text-ivory hover:text-highlight-yellow hover:bg-dark-gray-85 py-3 px-3 rounded-lg border-b border-dark-gray transition-all">
+                        Tentang Kami
+                    </a>
+                    <a href="#keunggulan" 
+                        class="text-ivory hover:text-highlight-yellow hover:bg-dark-gray-85 py-3 px-3 rounded-lg border-b border-dark-gray transition-all">
+                        Keunggulan
+                    </a>
+                    <a href="#pendaftaran" 
+                        class="text-ivory hover:text-highlight-yellow hover:bg-dark-gray-85 py-3 px-3 rounded-lg border-b border-dark-gray transition-all">
+                        Pendaftaran
+                    </a>
+                    <a href="#kontakkami" 
+                        class="text-ivory hover:text-highlight-yellow hover:bg-dark-gray-85 py-3 px-3 rounded-lg transition-all">
+                        Kontak
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16">
+            <!-- Image Slider Background -->
+        <div id="hero-slider" class="absolute inset-0 z-0 overflow-hidden">
+                <!-- Images akan diisi di sini oleh JavaScript -->
+            </div>
+
+            <!-- Overlay Gradient -->
+            <div class="absolute inset-0 hero-gradient z-10"></div>
+
+            <!-- Hero Content -->
+            <div class="container mx-auto px-4 z-10 text-center md:text-left fade-in-bottom">
+                <div class="max-w-4xl mx-auto md:mx-0 ">
+                    <h1
+                        class="text-4xl md:text-6xl font-bold mb-4 game-font tracking-wider no-referrer-when-downgrade text-ivory">
+                        <b>Pondok Pesantren</b><span class="text-accent-light-green">
+                            <br><b>Daaruttaqwa</b></span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-200 mb-8">
+                        <b>Membentuk Generasi Ulamaul Amilin, 
+                            <br>Imamal Muttaqin, dan Muttaqin. 
+                            <br>Berilmu, Beramal, dan Bertakwa.</b>
+                    </p>
+                    <div
+                        class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <!-- Tombol Pendaftaran -->
+                        <a href="#pendaftaran"
+                            class="btn-glow bg-accent-light-green hover:bg-highlight-yellow text-dark-gray font-medium py-3 px-8 rounded-full transition-all flex items-center justify-center space-x-2 shadow-lg">
+                            <i class="ri-graduation-cap-line"></i>
+                            <span>Daftar Sekarang</span>
+                        </a>
+                        <!-- Tombol Youtube -->
+                        <a href="https://youtube.com/@daaruttaqwatv6939?si=Og3ic-oEI7VuKbT7" target="_blank"
+                            class="btn-glow bg-transparent border-2 border-accent-light-green text-accent-light-green hover:bg-ivory hover:text-dark-gray font-medium py-3 px-8 rounded-full transition-all flex items-center justify-center space-x-2">
+                            <i class="ri-youtube-line"></i>
+                            <span>Youtube Channel</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <i class="ri-arrow-down-line text-2xl text-highlight-yellow"></i>
+            </div>
+       </div>
+            
+    </section>
+
+
+    <!-- Tentang Kami Section (Profil) dengan Read More untuk Mobile -->
+    <section class="py-16 bg-ivory fade-in-bottom" id="tentangkami">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <h2 class="text-3xl md:text-4xl font-bold game-font mb-8 text-center text-text-gray">
+                Profil Pondok Pesantren<span class="text-accent-light-green"> Daaruttaqwa</span>
+            </h2>
+
+            <div class="bg-dark-gray text-ivory p-8 rounded-xl shadow-xl shadow-dark-gray/20">
+                <!-- Paragraf Pertama (Selalu Terlihat) -->
+                <p class="text-gray-300 mb-6 text-lg leading-relaxed profil-paragraph-1">
+                    Pondok Pesantren Daaruttaqwa berdiri pada tanggal <b>25 Dzulhijjah 1430 H</b> di Kampung Babakan Sadewata RT 01 RW 01, Desa Sabandar, Kecamatan Karangtengah, Kabupaten Cianjur, Jawa Barat. Pesantren ini didirikan dan diasuh oleh <b>KH. Muhamad Solihin, S.Pd</b>, dengan tujuan membentuk generasi yang berilmu, beramal, dan bertakwa.
+                </p>
+                
+                <!-- Konten yang Bisa Disembunyikan di Mobile -->
+                <div id="profilContent">
+                    <p class="text-gray-300 mb-6 text-lg leading-relaxed">
+                        Sebagai pesantren kombinasi antara <b>salaf dan modern</b>, Daaruttaqwa mengintegrasikan nilai-nilai tradisi keilmuan Islam klasik dengan pendekatan pendidikan modern yang adaptif terhadap perkembangan zaman. Saat ini, pesantren menampung sekitar 500 santri dari berbagai daerah.
+                    </p>
+                    <p class="text-gray-300 mb-6 text-lg leading-relaxed">
+                        Pesantren Daaruttaqwa memiliki sejumlah program unggulan, di antaranya: pendalaman tauhid, kajian kitab kuning, tahfidz Al-Qur'an, serta penerapan layanan berbasis teknologi untuk menunjang kegiatan belajar dan administrasi pesantren. Dalam pengembangannya, pesantren juga menaungi beberapa lembaga pendidikan formal, yaitu PAUD, DTA, SMP IT, dan SMA IT, sehingga santri memperoleh pendidikan agama dan umum secara seimbang.
+                    </p>
+                    <p class="text-accent-light-green font-semibold italic text-lg mt-8 text-center">
+                        Berlandaskan visi <b>"Ulamaul Amilin, Imamal Muttaqin, dan Muttaqin"</b>, Daaruttaqwa berkomitmen mencetak generasi muslim yang berilmu luas, berakhlak mulia, dan siap menjadi pemimpin umat di masa depan.
+                    </p>
+                </div>
+                
+                <!-- Tombol Selengkapnya (Hanya Terlihat di Mobile) -->
+                <button id="toggleProfilBtn" 
+                    class="mt-4 text-highlight-yellow hover:text-accent-light-green font-semibold text-base flex items-center gap-2 transition-all duration-300 focus:outline-none">
+                    <span id="toggleProfilText">Selengkapnya</span>
+                    <i id="toggleProfilIcon" class="ri-arrow-down-s-line text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Keunggulan Section (Keunggulan / Misi) -->
+    <section class="py-16 bg-ivory fade-in-bottom" id="keunggulan">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold game-font mb-4 relative inline-block">
+                    4 Pilar <span class="text-accent-light-green">Keunggulan</span>
+                    <span
+                        class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-accent-light-green to-highlight-yellow"></span>
+                </h2>
+                <p class="text-gray-500 mt-2">Fondasi Pendidikan Daaruttaqwa dalam Menyiapkan Generasi Masa Depan</p>
+            </div>
+
+            <!-- Keunggulan Cards -->
+            <div class="relative overflow-hidden">
+                <div id="misiCarousel" class="flex transition-transform duration-500 ease-in-out">
+                    
+                    <!-- Keunggulan 1: Salaf–Modern Terpadu -->
+                    <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div
+                            class="bg-dark-gray rounded-xl h-full p-6 shadow-lg hover:shadow-highlight-yellow/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="text-center">
+                                <i class="ri-book-2-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Model Pendidikan Salaf–Modern Terpadu</h3>
+                                <p class="text-gray-300 text-sm">Menggabungkan tradisi keilmuan klasik (salaf) dengan pendekatan modern yang relevan, sehingga santri berakar kuat pada <b>turats</b> sekaligus adaptif pada perubahan zaman.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keunggulan 2: Fokus Qur’ani & Keilmuan Inti -->
+                    <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div
+                            class="bg-dark-gray rounded-xl h-full p-6 shadow-lg hover:shadow-highlight-yellow/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="text-center">
+                                <i class="ri-lightbulb-flash-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Fokus Qur’ani & Keilmuan Inti</h3>
+                                <p class="text-gray-300 text-sm">Penguatan tauhid, pendalaman kitab kuning, dan program tahfidz Al-Qur’an menjadikan pondok berorientasi pada akidah, adab, dan hafalan yang kokoh.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keunggulan 3: Ekosistem Pendidikan Lengkap -->
+                    <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div
+                            class="bg-dark-gray rounded-xl h-full p-6 shadow-lg hover:shadow-highlight-yellow/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="text-center">
+                                <i class="ri-building-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Ekosistem Pendidikan Lengkap</h3>
+                                <p class="text-gray-300 text-sm">Jalur pendidikan berjenjang <b>PAUD, DTA, SMP IT, hingga SMA IT</b> guna membentuk lintasan belajar yang terstruktur dan konsisten antara ilmu agama dan umum.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Keunggulan 4: Layanan Berbasis Teknologi -->
+                    <div class="carousel-item2 flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                        <div
+                            class="bg-dark-gray rounded-xl h-full p-6 shadow-lg hover:shadow-highlight-yellow/30 transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="text-center">
+                                <i class="ri-wifi-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Layanan Berbasis Teknologi</h3>
+                                <p class="text-gray-300 text-sm">Pemanfaatan sistem dan layanan terintegrasi teknologi digital untuk pembelajaran dan administrasi meningkatkan efisiensi, transparansi, dan pengalaman santri ke wali santri.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="flex justify-center space-x-4 mt-8">
+                <!-- Kontrol Carousel -->
+                <button id="prevMisi"
+                    class="p-3 bg-dark-gray hover:bg-accent-light-green rounded-full text-accent-light-green hover:text-dark-gray transition-all shadow-md">
+                    <i class="ri-arrow-left-s-line text-xl"></i>
+                </button>
+                <button id="nextMisi"
+                    class="p-3 bg-dark-gray hover:bg-accent-light-green rounded-full text-accent-light-green hover:text-dark-gray transition-all shadow-md">
+                    <i class="ri-arrow-right-s-line text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-container p-4 md:p-8 -mt-16 relative z-30">
+        <!-- Bagian Unit Pendidikan -->
+        <section id="unit" class="my-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl text-center font-bold game-font mb-4">Unit Pendidikan <span
+                        class="text-accent-light-green text-center border-accent-light-green pb-2">Daaruttaqwa</span></h2>
+
+                <div class="relative overflow-hidden">
+                    <div id="unitCarousel" class="flex transition-transform duration-500 ease-in-out">
+
+                        <div class="carousel-item-unit flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                            <div class="bg-dark-gray text-ivory p-6 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 h-full">
+                                <i class="ri-school-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Pendidikan Anak Usia Dini (PAUD)</h3>
+                                <p class="text-gray-300 text-sm">Setara dengan TK. Fokus pada pengembangan & pertumbuhan anak dengan menggabungkan permainan dengan pendidikan di masa golden age.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item-unit flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                            <div class="bg-dark-gray text-ivory p-6 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 h-full">
+                                <i class="ri-school-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Diniyah Takmiliyah Awwaliyah (DTA)</h3>
+                                <p class="text-gray-300 text-sm">Setara dengan SD/MI. Fokus pada dasar-dasar agama dan pembiasaan Qur'ani.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item-unit flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                            <div class="bg-dark-gray text-ivory p-6 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 h-full">
+                                <i class="ri-school-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Sekolah Menengah Pertama (SMP IT)</h3>
+                                <p class="text-gray-300 text-sm">Setara dengan SMP/MTS. Penguasaan ilmu alat (Nahwu/Shorof) dan kurikulum formal.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item-unit flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                            <div class="bg-dark-gray text-ivory p-6 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 h-full">
+                                <i class="ri-school-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Sekolah Menengah Atas (SMA IT)</h3>
+                                <p class="text-gray-300 text-sm">Setara dengan SMA/MA. Pendalaman Kitab Kuning dan persiapan lanjut ke perguruan tinggi.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item-unit flex-shrink-0 w-full md:w-1/2 lg:w-1/4 px-3">
+                            <div class="bg-dark-gray text-ivory p-6 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 h-full">
+                                <i class="ri-book-line text-5xl text-highlight-yellow mb-4"></i>
+                                <h3 class="font-bold text-xl game-font text-accent-light-green mb-3">Program Khusus Tahfiz</h3>
+                                <p class="text-gray-300 text-sm">Program intensif hafalan Al-Qur'an terintegrasi dengan jenjang MTs/MA.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="flex justify-center space-x-4 mt-8">
+                    <button id="prevUnit"
+                        class="p-3 bg-dark-gray hover:bg-accent-light-green rounded-full text-accent-light-green hover:text-dark-gray transition-all shadow-md">
+                        <i class="ri-arrow-left-s-line text-xl"></i>
+                    </button>
+                    <button id="nextUnit"
+                        class="p-3 bg-dark-gray hover:bg-accent-light-green rounded-full text-accent-light-green hover:text-dark-gray transition-all shadow-md">
+                        <i class="ri-arrow-right-s-line text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Bagian Galeri -->
+        <section id="galeri" class="my-16">
+            <h2 class="text-3xl md:text-4xl font-bold game-font mb-8 text-center">
+                Galeri<span class="text-accent-light-green"> Aktivitas Pesantren</span>
+            </h2>
+            
+            <!-- Galeri Slider Container -->
+            <div id="galeriSliderContainer" class="container mx-auto px-4">
+                <!-- JavaScript akan generate slider di sini -->
+            </div>
+        </section>
+    <!-- Testimoni Section -->
+    <section class="py-16 bg-ivory fade-in-bottom">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold game-font mb-4">Apa Kata <span
+                        class="text-accent-light-green">Alumni?</span></h2>
+                <p class="text-gray-500">Kesaksian nyata dari lulusan Pondok Pesantren Daaruttaqwa.</p>
+            </div>
+            
+            <!-- Testimoni Card -->
+            <div class="bg-dark-gray p-8 rounded-xl shadow-2xl shadow-highlight-yellow/20 border border-accent-light-green/20">
+                <i class="ri-double-quotes-l text-4xl text-highlight-yellow mb-4"></i>
+                <blockquote class="text-sm italic text-gray-200 mb-6 leading-relaxed text-center">
+                    “Belajar di Pondok Pesantren Daaruttaqwa bukan hanya membentuk saya menjadi pribadi yang berilmu,<br>
+                    tetapi juga menanamkan kedisiplinan, adab, dan rasa tanggung jawab. Di sini saya tidak hanya diajarkan ilmu agama, tetapi juga bagaimana mengamalkannya dalam kehidupan sehari-hari. 
+                    <br><br>
+                    Sistem pembelajaran yang memadukan kitab kuning dengan pendidikan modern membuat saya siap menghadapi tantangan zaman tanpa meninggalkan nilai-nilai Islam. <br>
+                    Saya bersyukur pernah menjadi bagian dari keluarga besar Daaruttaqwa.”
+                </blockquote>
+                <div class="text-right border-t border-accent-light-green/30 pt-4">
+                    <p class="font-semibold text-accent-light-green text-lg">Ahmad Buldansyah</p>
+                    <p class="text-sm text-gray-400">Alumnus Pondok Pesantren Daaruttaqwa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+    
+        <!-- Pendaftaran Section -->
+    <section class="py-16 bg-ivory fade-in-bottom" id="pendaftaran">
+        <div class="container mx-auto px-4 text-center max-w-4xl">
+            <h2 class="text-3xl md:text-4xl font-bold game-font mb-4">
+                Pendaftaran Santri Baru <span class="text-gray-600">Telah Dibuka!</span>
+            </h2>
+            <p class="text-lg text-gray-600 mb-10">
+                Wujudkan generasi Ulamaul Amilin! Gabung dalam ekosistem pendidikan Islam unggulan Salaf dan Modern.
+            </p>
+
+            <!-- Banner Slider Container -->
+            <div id="bannerPendaftaranSlider" class="w-flex mb-2">
+                
+            </div>
+
+            <!-- Slider Dots Container -->
+            <div class="flex justify-center mb-8">
+                <div id="sliderDots" class="flex gap-2">
+                    
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <a href="#kontakkami"
+                    class="inline-flex items-center bg-accent-light-green hover:bg-highlight-yellow text-dark-gray font-bold py-4 px-10 rounded-full transition-all text-xl btn-glow transform hover:scale-105">
+                    <i class="ri-send-plane-line mr-3"></i> Hubungi Kami untuk Daftar
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Map Section -->
+    <section class="pb-16 bg-ivory fade-in-bottom">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold game-font mb-6">Lokasi <span class="text-accent-light-green">Pesantren</span></h2>
+            <p class="text-gray-500 mb-8">Kampung Babakan Sadewata RT 01 RW 01 Desa Sabandar Kecamatan Karangtengah Cianjur</p>
+            <div class="flex justify-center w-full">
+                <iframe
+                    width="100%"
+                    height="450"
+                    style="border:0;"
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade"
+                    class="rounded-xl shadow-2xl shadow-dark-gray/30 border-4 border-dark-gray max-w-4xl"
+                    src="https://maps.google.com/maps?q=YAYASAN%20DAARUT%20TAQWA%20ASYAMSURIYAH&t=&z=15&ie=UTF8&iwloc=&output=embed">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="md:p-16 bg-dark-gray border-t-4 border-ivory pt-16 pb-8" id="kontakkami">
+        <div class="container mx-auto px-4">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Pesantren Info -->
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <span class="game-font font-bold text-xl text-ivory">Pon-Pes <span
+                                class="text-accent-light-green">Daaruttaqwa</span></span>
+                    </div>
+                    <p class="text-gray-400">Komitmen mencetak generasi muslim yang berilmu luas, berakhlak mulia, dan siap menjadi pemimpin umat di masa depan.</p>
+                </div>
+
+                <!-- Kontak Kami -->
+                <div>
+                    <h3 class="text-ivory font-semibold text-lg mb-6 game-font">Hubungi Kami</h3>
+                    <p class="text-gray-400 mb-4">Informasi dan Layanan Pendaftaran:</p>
+                    <div class="space-y-4">
+                        <a href="https://wa.me/6287823425950" target="_blank"
+                            class="group text-accent-light-green hover:text-ivory transition-colors flex items-center space-x-2">
+                            <i class="ri-whatsapp-line text-5xl social-icon-bounce"></i>
+                            <span class="text-gray-400 group-hover:text-ivory">(+62) 878-2342-5950<br>(Info Pendaftaran)</span>
+                        </a>
+                        <p class="text-gray-400 flex items-start space-x-2">
+                            <i class="ri-map-pin-line text-5xl text-accent-light-green"></i>
+                            <span class="text-sm">Babakan Sadewata Rt 01 RW 01 Desa Sabandar Kecamatan Karangtengah Cianjur</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Media Sosial -->
+                <div>
+                    <h3 class="text-ivory font-semibold text-lg mb-6 game-font">Ikuti Kami</h3>
+                    <div class="flex space-x-6">
+                        <a href="https://www.facebook.com/share/1EK7TJGVzc/" target="_blank"
+                            class="group text-accent-light-green hover:text-highlight-yellow transition-colors transform">
+                            <i class="ri-facebook-line text-6xl social-icon-bounce"></i>
+                        </a>
+                        <a href="https://www.instagram.com/pesantrendaaruttaqwa?igsh=MTM5OWJtdmV1eTJwdQ==" target="_blank"
+                            class="group text-accent-light-green hover:text-highlight-yellow transition-colors transform">
+                            <i class="ri-instagram-line text-6xl social-icon-bounce"></i>
+                        </a>
+                        <a href="https://youtube.com/@daaruttaqwatv6939?si=Og3ic-oEI7VuKbT7" target="_blank"
+                            class="group text-accent-light-green hover:text-highlight-yellow transition-colors transform">
+                            <i class="ri-youtube-line text-6xl social-icon-bounce"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@pesantren.daaruttaqwa?_t=ZS-90cwYUK6cZm&_r=1" target="_blank"
+                            class="group text-accent-light-green hover:text-highlight-yellow transition-colors transform">
+                            <i class="ri-tiktok-line text-6xl social-icon-bounce"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="pt-8 border-t border-gray-700">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-gray-400 text-sm mb-4 md:mb-0">
+                        <a href="https://pesantrensmartdigital.com/" class="hover:text-ivory transition-colors mb-2 md:mb-0">© 2025 Pesantren Smart Digital</a>
+                         <br> 
+                        <a href="https://digitekperkasa.com/" class="hover:text-ivory transition-colors mb-2 md:mb-0">© 2025 PT. Digital Teknologi Perkasa</a>
+                    </div>
+                    <div class="flex flex-wrap justify-center space-x-4 text-sm text-gray-400">
+                        <a href="#" class="hover:text-ivory transition-colors mb-2 md:mb-0">Kebijakan Privasi</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<!-- JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // --- AUTOPLAY AUDIO (Memerlukan Interaksi Pengguna) ---
+        let isAudioPlayed = false;
+        const backgroundAudio = document.getElementById('background-audio');
+
+        function tryPlayAudio() {
+            if (isAudioPlayed || !backgroundAudio) return;
+            const playPromise = backgroundAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isAudioPlayed = true;
+                    document.removeEventListener('click', tryPlayAudio);
+                    document.removeEventListener('scroll', tryPlayAudio);
+                    document.removeEventListener('touchstart', tryPlayAudio);
+                }).catch(error => {
+                    console.warn("Autoplay gagal, perlu interaksi pengguna:", error);
+                });
+            }
+        }
+        document.addEventListener('click', tryPlayAudio);
+        document.addEventListener('scroll', tryPlayAudio);
+        document.addEventListener('touchstart', tryPlayAudio);
+
+        // --- PREVENT ZOOM & GESTURES ---
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('gesturechange', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('gestureend', function(e) {
+            e.preventDefault();
+        });
+
+        // Prevent double-tap zoom
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // Prevent wheel zoom (Ctrl+Scroll)
+        document.addEventListener('wheel', function(e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Prevent keyboard zoom
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && 
+                (e.key === '+' || e.key === '=' || e.key === '-' || e.key === '_')) {
+                e.preventDefault();
+            }
+        });
+
+        // --- MOBILE MENU TOGGLE (UPDATED WITH TAILWIND) ---
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navbar = document.getElementById('navbar');
+        
+        if (mobileMenuToggle && mobileMenu) {
+            const navLinks = mobileMenu.querySelectorAll('a');
+
+            function toggleMobileMenu() {
+                if (mobileMenu.classList.contains('max-h-0')) {
+                    // Buka menu
+                    mobileMenu.classList.remove('max-h-0', 'py-0');
+                    mobileMenu.classList.add('max-h-96', 'py-4');
+                    mobileMenuToggle.innerHTML = '<i class="ri-close-line text-2xl"></i>';
+                } else {
+                    // Tutup menu
+                    closeMobileMenu();
+                }
+            }
+            
+            function closeMobileMenu() {
+                mobileMenu.classList.add('max-h-0', 'py-0');
+                mobileMenu.classList.remove('max-h-96', 'py-4');
+                mobileMenuToggle.innerHTML = '<i class="ri-menu-line text-2xl"></i>';
+            }
+
+            mobileMenuToggle.addEventListener('click', function (event) {
+                event.stopPropagation();
+                toggleMobileMenu();
+            });
+
+            // Tutup menu saat link diklik
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    closeMobileMenu();
+                });
+            });
+            
+            // Tutup menu saat klik di luar
+            document.addEventListener('click', function (event) {
+                const isClickInsideMenu = mobileMenu.contains(event.target);
+                const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                if (!mobileMenu.classList.contains('max-h-0') && !isClickInsideMenu && !isClickOnToggle) {
+                    closeMobileMenu();
+                }
+            });
+        }
+
+        // --- NAVBAR SCROLL EFFECT (UPDATED FOR TRANSPARENT) ---
+        if (navbar) {
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled', 'py-2', 'bg-dark-gray-85');
+                    navbar.classList.remove('py-4', 'bg-dark-gray-75');
+                } else {
+                    navbar.classList.remove('scrolled', 'py-2', 'bg-dark-gray-85');
+                    navbar.classList.add('py-4', 'bg-dark-gray-75');
+                }
+            });
+        }
+
+        // --- SCROLL REVEAL (FADE-IN-BOTTOM) ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in-bottom').forEach(element => {
+            observer.observe(element);
+        });
+
+        // --- CAROUSEL SCRIPT (KEUNGGULAN) ---
+        const misiCarousel = document.getElementById('misiCarousel');
+        if (misiCarousel) {
+            const prevMisiBtn = document.getElementById('prevMisi');
+            const nextMisiBtn = document.getElementById('nextMisi');
+            const misiItems = misiCarousel.querySelectorAll('.carousel-item2');
+            let currentMisiIndex = 0;
+
+            function getVisibleMisiItems() {
+                if (window.innerWidth >= 1024) return 4;
+                if (window.innerWidth >= 768) return 2;
+                return 1;
+            }
+
+            function updateMisiCarousel() {
+                if (misiItems.length === 0) return;
+                const visibleItems = getVisibleMisiItems();
+                const maxIndex = Math.max(0, misiItems.length - visibleItems);
+
+                if (currentMisiIndex > maxIndex) {
+                    currentMisiIndex = maxIndex;
+                }
+
+                const itemWidth = misiItems[0].offsetWidth;
+                const offset = -currentMisiIndex * itemWidth;
+                misiCarousel.style.transform = `translateX(${offset}px)`;
+
+                prevMisiBtn.disabled = currentMisiIndex === 0;
+                nextMisiBtn.disabled = currentMisiIndex >= maxIndex;
+                
+                prevMisiBtn.classList.toggle('opacity-50', prevMisiBtn.disabled);
+                nextMisiBtn.classList.toggle('opacity-50', nextMisiBtn.disabled);
+            }
+
+            prevMisiBtn.addEventListener('click', function () {
+                if (currentMisiIndex > 0) {
+                    currentMisiIndex--;
+                    updateMisiCarousel();
+                }
+            });
+
+            nextMisiBtn.addEventListener('click', function () {
+                const visibleItems = getVisibleMisiItems();
+                if (currentMisiIndex < misiItems.length - visibleItems) {
+                    currentMisiIndex++;
+                    updateMisiCarousel();
+                }
+            });
+            
+            window.addEventListener('resize', () => setTimeout(updateMisiCarousel, 200));
+            window.addEventListener('load', updateMisiCarousel);
+        }
+
+        // --- READ MORE PROFIL PESANTREN (MOBILE ONLY) ---
+        function initProfilReadMore() {
+            const profilContent = document.getElementById('profilContent');
+            const toggleBtn = document.getElementById('toggleProfilBtn');
+            const toggleText = document.getElementById('toggleProfilText');
+            const toggleIcon = document.getElementById('toggleProfilIcon');
+            
+            if (!profilContent || !toggleBtn) return;
+            
+            let isExpanded = false;
+            
+            function isMobileView() {
+                return window.innerWidth < 768;
+            }
+            
+            function toggleContent() {
+                isExpanded = !isExpanded;
+                
+                if (isExpanded) {
+                    profilContent.style.maxHeight = profilContent.scrollHeight + 'px';
+                    profilContent.style.opacity = '1';
+                    toggleText.textContent = 'Sembunyikan';
+                    toggleIcon.className = 'ri-arrow-up-s-line text-xl';
+                } else {
+                    profilContent.style.maxHeight = '0';
+                    profilContent.style.opacity = '0';
+                    toggleText.textContent = 'Selengkapnya';
+                    toggleIcon.className = 'ri-arrow-down-s-line text-xl';
+                }
+            }
+            
+            function updateViewBasedOnScreenSize() {
+                if (isMobileView()) {
+                    if (!isExpanded) {
+                        profilContent.style.maxHeight = '0';
+                        profilContent.style.opacity = '0';
+                        profilContent.style.overflow = 'hidden';
+                        profilContent.style.transition = 'max-height 0.5s ease-in-out, opacity 0.3s ease-in-out';
+                    }
+                    toggleBtn.style.display = 'flex';
+                } else {
+                    profilContent.style.maxHeight = 'none';
+                    profilContent.style.opacity = '1';
+                    profilContent.style.overflow = 'visible';
+                    toggleBtn.style.display = 'none';
+                    isExpanded = false;
+                }
+            }
+            
+            toggleBtn.addEventListener('click', toggleContent);
+            updateViewBasedOnScreenSize();
+            
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function() {
+                    updateViewBasedOnScreenSize();
+                }, 250);
+            });
+        }
+
+        initProfilReadMore();
+   
+        // --- HERO BANNER SLIDER ---
+        class HeroSlider {
+            constructor(containerId, images, options = {}) {
+                this.container = document.getElementById(containerId);
+                if (!this.container) return;
+                
+                this.images = images;
+                this.currentIndex = 0;
+                this.interval = options.interval || 5000;
+                this.autoplay = options.autoplay !== false;
+                this.timer = null;
+                
+                this.init();
+            }
+            
+            init() {
+                this.images.forEach((imageSrc, index) => {
+                    const imgDiv = document.createElement('div');
+                    imgDiv.className = 'hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000';
+                    imgDiv.style.backgroundImage = `url('${imageSrc}')`;
+                    imgDiv.style.opacity = index === 0 ? '1' : '0';
+                    imgDiv.style.zIndex = index === 0 ? '1' : '0';
+                    
+                    const img = new Image();
+                    img.onerror = () => {
+                        console.error(`Gagal memuat gambar: ${imageSrc}`);
+                        imgDiv.style.backgroundColor = '#1a4f41';
+                    };
+                    img.src = imageSrc;
+                    
+                    this.container.appendChild(imgDiv);
+                });
+                
+                this.slides = this.container.querySelectorAll('.hero-slide');
+                this.createIndicators();
+                
+                if (this.autoplay && this.images.length > 1) {
+                    this.startAutoplay();
+                }
+                
+                this.container.addEventListener('mouseenter', () => this.stopAutoplay());
+                this.container.addEventListener('mouseleave', () => {
+                    if (this.autoplay) this.startAutoplay();
+                });
+            }
+            
+            createIndicators() {
+                let indicatorContainer = document.querySelector('.slider-indicators');
+                
+                if (!indicatorContainer) {
+                    indicatorContainer = document.createElement('div');
+                    indicatorContainer.className = 'slider-indicators absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20';
+                    this.container.appendChild(indicatorContainer);
+                }
+                
+                this.images.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'slider-dot w-3 h-3 rounded-full transition-all duration-300';
+                    dot.style.backgroundColor = index === 0 ? '#C8E6C9' : 'rgba(255, 255, 255, 0.4)';
+                    dot.style.transform = index === 0 ? 'scale(1.2)' : 'scale(1)';
+                    dot.setAttribute('aria-label', `Slide ${index + 1}`);
+                    
+                    dot.addEventListener('click', () => {
+                        this.goToSlide(index);
+                        this.stopAutoplay();
+                        if (this.autoplay) {
+                            setTimeout(() => this.startAutoplay(), 3000);
+                        }
+                    });
+                    
+                    indicatorContainer.appendChild(dot);
+                });
+                
+                this.indicators = indicatorContainer.querySelectorAll('.slider-dot');
+            }
+            
+            goToSlide(index) {
+                this.slides[this.currentIndex].style.opacity = '0';
+                this.slides[this.currentIndex].style.zIndex = '0';
+                this.indicators[this.currentIndex].style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+                this.indicators[this.currentIndex].style.transform = 'scale(1)';
+                
+                this.currentIndex = index;
+                this.slides[this.currentIndex].style.opacity = '1';
+                this.slides[this.currentIndex].style.zIndex = '1';
+                this.indicators[this.currentIndex].style.backgroundColor = '#C8E6C9';
+                this.indicators[this.currentIndex].style.transform = 'scale(1.2)';
+            }
+            
+            nextSlide() {
+                const nextIndex = (this.currentIndex + 1) % this.images.length;
+                this.goToSlide(nextIndex);
+            }
+            
+            prevSlide() {
+                const prevIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+                this.goToSlide(prevIndex);
+            }
+            
+            startAutoplay() {
+                this.stopAutoplay();
+                this.timer = setInterval(() => this.nextSlide(), this.interval);
+            }
+            
+            stopAutoplay() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
+            }
+        }
+
+        const bannerImages = [
+            "img/img1.Webp",
+            "img/img2.Webp",
+            "img/img3.Webp",
+            "img/img4.Webp",
+            "img/img5.Webp",
+            "img/img6.Webp",
+            "img/img7.Webp",
+            "img/img8.Webp",
+            "img/img9.Webp",
+            "img/img10.Webp"
+        ];
+        
+        const heroSlider = new HeroSlider('hero-slider', bannerImages, {
+            interval: 5000,
+            autoplay: true
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (!heroSlider) return;
+            
+            if (e.key === 'ArrowLeft') {
+                heroSlider.prevSlide();
+                heroSlider.stopAutoplay();
+                setTimeout(() => heroSlider.startAutoplay(), 3000);
+            } else if (e.key === 'ArrowRight') {
+                heroSlider.nextSlide();
+                heroSlider.stopAutoplay();
+                setTimeout(() => heroSlider.startAutoplay(), 3000);
+            }
+        });
+
+        // --- BANNER PENDAFTARAN SLIDER ---
+        class BannerPendaftaranSlider {
+            constructor(containerId, images, options = {}) {
+                this.container = document.getElementById(containerId);
+                if (!this.container) return;
+                
+                this.images = images;
+                this.currentIndex = 0;
+                this.interval = options.interval || 6000;
+                this.autoplay = options.autoplay !== false;
+                this.timer = null;
+                
+                this.init();
+            }
+            
+            init() {
+                const slidesWrapper = document.createElement('div');
+                slidesWrapper.className = 'relative w-full h-auto overflow-hidden rounded-xl';
+                slidesWrapper.style.minHeight = '300px';
+                
+                this.images.forEach((imageSrc, index) => {
+                    const slideDiv = document.createElement('div');
+                    slideDiv.className = 'banner-slide absolute inset-0 transition-opacity duration-1000';
+                    slideDiv.style.opacity = index === 0 ? '1' : '0';
+                    
+                    const link = document.createElement('a');
+                    link.href = '';
+                    link.target = '_blank';
+                    link.className = 'w-full h-full block';
+                    
+                    const img = document.createElement('img');
+                    img.src = imageSrc;
+                    img.alt = `Banner Pendaftaran ${index + 1}`;
+                    img.className = 'w-full h-auto rounded-xl shadow-2xl shadow-highlight-yellow/30 border-4 border-accent-light-green';
+                    
+                    img.onerror = () => {
+                        console.error(`Gagal memuat banner: ${imageSrc}`);
+                        slideDiv.style.backgroundColor = '#1a4f41';
+                    };
+                    
+                    link.appendChild(img);
+                    slideDiv.appendChild(link);
+                    slidesWrapper.appendChild(slideDiv);
+                });
+                
+                this.container.appendChild(slidesWrapper);
+                this.slides = this.container.querySelectorAll('.banner-slide');
+                
+                this.createIndicators();
+                
+                if (this.autoplay && this.images.length > 1) {
+                    this.startAutoplay();
+                }
+                
+                slidesWrapper.addEventListener('mouseenter', () => this.stopAutoplay());
+                slidesWrapper.addEventListener('mouseleave', () => {
+                    if (this.autoplay) this.startAutoplay();
+                });
+            }
+            
+            createIndicators() {
+                const indicatorContainer = document.createElement('div');
+                indicatorContainer.className = 'flex justify-center gap-2 mt-4';
+                
+                this.images.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'slider-dot-banner w-3 h-3 rounded-full transition-all duration-300';
+                    dot.style.backgroundColor = index === 0 ? '#7BC043' : 'rgba(123, 192, 67, 0.3)';
+                    dot.style.transform = index === 0 ? 'scale(1.3)' : 'scale(1)';
+                    dot.setAttribute('aria-label', `Banner ${index + 1}`);
+                    
+                    dot.addEventListener('click', () => {
+                        this.goToSlide(index);
+                        this.stopAutoplay();
+                        if (this.autoplay) {
+                            setTimeout(() => this.startAutoplay(), 3000);
+                        }
+                    });
+                    
+                    indicatorContainer.appendChild(dot);
+                });
+                
+                this.container.appendChild(indicatorContainer);
+                this.indicators = this.container.querySelectorAll('.slider-dot-banner');
+            }
+            
+            goToSlide(index) {
+                this.slides[this.currentIndex].style.opacity = '0';
+                this.indicators[this.currentIndex].style.backgroundColor = 'rgba(123, 192, 67, 0.3)';
+                this.indicators[this.currentIndex].style.transform = 'scale(1)';
+                
+                this.currentIndex = index;
+                this.slides[this.currentIndex].style.opacity = '1';
+                this.indicators[this.currentIndex].style.backgroundColor = '#7BC043';
+                this.indicators[this.currentIndex].style.transform = 'scale(1.3)';
+            }
+            
+            nextSlide() {
+                const nextIndex = (this.currentIndex + 1) % this.images.length;
+                this.goToSlide(nextIndex);
+            }
+            
+            prevSlide() {
+                const prevIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+                this.goToSlide(prevIndex);
+            }
+            
+            startAutoplay() {
+                this.stopAutoplay();
+                if (this.images.length > 1) {
+                    this.timer = setInterval(() => this.nextSlide(), this.interval);
+                }
+            }
+            
+            stopAutoplay() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
+            }
+        }
+
+        const bannerPendaftaranImages = [
+            "img/banner 1 final.Webp",
+            "img/banner 2 final.Webp",
+            "img/banner 3 final.Webp",
+            "img/banner 4 final.Webp"
+        ];
+
+        new BannerPendaftaranSlider('bannerPendaftaranSlider', bannerPendaftaranImages, {
+            interval: 6000,
+            autoplay: true
+        });
+
+        // --- GALERI SLIDER CLASS ---
+        class GaleriSlider {
+            constructor(containerId, images, options = {}) {
+                this.container = document.getElementById(containerId);
+                if (!this.container) return;
+                
+                this.images = images;
+                this.currentIndex = 0;
+                this.interval = options.interval || 4000;
+                this.autoplay = options.autoplay !== false;
+                this.itemsPerView = options.itemsPerView || { mobile: 1, tablet: 2, desktop: 3 };
+                this.timer = null;
+                
+                this.init();
+            }
+            
+            init() {
+                const slidesWrapper = document.createElement('div');
+                slidesWrapper.className = 'relative w-full overflow-hidden';
+                
+                const slidesContainer = document.createElement('div');
+                slidesContainer.className = 'galeri-slides-container flex transition-transform duration-700 ease-in-out';
+                
+                this.images.forEach((imageData, index) => {
+                    const slideDiv = document.createElement('div');
+                    slideDiv.className = 'galeri-slide flex-shrink-0 px-2';
+                    
+                    const cardDiv = document.createElement('div');
+                    cardDiv.className = 'relative overflow-hidden rounded-xl group shadow-lg h-64';
+                    
+                    const img = document.createElement('img');
+                    img.src = imageData.src;
+                    img.alt = imageData.alt;
+                    img.className = 'w-full h-full object-cover transform group-hover:scale-105 transition duration-500';
+                    
+                    img.onerror = () => {
+                        console.error(`Gagal memuat gambar galeri: ${imageData.src}`);
+                        img.src = 'https://placehold.co/600x400/334443/B0CE88?text=Gambar+Tidak+Tersedia';
+                    };
+                    
+                    const overlay = document.createElement('div');
+                    overlay.className = 'absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300';
+                    
+                    const caption = document.createElement('p');
+                    caption.className = 'text-white font-semibold text-lg border-2 border-white p-2 rounded-lg';
+                    caption.textContent = imageData.caption;
+                    
+                    overlay.appendChild(caption);
+                    cardDiv.appendChild(img);
+                    cardDiv.appendChild(overlay);
+                    slideDiv.appendChild(cardDiv);
+                    slidesContainer.appendChild(slideDiv);
+                });
+                
+                slidesWrapper.appendChild(slidesContainer);
+                this.container.appendChild(slidesWrapper);
+                
+                this.slidesContainer = slidesContainer;
+                this.slides = slidesContainer.querySelectorAll('.galeri-slide');
+                
+                this.updateSlideWidths();
+                this.createControls(slidesWrapper);
+                this.createIndicators();
+                
+                if (this.autoplay && this.images.length > this.getItemsPerView()) {
+                    this.startAutoplay();
+                }
+                
+                slidesWrapper.addEventListener('mouseenter', () => this.stopAutoplay());
+                slidesWrapper.addEventListener('mouseleave', () => {
+                    if (this.autoplay) this.startAutoplay();
+                });
+                
+                window.addEventListener('resize', () => {
+                    this.updateSlideWidths();
+                    this.updateCarousel();
+                });
+            }
+            
+            getItemsPerView() {
+                if (window.innerWidth >= 1024) return this.itemsPerView.desktop;
+                if (window.innerWidth >= 768) return this.itemsPerView.tablet;
+                return this.itemsPerView.mobile;
+            }
+            
+            updateSlideWidths() {
+                const itemsPerView = this.getItemsPerView();
+                const slideWidth = `${100 / itemsPerView}%`;
+                
+                this.slides.forEach(slide => {
+                    slide.style.width = slideWidth;
+                });
+            }
+            
+            createControls(wrapper) {
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'absolute left-2 top-1/2 -translate-y-1/2 z-10 p-3 bg-dark-gray/80 hover:bg-accent-light-green rounded-full text-accent-light-green hover:text-dark-gray transition-all shadow-lg';
+                prevBtn.innerHTML = '<i class="ri-arrow-left-s-line text-2xl"></i>';
+                prevBtn.setAttribute('aria-label', 'Previous Slide');
+                
+                prevBtn.addEventListener('click', () => {
+                    this.prevSlide();
+                    this.stopAutoplay();
+                    if (this.autoplay) {
+                        setTimeout(() => this.startAutoplay(), 5000);
+                    }
+                });
+                
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'absolute right-2 top-1/2 -translate-y-1/2 z-10 p-3 bg-dark-gray/80 hover:bg-accent-light-green rounded-full text-accent-light-green hover:text-dark-gray transition-all shadow-lg';
+                nextBtn.innerHTML = '<i class="ri-arrow-right-s-line text-2xl"></i>';
+                nextBtn.setAttribute('aria-label', 'Next Slide');
+                
+                nextBtn.addEventListener('click', () => {
+                    this.nextSlide();
+                    this.stopAutoplay();
+                    if (this.autoplay) {
+                        setTimeout(() => this.startAutoplay(), 5000);
+                    }
+                });
+                
+                wrapper.appendChild(prevBtn);
+                wrapper.appendChild(nextBtn);
+                
+                this.prevBtn = prevBtn;
+                this.nextBtn = nextBtn;
+            }
+            
+            createIndicators() {
+                const itemsPerView = this.getItemsPerView();
+                const totalPages = Math.ceil(this.images.length / itemsPerView);
+                
+                const indicatorContainer = document.createElement('div');
+                indicatorContainer.className = 'flex justify-center gap-2 mt-6';
+                
+                for (let i = 0; i < totalPages; i++) {
+                    const dot = document.createElement('button');
+                    dot.className = 'galeri-dot w-2.5 h-2.5 rounded-full transition-all duration-300';
+                    dot.style.backgroundColor = i === 0 ? '#B0CE88' : 'rgba(176, 206, 136, 0.3)';
+                    dot.style.transform = i === 0 ? 'scale(1.3)' : 'scale(1)';
+                    dot.setAttribute('aria-label', `Page ${i + 1}`);
+                    
+                    dot.addEventListener('click', () => {
+                        this.goToPage(i);
+                        this.stopAutoplay();
+                        if (this.autoplay) {
+                            setTimeout(() => this.startAutoplay(), 5000);
+                        }
+                    });
+                    
+                    indicatorContainer.appendChild(dot);
+                }
+                
+                this.container.appendChild(indicatorContainer);
+                this.indicators = indicatorContainer.querySelectorAll('.galeri-dot');
+            }
+            
+            getCurrentPage() {
+                const itemsPerView = this.getItemsPerView();
+                return Math.floor(this.currentIndex / itemsPerView);
+            }
+            
+            goToPage(pageIndex) {
+                const itemsPerView = this.getItemsPerView();
+                this.currentIndex = pageIndex * itemsPerView;
+                this.updateCarousel();
+            }
+            
+            updateCarousel() {
+                const itemsPerView = this.getItemsPerView();
+                const slideWidth = this.slides[0].offsetWidth;
+                const offset = -this.currentIndex * slideWidth;
+                
+                this.slidesContainer.style.transform = `translateX(${offset}px)`;
+                
+                const currentPage = this.getCurrentPage();
+                this.indicators.forEach((dot, index) => {
+                    if (index === currentPage) {
+                        dot.style.backgroundColor = '#B0CE88';
+                        dot.style.transform = 'scale(1.3)';
+                    } else {
+                        dot.style.backgroundColor = 'rgba(176, 206, 136, 0.3)';
+                        dot.style.transform = 'scale(1)';
+                    }
+                });
+                
+                const totalPages = Math.ceil(this.images.length / itemsPerView);
+                this.prevBtn.style.opacity = currentPage === 0 ? '0.5' : '1';
+                this.nextBtn.style.opacity = currentPage >= totalPages - 1 ? '0.5' : '1';
+            }
+            
+            nextSlide() {
+                const itemsPerView = this.getItemsPerView();
+                const maxIndex = this.images.length - itemsPerView;
+                
+                if (this.currentIndex >= maxIndex) {
+                    this.currentIndex = 0;
+                } else {
+                    this.currentIndex += itemsPerView;
+                    if (this.currentIndex > maxIndex) {
+                        this.currentIndex = maxIndex;
+                    }
+                }
+                this.updateCarousel();
+            }
+            
+            prevSlide() {
+                const itemsPerView = this.getItemsPerView();
+                const maxIndex = this.images.length - itemsPerView;
+                
+                if (this.currentIndex <= 0) {
+                    this.currentIndex = maxIndex;
+                } else {
+                    this.currentIndex -= itemsPerView;
+                    if (this.currentIndex < 0) {
+                        this.currentIndex = 0;
+                    }
+                }
+                this.updateCarousel();
+            }
+            
+            startAutoplay() {
+                this.stopAutoplay();
+                const itemsPerView = this.getItemsPerView();
+                if (this.images.length > itemsPerView) {
+                    this.timer = setInterval(() => this.nextSlide(), this.interval);
+                }
+            }
+            
+            stopAutoplay() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
+            }
+        }
+
+        // Data gambar galeri
+        const galeriImages = [
+            {
+                src: "img/img1.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Haflah Akhirussanah"
+            },
+            {
+                src: "img/img2.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Haflah Akhirussanah"
+            },
+            {
+                src: "img/img3.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Pemberian Hadiah Class Meeting"
+            },
+            {
+                src: "img/img4.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Kegiatan Tarhim Menjelang Dhuha"
+            },
+            {
+                src: "img/img5.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Kegiatan Pramuka"
+            },
+            {
+                src: "img/img6.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Upacara Bendera Merah Putih"
+            },
+            {
+                src: "img/img7.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Santri Berprestasi"
+            },
+            {
+                src: "img/img8.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Praktek Internet of Things"
+            },
+            {
+                src: "img/img9.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Pengajian Umum"
+            },
+            {
+                src: "img/img10.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Kegiatan Hari Santri Nasional"
+            },
+            {
+                src: "img/img11.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Kajian AlQur'an"
+            },
+            {
+                src: "img/img12.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Kajian berbasis Teknologi"
+            },
+            {
+                src: "img/img14.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Kegiatan Melukis Kaligrafi"
+            },
+            {
+                src: "img/img16.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Kegiatan Melukis Kaligrafi"
+            },
+            {
+                src: "img/img15.Webp",
+                alt: "Aktivitas Santri",
+                caption: "Kegiatan Melukis Kaligrafi"
+            }
+        ];
+        
+        // Inisialisasi Galeri Slider
+        new GaleriSlider('galeriSliderContainer', galeriImages, {
+            interval: 4000,
+            autoplay: true,
+            itemsPerView: {
+                mobile: 1,
+                tablet: 2,
+                desktop: 3
+            }
+        });
+
+        // --- CAROUSEL SCRIPT (UNIT PENDIDIKAN DENGAN LOOPING) ---
+        const unitCarousel = document.getElementById('unitCarousel');
+        if (unitCarousel) {
+            const prevUnitBtn = document.getElementById('prevUnit');
+            const nextUnitBtn = document.getElementById('nextUnit');
+            const unitItems = unitCarousel.querySelectorAll('.carousel-item-unit');
+            let currentUnitIndex = 0;
+            const totalUnitItems = unitItems.length;
+
+            function getVisibleItemsCountUnit() {
+                if (window.innerWidth >= 1024) return 4;
+                if (window.innerWidth >= 768) return 2;
+                return 1;
+            }
+
+            function updateUnitCarousel() {
+                if (totalUnitItems === 0) return;
+                const itemWidth = unitItems[0].offsetWidth;
+                const offset = -currentUnitIndex * itemWidth;
+                unitCarousel.style.transform = `translateX(${offset}px)`;
+            }
+
+            nextUnitBtn.addEventListener('click', () => {
+                const visibleItems = getVisibleItemsCountUnit();
+                const maxIndex = Math.max(0, totalUnitItems - visibleItems);
+
+                if (currentUnitIndex >= maxIndex) {
+                    currentUnitIndex = 0;
+                } else {
+                    currentUnitIndex++;
+                }
+                updateUnitCarousel();
+            });
+
+            prevUnitBtn.addEventListener('click', () => {
+                const visibleItems = getVisibleItemsCountUnit();
+                const maxIndex = Math.max(0, totalUnitItems - visibleItems);
+
+                if (currentUnitIndex === 0) {
+                    currentUnitIndex = maxIndex;
+                } else {
+                    currentUnitIndex--;
+                }
+                updateUnitCarousel();
+            });
+
+            window.addEventListener('resize', () => setTimeout(updateUnitCarousel, 200));
+            window.addEventListener('load', updateUnitCarousel);
+        }
+
+    });
+</script>
+</body>
+</html>

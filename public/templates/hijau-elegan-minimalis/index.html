@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html class="light" lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;600&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#002c1d",
+                        "surface-container": "#f0eded",
+                        "inverse-surface": "#303030",
+                        "surface-dim": "#dcd9d9",
+                        "surface-tint": "#3b6753",
+                        "on-tertiary-fixed-variant": "#474743",
+                        "on-surface-variant": "#414944",
+                        "on-secondary-container": "#795930",
+                        "surface-container-high": "#eae7e7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#224f3c",
+                        "on-background": "#1b1c1c",
+                        "primary-container": "#154331",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c9c6c1",
+                        "tertiary-container": "#3b3b37",
+                        "on-tertiary-container": "#a7a5a0",
+                        "on-primary-container": "#81b098",
+                        "surface-container-low": "#f6f3f2",
+                        "outline-variant": "#c0c8c2",
+                        "inverse-on-surface": "#f3f0ef",
+                        "outline": "#717973",
+                        "background": "#fcf9f8",
+                        "secondary-fixed": "#ffddb7",
+                        "inverse-primary": "#a1d1b8",
+                        "secondary-container": "#fed39f",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#fcf9f8",
+                        "on-primary-fixed": "#002115",
+                        "on-secondary-fixed-variant": "#5e411a",
+                        "surface": "#fcf9f8",
+                        "primary-fixed-dim": "#a1d1b8",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e5e2e1",
+                        "on-surface": "#1b1c1c",
+                        "on-secondary-fixed": "#2a1700",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#eabf8d",
+                        "on-tertiary-fixed": "#1c1c18",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#e5e2dc",
+                        "primary-fixed": "#bdedd4",
+                        "tertiary": "#262622",
+                        "secondary": "#78582f",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin": "32px",
+                        "container-max": "1200px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "section-padding": "80px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Work Sans"],
+                        "body-md": ["Work Sans"],
+                        "label-lg": ["Work Sans"],
+                        "headline-md": ["Newsreader"],
+                        "label-md": ["Work Sans"],
+                        "headline-xl": ["Newsreader"],
+                        "headline-lg": ["Newsreader"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "label-md": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .amanah-card {
+            background: #ffffff;
+            border: 1px solid #e5e2e1;
+            box-shadow: 0 4px 20px rgba(0, 44, 29, 0.05);
+        }
+        .hexagon-shape {
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<!-- TopNavBar -->
+<nav class="bg-primary backdrop-blur-xl border-b border-white/10 fixed top-0 w-full z-50 shadow-sm">
+    <div class="flex items-center justify-between px-8 h-20 max-w-screen-2xl mx-auto">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-xl">auto_stories</span>
+            </div>
+            <div class="text-2xl font-headline-md tracking-tight text-white uppercase">AL-FURQAN ACADEMY</div>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <a class="font-label-lg tracking-wide uppercase text-white border-b-2 border-white pb-1" href="#">Beranda</a>
+            <a class="font-label-lg tracking-wide uppercase text-white/70 hover:text-white transition-all duration-300" href="#">Tentang Kami</a>
+            <a class="font-label-lg tracking-wide uppercase text-white/70 hover:text-white transition-all duration-300" href="#">Keunggulan</a>
+            <a class="font-label-lg tracking-wide uppercase text-white/70 hover:text-white transition-all duration-300" href="#">Pendaftaran</a>
+            <a class="font-label-lg tracking-wide uppercase text-white/70 hover:text-white transition-all duration-300" href="#">Berita</a>
+            <a class="font-label-lg tracking-wide uppercase text-white/70 hover:text-white transition-all duration-300" href="#">Kontak</a>
+        </div>
+        <button class="md:hidden text-white">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+    </div>
+</nav>
+
+<main class="pt-20">
+    <!-- Hero Section -->
+    <section class="relative h-[85vh] flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img class="w-full h-full object-cover" data-alt="A cinematic wide shot of a modern Islamic boarding school campus during a serene twilight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxT_sMgsB-zjVuT4v5u-KcZS-x-1rmAVp_UQlLZ7KbnGfbla6J0S0-UHtAJAol8UvCFRy8FECoQcthQKAccrxE3NiMjWMRkq6RR3K-fusU5urXFu6nimr3jayvbme6V__Ey5ehE4mjtYee_AIICWGXSX0bo2Tg1bdwBCVKDBLSCNr6ZBRdicniFIIqng4ImBysM1yu8LY37z39fBNBnPcxV4wOg1lH_eUJCeoVkYyrIg_BM5_lJHVU6cPl9HPYPysSPk2Cn9HMjlE2"/>
+            <div class="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent"></div>
+        </div>
+        <div class="container mx-auto px-margin relative z-10">
+            <div class="max-w-3xl">
+                <span class="inline-block px-4 py-1.5 bg-primary-fixed text-primary font-label-lg rounded-full mb-6">Mencetak Generasi Qurani</span>
+                <h1 class="font-headline-xl text-headline-xl text-primary mb-6 leading-tight">Lembaga Pendidikan Pesantren Modern</h1>
+                <p class="font-body-lg text-on-surface-variant mb-10 max-w-xl">
+                    Membangun integritas karakter dan keunggulan intelektual melalui kurikulum terintegrasi yang berlandaskan nilai-nilai keislaman universal.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="px-8 py-4 bg-primary text-on-primary font-label-lg rounded-xl hover:opacity-90 transition-opacity">Daftar Sekarang</button>
+                    <button class="px-8 py-4 bg-white text-primary border border-outline-variant font-label-lg rounded-xl flex items-center gap-2 hover:bg-surface-container-low transition-colors shadow-sm">
+                        <span class="material-symbols-outlined">play_circle</span>
+                        Video Profil
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang Kami -->
+    <section class="py-section-padding bg-white">
+        <div class="container mx-auto px-margin">
+            <div class="grid lg:grid-cols-2 gap-gutter items-center">
+                <div class="relative">
+                    <div class="w-full aspect-[4/5] rounded-xl overflow-hidden shadow-xl">
+                        <img class="w-full h-full object-cover" data-alt="A focused young student in a modern library." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC59cL1msuvYAtKZ66clJ44rR6ip30LggzyirJOlGUZXdM0enOWMbyUzRrihy5sgNBKDj8gUlPbIfpMCpkKgA8yCFFj76FSOvkUWIflvHIDeduIa8o0H_3OiCHY3E54ARbQ5A7A73FLIbRIEx6RAytPgIrpsVqaXOvlN1dneTEXLvEEGHk_Jb9owAmbKMLIAmU8kQkz2ZUw1AihvS6mMz4bSWqIv6MGVAdw7BunBjsMD4sOAXQvxYt5sZirxZ9m8S-pbYnj81kqZ0BG"/>
+                    </div>
+                    <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-primary p-6 rounded-xl shadow-2xl flex flex-col justify-center text-center">
+                        <span class="text-headline-lg font-headline-lg text-white">25+</span>
+                        <span class="text-label-md text-on-primary/80 uppercase">Tahun Pengabdian</span>
+                    </div>
+                </div>
+                <div class="lg:pl-8">
+                    <h2 class="font-headline-lg text-headline-lg text-primary mb-8">Warisan Ilmu, Masa Depan Bangsa</h2>
+                    <div class="amanah-card p-8 rounded-xl">
+                        <p class="font-body-md text-on-surface-variant mb-6">
+                            Al-Furqan Academy hadir sebagai oase pendidikan yang memadukan kedalaman spiritual pesantren tradisional dengan metodologi pembelajaran modern kelas dunia.
+                        </p>
+                        <p class="font-body-md text-on-surface-variant mb-8">
+                            Kami berkomitmen untuk melahirkan pemimpin masa depan yang berwawasan global namun tetap berpegang teguh pada prinsip syariat.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                <span class="font-label-lg text-on-surface">Akreditasi A</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                <span class="font-label-lg text-on-surface">Standard Internasional</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keunggulan (Pilar Utama) -->
+    <section class="py-section-padding bg-surface-container-low">
+        <div class="container mx-auto px-margin">
+            <div class="text-center mb-16">
+                <span class="font-label-lg text-primary tracking-widest uppercase mb-4 block">Pilar Utama</span>
+                <h2 class="font-headline-lg text-headline-lg text-primary">Keunggulan Pendidikan Kami</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                <div class="amanah-card p-8 rounded-xl group hover:border-primary transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-primary/5 rounded-lg flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">diversity_3</span>
+                    </div>
+                    <h3 class="font-headline-md text-primary mb-4">Pendidikan Akhlak</h3>
+                    <p class="text-body-md text-on-surface-variant">Penanaman nilai integritas, kejujuran, dan sopan santun dalam setiap interaksi harian.</p>
+                </div>
+                <div class="amanah-card p-8 rounded-xl group hover:border-primary transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-primary/5 rounded-lg flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">public</span>
+                    </div>
+                    <h3 class="font-headline-md text-primary mb-4">Wawasan Global</h3>
+                    <p class="text-body-md text-on-surface-variant">Kurikulum yang mengintegrasikan bahasa internasional dan perspektif global yang luas.</p>
+                </div>
+                <div class="amanah-card p-8 rounded-xl group hover:border-primary transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-primary/5 rounded-lg flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">lightbulb</span>
+                    </div>
+                    <h3 class="font-headline-md text-primary mb-4">Metode Kreatif</h3>
+                    <p class="text-body-md text-on-surface-variant">Pembelajaran interaktif berbasis proyek yang mendorong daya kritis dan inovasi siswa.</p>
+                </div>
+                <div class="amanah-card p-8 rounded-xl group hover:border-primary transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-primary/5 rounded-lg flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">self_improvement</span>
+                    </div>
+                    <h3 class="font-headline-md text-primary mb-4">Kemandirian</h3>
+                    <p class="text-body-md text-on-surface-variant">Melatih kedisiplinan dan tanggung jawab melalui sistem asrama yang terstruktur.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jenjang Pendidikan -->
+    <section class="py-section-padding bg-background">
+        <div class="container mx-auto px-margin">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+                <div>
+                    <span class="font-label-lg text-primary tracking-widest uppercase mb-4 block">Program Akademik</span>
+                    <h2 class="font-headline-lg text-headline-lg text-primary">Jenjang Pendidikan</h2>
+                </div>
+                <div class="flex gap-4">
+                    <button class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center text-primary hover:bg-surface-container">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <button class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center text-primary hover:bg-surface-container">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="amanah-card rounded-xl overflow-hidden group">
+                    <div class="h-48 relative overflow-hidden">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5VG_uy5Y0qOwGJ_AjrP_5rAbQmLU1eoBzFyndPDxMF3extZtRPkGLDnExJ2Qcew6wiYtsfTI84umFEs488qY01_x9xJ9VfirN3tOZSmSvqd4OZBPZPZsePslwLnOCRxFCj9dqFmM-Jy5o759TNHjF841qGT91GKGuXT2rpfAOHa1_8XzjkdQsfHLtvASWHkc6Srw5JiZEa0PbI90p51Q43X6PNlNXinT9NgZQCO3uLBsFru8w92kQL3NxoNNpYFhfNpFXgAGHqCr5"/>
+                    </div>
+                    <div class="p-8">
+                        <span class="font-label-md text-primary/70 mb-2 block uppercase">Level 01</span>
+                        <h3 class="font-headline-md text-primary mb-4">Unit Dasar</h3>
+                        <p class="text-body-md text-on-surface-variant mb-6">Fokus pada pembentukan karakter dasar dan kecintaan pada Al-Quran.</p>
+                        <a class="text-primary font-label-lg flex items-center gap-2 group-hover:gap-4 transition-all" href="#">Selengkapnya <span class="material-symbols-outlined">arrow_right_alt</span></a>
+                    </div>
+                </div>
+                <div class="amanah-card rounded-xl overflow-hidden group">
+                    <div class="h-48 relative overflow-hidden">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA53EgHC_7rRb9xzbidWDc7uVXHTNc2oRIgEIo4AXzApxk-hKavvu5Gi5UsAz6GlDri1piTgmGb1MRC7-Z52ls9CNOXeeJ1w2RN6CiKMl1AA6TKgvKZ29_wOIW_rt9sXPpCyk0FvXdcqj4s34pnyxF97F6rktu7HLi0Z4jOopkRa-taja5t1futQtpMha3TUuEUR25Zm65QpLRYp393AhAEQBFyydsX3AyI7dOKxoPqaQO-fgaDE9r0pW3-f9ljxjSZvyW4BljpT5_Q"/>
+                    </div>
+                    <div class="p-8">
+                        <span class="font-label-md text-primary/70 mb-2 block uppercase">Level 02</span>
+                        <h3 class="font-headline-md text-primary mb-4">Menengah</h3>
+                        <p class="text-body-md text-on-surface-variant mb-6">Pengembangan potensi akademik dan eksplorasi bakat minat siswa.</p>
+                        <a class="text-primary font-label-lg flex items-center gap-2 group-hover:gap-4 transition-all" href="#">Selengkapnya <span class="material-symbols-outlined">arrow_right_alt</span></a>
+                    </div>
+                </div>
+                <div class="amanah-card rounded-xl overflow-hidden group">
+                    <div class="h-48 relative overflow-hidden">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAxs30D-RUBcV9On8GNc2ro7dy2iCeZZ1trWWIzujGvuYTwR3UJnSQAnGVm-HaGVvXRmD-EM9R_ZcZOpNaF3nnOA-UWuSOym6g4gyyEeOJkvkjSesV9iRzYs81JYrgUQjPY5ZA1woL_lmtp4pNSUo_HT5xzvpqYgDRNMNFG5Unc_edy-AJeyfHcp6Rn3clGPUa5gLPZglr50AEIgrBN-H5hgdoNlVs9U2jb32Yv9y024IPHNOUvW1QG1YMzwZHEJkJKgpsEFGdVamj"/>
+                    </div>
+                    <div class="p-8">
+                        <span class="font-label-md text-primary/70 mb-2 block uppercase">Level 03</span>
+                        <h3 class="font-headline-md text-primary mb-4">Atas</h3>
+                        <p class="text-body-md text-on-surface-variant mb-6">Persiapan matang menuju perguruan tinggi terbaik di dalam &amp; luar negeri.</p>
+                        <a class="text-primary font-label-lg flex items-center gap-2 group-hover:gap-4 transition-all" href="#">Selengkapnya <span class="material-symbols-outlined">arrow_right_alt</span></a>
+                    </div>
+                </div>
+                <div class="amanah-card rounded-xl overflow-hidden group">
+                    <div class="h-48 relative overflow-hidden">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG0GMZ06BXL4Htj8XO0v0GJE5jZcDxnGb8ugTh3KPB6TYc1G3rNZxV7apqHsIA--p7biiCXpETlPlYAbEeuWRfl46ND3W1Tmc49j40yZkr5MQ8dhphDaB-ZnOV6AoEr03wyRcxoLvKWPo1l7VAMtuEPvNSMZWiamb01QsqBnrLEmlNw93oAUwDUdGXJiQor2gRXZg8Bu7EdPImHSz0UWQevIqe0J7WMwt7bh3yFzMgLh5LVRRQyt3Aa2TG6oqZqm2vSeM8JZM86AdP"/>
+                    </div>
+                    <div class="p-8">
+                        <span class="font-label-md text-primary/70 mb-2 block uppercase">Premium</span>
+                        <h3 class="font-headline-md text-primary mb-4">Program Khusus</h3>
+                        <p class="text-body-md text-on-surface-variant mb-6">Program intensif tahfiz dan pendalaman kitab kuning bersertifikat.</p>
+                        <a class="text-primary font-label-lg flex items-center gap-2 group-hover:gap-4 transition-all" href="#">Selengkapnya <span class="material-symbols-outlined">arrow_right_alt</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri -->
+    <section class="py-section-padding bg-surface-container-low">
+        <div class="container mx-auto px-margin">
+            <div class="text-center mb-16">
+                <h2 class="font-headline-lg text-headline-lg text-primary">Kehidupan di Kampus</h2>
+                <p class="text-on-surface-variant mt-4 font-body-md">Momen-momen inspiratif dalam perjalanan pendidikan para santri.</p>
+            </div>
+            <div class="grid grid-cols-12 grid-rows-2 gap-4 h-[600px]">
+                <div class="col-span-8 row-span-2 relative rounded-xl overflow-hidden group shadow-lg">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3R7as0zHmB8HjbaiJ8pC7-y4xJjl3d1vk2eBmFWbqDhVeUtO96J2UosjxgGxo-WOmqWUZ5v7gyK72xSbdMI_TU5gNYxHb5D42vjLfK8zeBUiHjLwt059TA-05H_Ifu2UwZ3UTp5mdN7CChJfo1xzDXLceq__Eo074xDwkN12kvOl8U7VI6oKsNU-pH1YANTpgN30Qe7LdqEC39rqlmpL_g9UsJd1vMuQHYzcCd37F2pWwRi0_3oyDjYQ76Eeft8TYHwBYYTrzGYQa"/>
+                </div>
+                <div class="col-span-4 row-span-1 relative rounded-xl overflow-hidden group shadow-md">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXvVXdAey1mTAnx4ARFNAs4OF-9tDQfrovD64OI0jVwy8g8wZNC4_WS0U1RMtggr14mAPymy_vqR9fZltGYHHxmevWsbf-2DBN5BcmiDv07K59ezIF4HDqGI6bWqhEoMd9Ys878siJwQqnaudFKGT1Gw7l-BzOXWK8z8Q5YWWvgECB8WyVzlTHk18SMvmYiuESmdrOx6QXDsprs9WkAS_-g_T7Rf6kFJRAh-tEgflGsSqLrG-4foaOrWKJm4O04_HCW_2xdJ2MWVJR"/>
+                </div>
+                <div class="col-span-4 row-span-1 relative rounded-xl overflow-hidden group shadow-md">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk1iMD2W7GIZl9fFcSmtB9OufiVqJd4TUAVN5n_DgrfgaRFAFHDACKmw1qJvr-r25lS4ZhX7fRIGjhBN35yYdV6Wst1g-saSZ6e1jLFnKLoJe1E7P_E-nnkdq85reYnuTYxgUIVGxKgC_mVo5GyLqEsSXubxkWAybJiU7_MJyW4llfzWcAGpyl29tEfL1mEaKUbvM1NtnbYPiZvq3DTeetw95G80_wYQ5SM1xHOlk94g5jhvrolmTJM3b1_bmQ8RIRxeg0Nq1a2tEw"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimoni -->
+    <section class="py-section-padding bg-background relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-5 text-primary">
+            <span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+        </div>
+        <div class="container mx-auto px-margin">
+            <div class="max-w-4xl mx-auto amanah-card p-12 md:p-20 rounded-xl text-center relative z-10 border-none bg-surface-container/30">
+                <div class="w-20 h-20 mx-auto mb-8 rounded-full border-2 border-primary overflow-hidden p-1">
+                    <img class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDNSWu2ilgQh5PZt2WHNu8MLB4oQB-k5mTSsJtta35GlduqZtZwOsCTYsoZ0-Gt0AMgiu2dWgn-WX_eY6Pq_sAgyrbgXj8rQ1Dx2cN-QSQSQwq6WKylajnvi5N5EJQuP0oqWakDueaK-U50j1-8vrnqluVVV3ZYrwFdAuRYc6WnZNARGVNydpRFp3TGC-gQxcZgaK-7Ov356lGH0AbbzAHqb24xD265h_3cGKZpt_0r-89SATi6Ly257RLu_g_1KOl0JyBvtg2cM9W"/>
+                </div>
+                <p class="text-headline-md font-headline-md italic text-primary mb-10 leading-relaxed">
+                    "Pendidikan di Al-Furqan bukan sekadar transfer ilmu, melainkan transformasi jiwa. Saya belajar bahwa kepemimpinan yang sesungguhnya berakar pada ketakwaan dan kerendahan hati."
+                </p>
+                <div>
+                    <h4 class="font-headline-md text-primary">Ahmad Zaki, Ph.D.</h4>
+                    <p class="font-label-lg text-secondary uppercase tracking-wider">Alumni Angkatan 2012 | Tech Entrepreneur</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pendaftaran: CTA -->
+    <section class="py-section-padding bg-background">
+        <div class="container mx-auto px-margin">
+            <div class="bg-primary rounded-xl p-12 md:p-24 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden shadow-2xl">
+                <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+                    <div class="absolute top-10 left-10 w-64 h-64 border border-white rounded-full"></div>
+                    <div class="absolute bottom-10 right-10 w-96 h-96 border border-white rounded-full"></div>
+                </div>
+                <div class="max-w-xl relative z-10">
+                    <h2 class="font-headline-xl text-headline-xl text-white mb-6">Penerimaan Santri Baru Telah Dibuka</h2>
+                    <p class="font-body-lg text-white/80 mb-8">
+                        Bergabunglah bersama kami dan mulailah perjalanan spiritual serta intelektual yang akan mengubah masa depan Anda.
+                    </p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-white">
+                            <span class="material-symbols-outlined text-primary-fixed">check_circle</span>
+                            Kuota terbatas untuk kualitas terbaik
+                        </li>
+                        <li class="flex items-center gap-3 text-white">
+                            <span class="material-symbols-outlined text-primary-fixed">check_circle</span>
+                            Beasiswa bagi santri berprestasi
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col gap-4 w-full md:w-auto relative z-10">
+                    <button class="px-10 py-5 bg-white text-primary font-label-lg rounded-xl hover:bg-surface-container transition-all text-center">Daftar Online Sekarang</button>
+                    <button class="px-10 py-5 border border-white/20 text-white font-label-lg rounded-xl hover:bg-white/10 transition-all text-center">Unduh Brosur (PDF)</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Berita Terbaru Section -->
+    <section class="py-section-padding bg-white">
+        <div class="container mx-auto px-margin">
+            <div class="text-center mb-16">
+                <span class="font-label-lg text-primary tracking-widest uppercase mb-4 block">Informasi Terkini</span>
+                <h2 class="font-headline-lg text-headline-lg text-primary">Berita Terbaru</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-gutter">
+                <!-- News Card 1 -->
+                <div class="amanah-card rounded-xl overflow-hidden group">
+                    <div class="h-56 relative overflow-hidden">
+                        <img alt="News Image 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5VG_uy5Y0qOwGJ_AjrP_5rAbQmLU1eoBzFyndPDxMF3extZtRPkGLDnExJ2Qcew6wiYtsfTI84umFEs488qY01_x9xJ9VfirN3tOZSmSvqd4OZBPZPZsePslwLnOCRxFCj9dqFmM-Jy5o759TNHjF841qGT91GKGuXT2rpfAOHa1_8XzjkdQsfHLtvASWHkc6Srw5JiZEa0PbI90p51Q43X6PNlNXinT9NgZQCO3uLBsFru8w92kQL3NxoNNpYFhfNpFXgAGHqCr5"/>
+                    </div>
+                    <div class="p-8">
+                        <span class="text-label-md text-primary/70 mb-2 block uppercase">15 MEI 2024</span>
+                        <h3 class="font-headline-md text-primary mb-4 line-clamp-2">Peresmian Gedung Perpustakaan Digital Al-Furqan</h3>
+                        <p class="text-on-surface-variant text-body-md mb-6 line-clamp-3">Menuju era digitalisasi pendidikan, Al-Furqan Academy resmi meluncurkan fasilitas perpustakaan berbasis teknologi mutakhir.</p>
+                        <a class="text-primary font-label-lg inline-flex items-center gap-2 hover:gap-4 transition-all" href="#">Baca Selengkapnya <span class="material-symbols-outlined">east</span></a>
+                    </div>
+                </div>
+                <!-- News Card 2 -->
+                <div class="amanah-card rounded-xl overflow-hidden group">
+                    <div class="h-56 relative overflow-hidden">
+                        <img alt="News Image 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA53EgHC_7rRb9xzbidWDc7uVXHTNc2oRIgEIo4AXzApxk-hKavvu5Gi5UsAz6GlDri1piTgmGb1MRC7-Z52ls9CNOXeeJ1w2RN6CiKMl1AA6TKgvKZ29_wOIW_rt9sXPpCyk0FvXdcqj4s34pnyxF97F6rktu7HLi0Z4jOopkRa-taja5t1futQtpMha3TUuEUR25Zm65QpLRYp393AhAEQBFyydsX3AyI7dOKxoPqaQO-fgaDE9r0pW3-f9ljxjSZvyW4BljpT5_Q"/>
+                    </div>
+                    <div class="p-8">
+                        <span class="text-label-md text-primary/70 mb-2 block uppercase">10 MEI 2024</span>
+                        <h3 class="font-headline-md text-primary mb-4 line-clamp-2">Prestasi Gemilang Santri di Olimpiade Sains Internasional</h3>
+                        <p class="text-on-surface-variant text-body-md mb-6 line-clamp-3">Alumni dan santri aktif kembali mengharumkan nama pesantren di kancah internasional melalui kompetisi riset sains.</p>
+                        <a class="text-primary font-label-lg inline-flex items-center gap-2 hover:gap-4 transition-all" href="#">Baca Selengkapnya <span class="material-symbols-outlined">east</span></a>
+                    </div>
+                </div>
+                <!-- News Card 3 -->
+                <div class="amanah-card rounded-xl overflow-hidden group">
+                    <div class="h-56 relative overflow-hidden">
+                        <img alt="News Image 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG0GMZ06BXL4Htj8XO0v0GJE5jZcDxnGb8ugTh3KPB6TYc1G3rNZxV7apqHsIA--p7biiCXpETlPlYAbEeuWRfl46ND3W1Tmc49j40yZkr5MQ8dhphDaB-ZnOV6AoEr03wyRcxoLvKWPo1l7VAMtuEPvNSMZWiamb01QsqBnrLEmlNw93oAUwDUdGXJiQor2gRXZg8Bu7EdPImHSz0UWQevIqe0J7WMwt7bh3yFzMgLh5LVRRQyt3Aa2TG6oqZqm2vSeM8JZM86AdP"/>
+                    </div>
+                    <div class="p-8">
+                        <span class="text-label-md text-primary/70 mb-2 block uppercase">05 MEI 2024</span>
+                        <h3 class="font-headline-md text-primary mb-4 line-clamp-2">Kegiatan Tahunan: Daurah Quran dan Bahasa Arab</h3>
+                        <p class="text-on-surface-variant text-body-md mb-6 line-clamp-3">Meningkatkan kualitas interaksi santri dengan Al-Quran dan penguasaan bahasa melalui program intensif tahunan.</p>
+                        <a class="text-primary font-label-lg inline-flex items-center gap-2 hover:gap-4 transition-all" href="#">Baca Selengkapnya <span class="material-symbols-outlined">east</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="w-full h-[500px] grayscale contrast-125 opacity-80 hover:opacity-100 transition-opacity">
+        <div class="w-full h-full bg-surface-container flex items-center justify-center relative">
+            <img class="w-full h-full object-cover" data-location="Jakarta" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1W6Tnnnf5aQGxbHt8Hm5E7b5F8hgFLxMH7nZPeRXoYvP1TyjfuQAd7FL0bHD9Yf23FK9yLb5WZ8ZYTFPLT0kqnwHthSKwIQeOH8FIJtME9cvYFVbKNHa7KwEjSc5OlhWLOIJAkgKmkztdhl3p_YLdy1k41PLWTyd06eP8_mM8_-RDCyb_i9NfDgA_Ebf3p6nB9GQH9Vv99cF6VT07JzzuL9X7NGTsqiJgJMeP2SjNnAdqo8AJj3q-xHDRynRhE7TO1l08ykPtoPJv"/>
+            <div class="absolute inset-0 bg-primary/20"></div>
+            <div class="absolute bg-white/90 backdrop-blur p-6 rounded-xl text-center max-w-xs border border-outline-variant shadow-xl">
+                <span class="material-symbols-outlined text-primary mb-2">location_on</span>
+                <h4 class="text-primary font-headline-md mb-2">Lokasi Kami</h4>
+                <p class="text-body-md text-on-surface-variant">Jl. Pendidikan No. 45, Jakarta Selatan, Indonesia</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-primary w-full border-t border-white/10 mt-20">
+    <div class="container mx-auto py-16 px-12 grid grid-cols-1 md:grid-cols-3 gap-12">
+        <!-- Brand Column -->
+        <div class="space-y-6">
+            <span class="text-xl font-headline-md text-white uppercase mb-4 block">AL-FURQAN ACADEMY</span>
+            <p class="font-body-md text-white/70 leading-relaxed">
+                Lembaga pendidikan Islam yang berdedikasi untuk mencetak generasi pemimpin yang beraqidah lurus, berakhlak mulia, dan unggul dalam ilmu pengetahuan.
+            </p>
+            <div class="flex gap-4">
+                <a class="text-white/50 hover:text-white transition-colors" href="#">
+                    <span class="material-symbols-outlined">public</span>
+                </a>
+                <a class="text-white/50 hover:text-white transition-colors" href="#">
+                    <span class="material-symbols-outlined">share</span>
+                </a>
+            </div>
+        </div>
+        <!-- Quick Links -->
+        <div>
+            <h4 class="font-label-lg text-white mb-6 uppercase tracking-widest">Informasi</h4>
+            <ul class="space-y-4 font-body-md text-white/60">
+                <li><a class="hover:text-white transition-colors" href="#">Sejarah Akademi</a></li>
+                <li><a class="hover:text-white transition-colors" href="#">Kurikulum Terpadu</a></li>
+                <li><a class="hover:text-white transition-colors" href="#">Pendaftaran Santri</a></li>
+                <li><a class="hover:text-white transition-colors" href="#">Kontak Kami</a></li>
+            </ul>
+        </div>
+        <!-- Legal & Support -->
+        <div>
+            <h4 class="font-label-lg text-white mb-6 uppercase tracking-widest">Dukungan</h4>
+            <ul class="space-y-4 font-body-md text-white/60">
+                <li class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-white/30 text-sm">history</span>
+                    <a class="hover:text-white transition-colors" href="#">Log Transaksi</a>
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-white/30 text-sm">policy</span>
+                    <a class="hover:text-white transition-colors" href="#">Kebijakan Privasi</a>
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-white/30 text-sm">gavel</span>
+                    <a class="hover:text-white transition-colors" href="#">Syarat &amp; Ketentuan</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Copyright -->
+    <div class="border-t border-white/5 py-8 text-center px-12">
+        <p class="font-label-lg text-white/30">
+            © 2024 Al-Furqan Islamic Boarding School. Elevating Faith through Knowledge.
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>

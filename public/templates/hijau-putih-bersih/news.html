@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Berita & Artikel - Al-Furqan Academy</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "secondary-container": "#d9e6dd",
+                "error": "#ba1a1a",
+                "tertiary-container": "#8b96ac",
+                "surface-tint": "#006e26",
+                "on-tertiary-fixed": "#111c2d",
+                "primary-fixed-dim": "#56e16e",
+                "on-primary-fixed": "#002106",
+                "inverse-surface": "#213145",
+                "on-primary-container": "#00370f",
+                "primary-fixed": "#74fe87",
+                "on-tertiary-container": "#242f41",
+                "on-secondary-fixed": "#131e19",
+                "surface": "#f8f9ff",
+                "tertiary": "#545f73",
+                "surface-bright": "#f8f9ff",
+                "secondary": "#55615a",
+                "on-primary": "#ffffff",
+                "surface-container-low": "#eff4ff",
+                "inverse-primary": "#56e16e",
+                "on-secondary-container": "#5b6760",
+                "on-background": "#0b1c30",
+                "background": "#f8f9ff",
+                "tertiary-fixed-dim": "#bcc7de",
+                "primary": "#006e26",
+                "surface-container-high": "#dce9ff",
+                "secondary-fixed": "#d9e6dd",
+                "on-error-container": "#93000a",
+                "on-surface": "#0b1c30",
+                "primary-container": "#05ad42",
+                "on-tertiary": "#ffffff",
+                "error-container": "#ffdad6",
+                "surface-container-lowest": "#ffffff",
+                "on-surface-variant": "#3d4a3c",
+                "tertiary-fixed": "#d8e3fb",
+                "surface-dim": "#cbdbf5",
+                "surface-container": "#e5eeff",
+                "inverse-on-surface": "#eaf1ff",
+                "outline-variant": "#bccbb8",
+                "surface-variant": "#d3e4fe",
+                "secondary-fixed-dim": "#bdcac1",
+                "on-tertiary-fixed-variant": "#3c475a",
+                "surface-container-highest": "#d3e4fe",
+                "on-secondary-fixed-variant": "#3e4943",
+                "outline": "#6d7b6b",
+                "on-primary-fixed-variant": "#00531b",
+                "on-secondary": "#ffffff",
+                "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "sm": "12px",
+                "container-max": "1200px",
+                "xs": "4px",
+                "xl": "80px",
+                "base": "8px",
+                "lg": "48px",
+                "gutter": "24px",
+                "md": "24px"
+            },
+            "fontFamily": {
+                "headline-xl": ["Inter"],
+                "label-sm": ["Inter"],
+                "headline-md": ["Inter"],
+                "body-md": ["Inter"],
+                "headline-lg": ["Inter"],
+                "label-md": ["Inter"],
+                "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                "headline-xl": ["48px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .bg-pattern {
+        background-image: radial-gradient(#006e26 0.5px, transparent 0.5px);
+        background-size: 24px 24px;
+        opacity: 0.03;
+      }
+      #mobile-menu.active {
+          transform: translateX(0);
+      }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface selection:bg-primary-container selection:text-white">
+
+<!-- Mobile Menu Drawer -->
+<div id="mobile-menu" class="fixed inset-y-0 right-0 w-64 bg-white z-[60] transform translate-x-full transition-transform duration-300 shadow-xl border-l border-emerald-50 md:hidden">
+    <div class="p-6">
+        <div class="flex justify-between items-center mb-8">
+            <span class="font-bold text-emerald-800">Menu</span>
+            <button id="mobile-menu-close" class="p-2 text-emerald-800">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-4">
+            <a class="text-slate-600 hover:text-emerald-600" href="index.html">Home</a>
+            <a class="text-slate-600 hover:text-emerald-600" href="#">About Us</a>
+            <a class="text-slate-600 hover:text-emerald-600" href="#">Excellence</a>
+            <a class="text-slate-600 hover:text-emerald-600" href="#">Registration</a>
+            <a class="text-emerald-700 font-semibold" href="#">News</a>
+            <a class="text-slate-600 hover:text-emerald-600" href="#">Contact</a>
+        </nav>
+    </div>
+</div>
+<div id="mobile-menu-overlay" class="fixed inset-0 bg-black/20 z-[55] hidden transition-opacity duration-300"></div>
+
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-emerald-50 shadow-sm">
+<div class="max-w-[1200px] mx-auto flex justify-between items-center h-20 px-12">
+<div class="text-xl font-bold text-emerald-800 font-headline-md tracking-tight">Al-Furqan Academy</div>
+<nav class="hidden md:flex items-center gap-base">
+<a class="px-4 py-2 text-slate-600 hover:text-emerald-600 transition-colors duration-200 font-label-md" href="index.html">Home</a>
+<a class="px-4 py-2 text-slate-600 hover:text-emerald-600 transition-colors duration-200 font-label-md" href="#">About Us</a>
+<a class="px-4 py-2 text-slate-600 hover:text-emerald-600 transition-colors duration-200 font-label-md" href="#">Excellence</a>
+<a class="px-4 py-2 text-slate-600 hover:text-emerald-600 transition-colors duration-200 font-label-md" href="#">Registration</a>
+<a class="px-4 py-2 text-emerald-700 font-semibold border-b-2 border-emerald-600 pb-1 font-label-md" href="#">News</a>
+<a class="px-4 py-2 text-slate-600 hover:text-emerald-600 transition-colors duration-200 font-label-md" href="#">Contact</a>
+</nav>
+<button id="mobile-menu-toggle" class="md:hidden p-2 text-emerald-800">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero & Breadcrumbs Section -->
+<section class="relative bg-white pt-xl pb-lg overflow-hidden">
+<div class="absolute inset-0 bg-pattern"></div>
+<div class="max-w-[1200px] mx-auto px-12 relative z-10">
+<nav aria-label="Breadcrumb" class="flex items-center gap-xs text-label-md text-secondary mb-sm">
+<a class="hover:text-primary transition-colors" href="index.html">Beranda</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-bold">Berita</span>
+</nav>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h1 class="font-headline-xl text-primary mb-xs">Berita &amp; Artikel</h1>
+<p class="font-body-lg text-secondary max-w-2xl">Ikuti perkembangan terbaru, prestasi santri, dan pengumuman resmi dari Al-Furqan Academy.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content Area with Filters -->
+<section class="max-w-[1200px] mx-auto px-12 pb-xl">
+<!-- Filter Bar -->
+<div class="flex flex-wrap items-center justify-between gap-md mb-lg border-b border-outline-variant pb-md">
+<div class="flex flex-wrap gap-sm">
+<button class="px-6 py-2 rounded-full bg-primary text-white font-label-md transition-all">Semua</button>
+<button class="px-6 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-md hover:bg-primary-fixed transition-all">Kegiatan</button>
+<button class="px-6 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-md hover:bg-primary-fixed transition-all">Prestasi</button>
+<button class="px-6 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-md hover:bg-primary-fixed transition-all">Pengumuman</button>
+</div>
+<div class="relative w-full md:w-auto">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary">search</span>
+<input class="pl-10 pr-4 py-2 w-full md:w-64 rounded-lg border border-outline focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-body-md" placeholder="Cari berita..." type="text"/>
+</div>
+</div>
+<!-- News Bento Grid / High-End Card Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Featured Article -->
+<article class="md:col-span-8 group relative bg-white rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,110,38,0.04)] hover:shadow-[0_20px_40px_rgba(0,110,38,0.08)] transition-all flex flex-col md:flex-row">
+<div class="md:w-1/2 h-64 md:h-auto relative overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/ADBb0ui7BSta_Ff_0MP46f4nwTkyVnVd-p0UC1TC3rc_8osjSj-FwLuhAHP5_trmNb2JU3hIoPlsrXl0bhHOdTcdYg40IJSlcqbkTy_KPQhLFWXjvV0YukBcxGk8agcnEW7go11a3pYTaV8hIUUB4Ya7fv2voNwU1HgHpGYbOckve7__5S4bn9a1I2tj6SzgOgr_tLQtazdvNLFRE-dvVq5D5X9SIbuZ1C6_Hb139affSqKjW1F_-lsKClHfOh5qXkKmeyYo0An2IzTARHQ"/>
+<div class="absolute top-4 left-4">
+<span class="bg-primary text-white text-label-sm px-3 py-1 rounded-full uppercase tracking-wider">Terbaru</span>
+</div>
+</div>
+<div class="md:w-1/2 p-md flex flex-col justify-center">
+<time class="text-label-sm text-secondary mb-xs">24 Oktober 2023</time>
+<h2 class="font-headline-lg text-on-surface mb-sm group-hover:text-primary transition-colors leading-tight">Wisuda Tahfidz Al-Furqan Ke-15: Melahirkan Generasi Qurani yang Unggul</h2>
+<p class="text-body-md text-secondary mb-md line-clamp-3">Al-Furqan Academy kembali merayakan keberhasilan 120 santri yang telah menyelesaikan hafalan 30 Juz Al-Quran. Acara yang dihadiri oleh tokoh pendidikan Islam terkemuka ini menjadi tonggak sejarah...</p>
+<a class="flex items-center gap-xs text-primary font-label-md group/link" href="#">
+                            Baca Selengkapnya
+                            <span class="material-symbols-outlined group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- Sidebar News / Small Cards -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<article class="bg-white p-md rounded-xl shadow-[0_20px_40px_rgba(0,110,38,0.04)] hover:border-primary-container border border-transparent transition-all">
+<span class="text-primary text-label-sm font-bold uppercase block mb-xs">Prestasi</span>
+<h3 class="font-headline-md text-on-surface mb-xs leading-snug">Juara 1 Musabaqah Hifzil Quran Tingkat Nasional</h3>
+<time class="text-label-sm text-secondary block mb-sm">18 Oktober 2023</time>
+<p class="text-body-md text-secondary line-clamp-2">Santri kami kembali mengharumkan nama akademi di kancah nasional dalam ajang tahunan MHQ.</p>
+</article>
+<article class="bg-white p-md rounded-xl shadow-[0_20px_40px_rgba(0,110,38,0.04)] hover:border-primary-container border border-transparent transition-all">
+<span class="text-primary text-label-sm font-bold uppercase block mb-xs">Kegiatan</span>
+<h3 class="font-headline-md text-on-surface mb-xs leading-snug">Penerimaan Santri Baru Tahun Ajaran 2024 Telah Dibuka</h3>
+<time class="text-label-sm text-secondary block mb-sm">15 Oktober 2023</time>
+<p class="text-body-md text-secondary line-clamp-2">Segera daftarkan putra-putri Anda untuk bergabung dengan komunitas belajar kami yang suportif.</p>
+</article>
+</div>
+<!-- Secondary Row Grid -->
+<article class="md:col-span-4 group bg-white rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,110,38,0.04)] transition-all hover:-translate-y-1">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ui7BSta_Ff_0MP46f4nwTkyVnVd-p0UC1TC3rc_8osjSj-FwLuhAHP5_trmNb2JU3hIoPlsrXl0bhHOdTcdYg40IJSlcqbkTy_KPQhLFWXjvV0YukBcxGk8agcnEW7go11a3pYTaV8hIUUB4Ya7fv2voNwU1HgHpGYbOckve7__5S4bn9a1I2tj6SzgOgr_tLQtazdvNLFRE-dvVq5D5X9SIbuZ1C6_Hb139affSqKjW1F_-lsKClHfOh5qXkKmeyYo0An2IzTARHQ"/>
+<div class="absolute bottom-0 left-0 p-sm bg-gradient-to-t from-black/60 to-transparent w-full">
+<span class="text-white text-label-sm">Akademik</span>
+</div>
+</div>
+<div class="p-md">
+<time class="text-label-sm text-secondary mb-xs">12 Oktober 2023</time>
+<h3 class="font-headline-md text-on-surface mb-sm group-hover:text-primary transition-colors">Workshop Metodologi Menghafal Cepat Bagi Pemula</h3>
+<p class="text-body-md text-secondary mb-md line-clamp-2">Pelatihan intensif bagi santri baru untuk menguasai teknik pemetaan hafalan yang efektif.</p>
+</div>
+</article>
+<article class="md:col-span-4 group bg-white rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,110,38,0.04)] transition-all hover:-translate-y-1">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ui7BSta_Ff_0MP46f4nwTkyVnVd-p0UC1TC3rc_8osjSj-FwLuhAHP5_trmNb2JU3hIoPlsrXl0bhHOdTcdYg40IJSlcqbkTy_KPQhLFWXjvV0YukBcxGk8agcnEW7go11a3pYTaV8hIUUB4Ya7fv2voNwU1HgHpGYbOckve7__5S4bn9a1I2tj6SzgOgr_tLQtazdvNLFRE-dvVq5D5X9SIbuZ1C6_Hb139affSqKjW1F_-lsKClHfOh5qXkKmeyYo0An2IzTARHQ"/>
+<div class="absolute bottom-0 left-0 p-sm bg-gradient-to-t from-black/60 to-transparent w-full">
+<span class="text-white text-label-sm">Ekstrakurikuler</span>
+</div>
+</div>
+<div class="p-md">
+<time class="text-label-sm text-secondary mb-xs">08 Oktober 2023</time>
+<h3 class="font-headline-md text-on-surface mb-sm group-hover:text-primary transition-colors">Rapat Tahunan Orang Tua Santri dan Komite Akademi</h3>
+<p class="text-body-md text-secondary mb-md line-clamp-2">Sinergi antara orang tua dan pihak akademi demi menunjang perkembangan karakter santri.</p>
+</div>
+</article>
+<article class="md:col-span-4 group bg-white rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,110,38,0.04)] transition-all hover:-translate-y-1">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ui7BSta_Ff_0MP46f4nwTkyVnVd-p0UC1TC3rc_8osjSj-FwLuhAHP5_trmNb2JU3hIoPlsrXl0bhHOdTcdYg40IJSlcqbkTy_KPQhLFWXjvV0YukBcxGk8agcnEW7go11a3pYTaV8hIUUB4Ya7fv2voNwU1HgHpGYbOckve7__5S4bn9a1I2tj6SzgOgr_tLQtazdvNLFRE-dvVq5D5X9SIbuZ1C6_Hb139affSqKjW1F_-lsKClHfOh5qXkKmeyYo0An2IzTARHQ"/>
+<div class="absolute bottom-0 left-0 p-sm bg-gradient-to-t from-black/60 to-transparent w-full">
+<span class="text-white text-label-sm">Sosial</span>
+</div>
+</div>
+<div class="p-md">
+<time class="text-label-sm text-secondary mb-xs">05 Oktober 2023</time>
+<h3 class="font-headline-md text-on-surface mb-sm group-hover:text-primary transition-colors">Bakhti Sosial: Al-Furqan Berbagi di Wilayah Sekitar</h3>
+<p class="text-body-md text-secondary mb-md line-clamp-2">Aksi nyata santri dalam menerapkan nilai-nilai kemanusiaan melalui program bantuan pangan.</p>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<nav class="flex items-center justify-center gap-base mt-xl">
+<a class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-secondary hover:border-primary hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">chevron_left</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-label-md" href="#">1</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-secondary hover:border-primary hover:text-primary transition-all font-label-md" href="#">2</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-secondary hover:border-primary hover:text-primary transition-all font-label-md" href="#">3</a>
+<span class="px-2 text-secondary">...</span>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-secondary hover:border-primary hover:text-primary transition-all font-label-md" href="#">8</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-secondary hover:border-primary hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">chevron_right</span>
+</a>
+</nav>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-16 px-12 bg-emerald-50 border-t border-emerald-100">
+<div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-1">
+<span class="text-lg font-bold text-emerald-800 mb-4 block">Al-Furqan Academy</span>
+<p class="font-inter text-sm leading-relaxed text-slate-500">Membentuk generasi Qurani yang berakhlak mulia dan berwawasan global melalui pendidikan berkualitas tinggi.</p>
+</div>
+<div>
+<h4 class="font-label-md text-emerald-900 mb-4">Navigasi</h4>
+<ul class="space-y-2">
+<li><a class="text-slate-500 hover:text-emerald-600 transition-colors font-inter text-sm" href="index.html">Tentang Kami</a></li>
+<li><a class="text-slate-500 hover:text-emerald-600 transition-colors font-inter text-sm" href="#">Kurikulum</a></li>
+<li><a class="text-slate-500 hover:text-emerald-600 transition-colors font-inter text-sm" href="#">Pendaftaran</a></li>
+<li><a class="text-emerald-700 underline font-inter text-sm" href="#">Berita &amp; Artikel</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-emerald-900 mb-4">Kontak</h4>
+<p class="font-inter text-sm leading-relaxed text-slate-500">
+                    Jl. Al-Furqan No. 123<br/>
+                    Jakarta Selatan, Indonesia<br/>
+                    info@alfurqan.sch.id<br/>
+                    +62 21 555 1234
+                </p>
+</div>
+<div>
+<h4 class="font-label-md text-emerald-900 mb-4">Ikuti Kami</h4>
+<div class="flex gap-4">
+<a class="text-slate-500 hover:text-emerald-600 transition-colors" href="#">Facebook</a>
+<a class="text-slate-500 hover:text-emerald-600 transition-colors" href="#">Instagram</a>
+<a class="text-slate-500 hover:text-emerald-600 transition-colors" href="#">Twitter</a>
+<a class="text-slate-500 hover:text-emerald-600 transition-colors" href="#">LinkedIn</a>
+</div>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto mt-12 pt-8 border-t border-emerald-100 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-inter text-sm leading-relaxed text-slate-500">© 2024 Al-Furqan Academy. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="font-inter text-sm leading-relaxed text-slate-500 hover:text-emerald-600 transition-colors" href="#">Privacy Policy</a>
+<a class="font-inter text-sm leading-relaxed text-slate-500 hover:text-emerald-600 transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // --- MOBILE MENU ---
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-menu-overlay');
+
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenu.classList.add('active');
+                if (overlay) {
+                    overlay.classList.remove('hidden');
+                    setTimeout(() => overlay.classList.add('opacity-100'), 10);
+                }
+            });
+
+            const closeMenu = () => {
+                mobileMenu.classList.remove('active');
+                if (overlay) {
+                    overlay.classList.remove('opacity-100');
+                    setTimeout(() => overlay.classList.add('hidden'), 300);
+                }
+            };
+
+            if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMenu);
+            if (overlay) overlay.addEventListener('click', closeMenu);
+        }
+    });
+</script>
+
+</body>
+</html>

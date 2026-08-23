@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Furqan Academy | Pioneering the Future of Faith and Intellect</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00342b',
+                        'primary-container': '#004d40',
+                        secondary: '#c19a6b',
+                        'secondary-container': '#fed39f',
+                        surface: '#f8faf7',
+                        'on-surface-variant': '#3f4945',
+                        brand: {
+                            emerald: '#004d40',
+                            gold: '#c19a6b',
+                            cream: '#fdfbf7',
+                            forest: '#002c26'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Noto Serif', 'serif'],
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/css">
+        /* Custom scroll animation states */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: blur(10px);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        /* Gallery Image Effects */
+        .gallery-item img {
+            filter: grayscale(100%) brightness(0.7) contrast(1.2);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(0%) brightness(1) contrast(1);
+            transform: scale(1.1);
+        }
+
+        /* Mobile Menu Transitions */
+        #mobile-menu {
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #mobile-menu.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #mobile-menu-content {
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.9);
+            filter: blur(10px);
+            opacity: 0;
+        }
+
+        #mobile-menu.open #mobile-menu-content {
+            transform: scale(1);
+            filter: blur(0);
+            opacity: 1;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(0, 52, 43, 0.6), rgba(0, 44, 38, 0.9)), url('https://images.unsplash.com/photo-1590075865003-e48267df5574?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .gold-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #c19a6b, transparent);
+            position: relative;
+        }
+    </style>
+</head>
+<body class="bg-brand-cream font-sans text-brand-forest">
+
+    <!-- Navigation -->
+    <header id="main-header" class="fixed top-0 w-full z-50 transition-all duration-500 py-6 px-6 lg:px-16">
+        <div class="max-w-7xl mx-auto flex justify-between items-center bg-brand-forest/40 backdrop-blur-md border border-white/10 rounded-2xl px-6 py-3 shadow-2xl">
+            <div class="flex items-center gap-2">
+                <span class="font-serif text-2xl text-white font-semibold">Al-Furqan</span>
+            </div>
+
+            <nav class="hidden md:flex gap-8 text-white/80 font-semibold tracking-wide text-xs uppercase">
+                <a href="#" onclick="showView('home')" class="nav-link-home hover:text-secondary border-b-2 border-secondary pb-1">Beranda</a>
+                <a href="#about" onclick="showView('home')" class="hover:text-secondary transition-colors">Tentang Kami</a>
+                <a href="#values" onclick="showView('home')" class="hover:text-secondary transition-colors">Keunggulan</a>
+                <a href="#education" onclick="showView('home')" class="hover:text-secondary transition-colors">Akademik</a>
+                <a href="#" onclick="showView('news')" class="nav-link-news hover:text-secondary transition-colors">Berita</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <button class="bg-secondary text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase hover:bg-secondary/90 transition-all shadow-lg active:scale-95">Daftar Sekarang</button>
+                <button onclick="toggleMenu()" class="md:hidden text-white">
+                    <span id="menu-icon" class="material-symbols-outlined text-3xl">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-brand-forest/90 backdrop-blur-xl flex items-center justify-center">
+        <button onclick="toggleMenu()" class="absolute top-8 right-8 text-white">
+            <span class="material-symbols-outlined text-4xl">close</span>
+        </button>
+        <div id="mobile-menu-content" class="text-center">
+            <nav class="flex flex-col gap-8 text-2xl font-serif text-white">
+                <a href="#" onclick="showView('home'); toggleMenu();" class="hover:text-secondary">Beranda</a>
+                <a href="#about" onclick="showView('home'); toggleMenu();" class="hover:text-secondary">Tentang Kami</a>
+                <a href="#values" onclick="showView('home'); toggleMenu();" class="hover:text-secondary">Keunggulan</a>
+                <a href="#education" onclick="showView('home'); toggleMenu();" class="hover:text-secondary">Akademik</a>
+                <a href="#" onclick="showView('news'); toggleMenu();" class="hover:text-secondary">Berita</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Home View Container -->
+    <div id="home-view">
+        <!-- Hero Section -->
+        <section class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
+            <div class="text-center px-6 relative z-10 reveal">
+                <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-secondary/30 bg-white/5 backdrop-blur-sm">
+                    <span class="text-secondary text-xs font-bold tracking-[0.2em] uppercase">Established 1992</span>
+                </div>
+                <h1 class="font-serif text-5xl md:text-7xl text-white mb-8 leading-tight max-w-4xl mx-auto">
+                    Pioneering the Future of <br/>
+                    <span class="italic text-secondary">Faith and Intellect</span>
+                </h1>
+                <p class="text-white/70 max-w-2xl mx-auto mb-10 text-lg">
+                    Modern Islamic Boarding School empowering the next generation with distinguished education and enduring values.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="bg-primary-container text-white px-8 py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-primary transition-all shadow-2xl">
+                        JELAJAHI PROGRAM KAMI
+                        <span class="material-symbols-outlined">trending_flat</span>
+                    </button>
+                    <button class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-xl hover:bg-white/20 transition-all">
+                        VIRTUAL TOUR
+                    </button>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30 animate-bounce">
+                <span class="material-symbols-outlined text-4xl">south</span>
+            </div>
+        </section>
+
+        <!-- Info Section -->
+        <section class="py-24 px-6 lg:px-16" id="about">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal relative group">
+                    <div class="rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Student study">
+                    </div>
+                    <div class="absolute -bottom-8 -right-8 bg-primary rounded-3xl p-10 text-white hidden md:block">
+                        <p class="text-5xl font-serif mb-2">32+</p>
+                        <p class="text-xs font-bold tracking-widest text-secondary uppercase">Years Excellence</p>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <span class="text-secondary font-bold tracking-[0.2em] text-xs mb-4 block uppercase">Identity & Mission</span>
+                    <h2 class="font-serif text-4xl text-brand-forest mb-8 leading-tight">Mendidik dengan Amanah dan Tradisi Akademik</h2>
+                    
+                    <div class="space-y-10">
+                        <div class="flex gap-6">
+                            <div class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary">
+                                <span class="material-symbols-outlined">auto_stories</span>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-xl mb-2">Visi Kami</h3>
+                                <p class="text-on-surface-variant leading-relaxed">Menjadi pusat unggulan pendidikan Islam modern yang mengintegrasikan kecerdasan intelektual dan kemuliaan akhlak.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary">
+                                <span class="material-symbols-outlined">verified_user</span>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-xl mb-2">Misi Kami</h3>
+                                <p class="text-on-surface-variant leading-relaxed">Menyelenggarakan pendidikan holistik berbasis Al-Qur'an dan Sunnah dengan metodologi kontemporer untuk pemimpin masa depan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Grid -->
+        <section class="py-24 bg-brand-forest/5 px-6 lg:px-16" id="values">
+            <div class="max-w-7xl mx-auto text-center mb-16 reveal">
+                <span class="text-secondary font-bold tracking-[0.2em] text-xs mb-4 block uppercase font-sans">Our Core Values</span>
+                <h2 class="font-serif text-4xl text-brand-forest">Pilar Utama Pendidikan</h2>
+            </div>
+            
+            <div class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-10 rounded-3xl reveal border-b-4 border-secondary shadow-sm hover:shadow-2xl transition-all group">
+                    <span class="material-symbols-outlined text-secondary text-4xl mb-6 group-hover:-translate-y-2 transition-transform block">book</span>
+                    <h4 class="font-serif text-xl mb-4 text-primary">Adab & Akhlak</h4>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">Menanamkan nilai-nilai karakter luhur sebagai pondasi utama kepribadian setiap santri.</p>
+                </div>
+                <div class="bg-white p-10 rounded-3xl reveal border-b-4 border-primary shadow-sm hover:shadow-2xl transition-all group">
+                    <span class="material-symbols-outlined text-secondary text-4xl mb-6 group-hover:-translate-y-2 transition-transform block">school</span>
+                    <h4 class="font-serif text-xl mb-4 text-primary">Akademik Modern</h4>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">Kurikulum nasional terintegrasi dengan standar internasional sains dan teknologi.</p>
+                </div>
+                <div class="bg-white p-10 rounded-3xl reveal border-b-4 border-secondary shadow-sm hover:shadow-2xl transition-all group">
+                    <span class="material-symbols-outlined text-secondary text-4xl mb-6 group-hover:-translate-y-2 transition-transform block">language</span>
+                    <h4 class="font-serif text-xl mb-4 text-primary">Bahasa Asing</h4>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">Penguasaan aktif Bahasa Arab dan Inggris sebagai jembatan ilmu pengetahuan dunia.</p>
+                </div>
+                <div class="bg-white p-10 rounded-3xl reveal border-b-4 border-primary shadow-sm hover:shadow-2xl transition-all group">
+                    <span class="material-symbols-outlined text-secondary text-4xl mb-6 group-hover:-translate-y-2 transition-transform block">diversity_3</span>
+                    <h4 class="font-serif text-xl mb-4 text-primary">Leadership</h4>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">Melatih kemandirian dan jiwa kepemimpinan melalui organisasi santri yang dinamis.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Levels Section -->
+        <section class="py-24 bg-white px-6 lg:px-16" id="education">
+            <div class="max-w-7xl mx-auto text-center mb-16 reveal">
+                <span class="text-secondary font-bold tracking-[0.2em] text-xs mb-4 block uppercase font-sans">Programs & Levels</span>
+                <h2 class="font-serif text-4xl text-brand-forest">Jenjang Pendidikan</h2>
+            </div>
+
+            <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+                <!-- MTs -->
+                <div class="reveal group h-full">
+                    <div class="bg-brand-cream p-1 rounded-[2.5rem] h-full transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl border border-brand-forest/5">
+                        <div class="bg-white rounded-[2.25rem] p-10 h-full flex flex-col items-center text-center">
+                            <div class="w-20 h-20 bg-primary/5 rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-4xl">menu_book</span>
+                            </div>
+                            <h3 class="font-serif text-2xl text-brand-forest mb-4">MTs Al-Furqan</h3>
+                            <p class="text-on-surface-variant text-sm leading-relaxed mb-8 grow">
+                                Jenjang pendidikan tingkat menengah (SMP) yang memadukan kurikulum nasional dengan materi kepesantrenan dan penguatan bahasa.
+                            </p>
+                            <button class="w-full py-4 rounded-2xl border border-brand-forest/10 font-bold text-xs uppercase tracking-widest text-brand-forest hover:bg-primary hover:text-white transition-all">SELENGKAPNYA</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MA -->
+                <div class="reveal group h-full" style="transition-delay: 150ms;">
+                    <div class="bg-secondary/5 p-1 rounded-[2.5rem] h-full transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl border border-secondary/10">
+                        <div class="bg-white rounded-[2.25rem] p-10 h-full flex flex-col items-center text-center border-t-4 border-secondary">
+                            <div class="w-20 h-20 bg-secondary/10 rounded-2xl flex items-center justify-center text-secondary mb-8 group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-4xl">history_edu</span>
+                            </div>
+                            <h3 class="font-serif text-2xl text-brand-forest mb-4">MA Al-Furqan</h3>
+                            <p class="text-on-surface-variant text-sm leading-relaxed mb-8 grow">
+                                Tingkat menengah atas (SMA) dengan fokus pada penguasaan kitab kuning, bahasa Arab/Inggris, dan persiapan studi lanjut ke luar negeri.
+                            </p>
+                            <button class="w-full py-4 rounded-2xl bg-secondary text-white font-bold text-xs uppercase tracking-widest hover:bg-secondary/90 shadow-lg shadow-secondary/20 transition-all">DAFTAR SEKARANG</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tahfidz -->
+                <div class="reveal group h-full" style="transition-delay: 300ms;">
+                    <div class="bg-brand-cream p-1 rounded-[2.5rem] h-full transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl border border-brand-forest/5">
+                        <div class="bg-white rounded-[2.25rem] p-10 h-full flex flex-col items-center text-center">
+                            <div class="w-20 h-20 bg-primary/5 rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-4xl">auto_awesome</span>
+                            </div>
+                            <h3 class="font-serif text-2xl text-brand-forest mb-4">Takhassus Tahfidz</h3>
+                            <p class="text-on-surface-variant text-sm leading-relaxed mb-8 grow">
+                                Program khusus menghafal Al-Qur'an 30 Juz dengan metode mutqin, sanad, dan pemahaman tafsir dasar bagi santri pilihan.
+                            </p>
+                            <button class="w-full py-4 rounded-2xl border border-brand-forest/10 font-bold text-xs uppercase tracking-widest text-brand-forest hover:bg-primary hover:text-white transition-all">INFO PROGRAM</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="py-24 px-6 lg:px-16 bg-white overflow-hidden">
+            <div class="max-w-7xl mx-auto text-center mb-16 reveal">
+                <span class="text-secondary font-bold tracking-[0.2em] text-xs mb-4 block uppercase font-sans">Campus Life</span>
+                <h2 class="font-serif text-4xl text-brand-forest">Galeri Aktivitas</h2>
+            </div>
+
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[250px]">
+                <div class="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden gallery-item shadow-lg reveal">
+                    <img src="https://images.unsplash.com/photo-1590075865003-e48267df5574?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Mosque">
+                </div>
+                <div class="rounded-3xl overflow-hidden gallery-item shadow-lg reveal">
+                    <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Library">
+                </div>
+                <div class="md:row-span-2 rounded-3xl overflow-hidden gallery-item shadow-lg reveal">
+                    <img src="https://images.unsplash.com/photo-1541339907198-e08756ebafe3?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Students">
+                </div>
+                <div class="rounded-3xl overflow-hidden gallery-item shadow-lg reveal">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Teaching">
+                </div>
+                <div class="md:col-span-2 rounded-3xl overflow-hidden gallery-item shadow-lg reveal">
+                    <img src="https://images.unsplash.com/photo-1591115765373-520b7a21f7d7?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Campus">
+                </div>
+            </div>
+        </section>
+
+        <!-- Location & Hours Section -->
+        <section class="py-24 px-6 lg:px-16 bg-white" id="location">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
+                <!-- Map Container -->
+                <div class="reveal">
+                    <span class="text-secondary font-bold tracking-[0.2em] text-xs mb-4 block uppercase font-sans">Kunjungi Kami</span>
+                    <h2 class="font-serif text-4xl text-brand-forest mb-8">Lokasi Strategis</h2>
+                    <div class="rounded-[2.5rem] overflow-hidden shadow-2xl border border-brand-forest/5 aspect-video lg:aspect-square">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126906.911674488!2d106.7891391!3d-6.2843435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f1f0a20f92a3%3A0x6739343764b8bb26!2sPondok%20Pesantren%20Al-Furqan!5e0!3m2!1sid!2sid!4v1715239200000!5m2!1sid!2sid" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            class="grayscale hover:grayscale-0 transition-all duration-700">
+                        </iframe>
+                    </div>
+                    <p class="mt-6 text-on-surface-variant flex items-start gap-3">
+                        <span class="material-symbols-outlined text-secondary">location_on</span>
+                        <span>Jl. Pendidikan No. 42, Desa Sukamaju, Kec. Cisarua, Jawa Barat 16750</span>
+                    </p>
+                </div>
+
+                <!-- Hours Container -->
+                <div class="reveal lg:pt-20">
+                    <div class="bg-brand-cream p-10 lg:p-12 rounded-[3rem] border border-brand-forest/5 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-8 text-secondary/10">
+                            <span class="material-symbols-outlined text-8xl">schedule</span>
+                        </div>
+                        
+                        <h3 class="font-serif text-3xl text-brand-forest mb-8 relative z-10 text-primary">Jam Operasional</h3>
+                        <div class="space-y-6 relative z-10">
+                            <div class="flex justify-between items-center border-b border-brand-forest/10 pb-4">
+                                <span class="font-bold text-brand-forest tracking-wide">Senin - Kamis</span>
+                                <span class="text-on-surface-variant italic font-medium">08:00 - 16:00</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-brand-forest/10 pb-4">
+                                <span class="font-bold text-brand-forest tracking-wide">Jumat</span>
+                                <span class="text-on-surface-variant italic font-medium">08:00 - 11:30</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-brand-forest/10 pb-4 text-primary">
+                                <span class="font-bold tracking-wide">Sabtu (Pendaftaran)</span>
+                                <span class="italic font-bold">09:00 - 13:00</span>
+                            </div>
+                            <div class="flex justify-between items-center pb-4 text-red-800/60 uppercase tracking-tighter">
+                                <span class="font-bold">Minggu & Libur</span>
+                                <span class="text-[10px] font-black border border-red-800/20 px-2 py-0.5 rounded">Tutup</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-12 p-6 bg-white/50 backdrop-blur-sm rounded-2xl border border-brand-forest/5 relative z-10">
+                            <p class="text-xs text-on-surface-variant leading-relaxed">
+                                <strong class="text-brand-forest block mb-1 uppercase tracking-wider font-bold">Catatan Penting:</strong>
+                                Kunjungan wali santri hanya diperkenankan pada hari Sabtu dan Minggu sesuai jadwal yang telah ditentukan oleh divisi kepengasuhan untuk menjaga ritme belajar santri.
+                            </p>
+                        </div>
+
+                        <button class="mt-8 w-full bg-primary text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[10px] hover:bg-primary-container transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95 group">
+                            <span class="material-symbols-outlined group-hover:rotate-12 transition-transform">calendar_month</span>
+                            Buat Janji Kunjungan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- News View Container -->
+    <div id="news-view" class="hidden">
+        <!-- Page Header -->
+        <section class="pt-48 pb-20 bg-brand-forest text-white relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3"></div>
+            </div>
+            <div class="max-w-7xl mx-auto px-6 lg:px-16 relative z-10 reveal">
+                <h1 class="font-serif text-4xl md:text-6xl mb-6">Berita & <span class="italic text-secondary">Artikel</span></h1>
+                <p class="text-white/60 max-w-xl mb-12">Ikuti kabar terbaru, pengumuman, dan artikel edukatif dari lingkungan Al-Furqan Academy.</p>
+                
+                <!-- Search & Filters -->
+                <div class="flex flex-col md:flex-row gap-6 items-center">
+                    <div class="relative w-full max-w-md group">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/30 group-focus-within:text-secondary transition-colors">search</span>
+                        <input type="text" placeholder="Cari artikel..." class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-white focus:outline-none focus:ring-2 focus:ring-secondary transition-all">
+                    </div>
+                    <div class="flex gap-3 overflow-x-auto w-full pb-2 md:pb-0 scrollbar-hide">
+                        <button class="bg-secondary text-white px-6 py-2 rounded-full whitespace-nowrap text-xs font-bold uppercase tracking-wider">Semua</button>
+                        <button class="bg-white/5 border border-white/10 hover:border-secondary text-white/70 hover:text-white px-6 py-2 rounded-full whitespace-nowrap text-xs font-bold uppercase tracking-wider transition-all">Kegiatan</button>
+                        <button class="bg-white/5 border border-white/10 hover:border-secondary text-white/70 hover:text-white px-6 py-2 rounded-full whitespace-nowrap text-xs font-bold uppercase tracking-wider transition-all">Pengumuman</button>
+                        <button class="bg-white/5 border border-white/10 hover:border-secondary text-white/70 hover:text-white px-6 py-2 rounded-full whitespace-nowrap text-xs font-bold uppercase tracking-wider transition-all">Opini</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Grid -->
+        <section class="py-24 px-6 lg:px-16 container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                
+                <!-- Feature Card (Larger) -->
+                <div class="lg:col-span-2 reveal">
+                    <article class="group news-card bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all border border-brand-forest/5 flex flex-col md:flex-row h-full">
+                        <div class="md:w-1/2 overflow-hidden aspect-video md:aspect-auto">
+                            <img src="https://images.unsplash.com/photo-1541339907198-e08756ebafe3?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Featured News">
+                        </div>
+                        <div class="p-10 md:w-1/2 flex flex-col justify-center">
+                            <span class="text-secondary font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">15 Mei 2024 • Kegiatan</span>
+                            <h2 class="font-serif text-3xl text-brand-forest mb-6 group-hover:text-primary transition-colors leading-tight">Wisuda Tahfidz Qur'an Angkatan ke-X: Mencetak Generasi Qurani</h2>
+                            <p class="text-on-surface-variant text-sm leading-relaxed mb-8 line-clamp-3">Al-Furqan Academy dengan bangga merayakan pencapaian luar biasa para santri dalam program intensif Tahfidz yang telah diselesaikan dengan penuh dedikasi.</p>
+                            <a href="#" class="inline-flex items-center gap-3 text-secondary font-bold text-xs uppercase tracking-widest group-hover:gap-5 transition-all">
+                                Baca Selengkapnya
+                                <span class="material-symbols-outlined">trending_flat</span>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Standard Card 1 -->
+                <div class="reveal">
+                    <article class="group news-card bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all border border-brand-forest/5 h-full flex flex-col">
+                        <div class="overflow-hidden aspect-video">
+                            <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover" alt="News 2">
+                        </div>
+                        <div class="p-10 flex-grow">
+                            <span class="text-secondary font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">12 Mei 2024 • Prestasi</span>
+                            <h3 class="font-serif text-xl text-brand-forest mb-4 group-hover:text-primary transition-colors">Juara Umum Olimpiade Sains Nasional Tingkat Provinsi</h3>
+                            <p class="text-on-surface-variant text-sm leading-relaxed line-clamp-2">Tim delegasi Al-Furqan berhasil membawa pulang 5 medali emas dalam kompetisi bergengsi tingkat sains Jawa Barat.</p>
+                        </div>
+                        <div class="px-10 pb-10">
+                            <a href="#" class="inline-flex items-center gap-3 text-secondary font-bold text-xs uppercase tracking-widest group-hover:gap-5 transition-all">
+                                Baca Selengkapnya
+                                <span class="material-symbols-outlined">trending_flat</span>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Standard Card 2 -->
+                <div class="reveal">
+                    <article class="group news-card bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all border border-brand-forest/5 h-full flex flex-col">
+                        <div class="overflow-hidden aspect-video">
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover" alt="News 3">
+                        </div>
+                        <div class="p-10 flex-grow">
+                            <span class="text-secondary font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">10 Mei 2024 • Pengumuman</span>
+                            <h3 class="font-serif text-xl text-brand-forest mb-4 group-hover:text-primary transition-colors">Pendaftaran Santri Baru Tahun Akademik 2025 Dibuka</h3>
+                            <p class="text-on-surface-variant text-sm leading-relaxed line-clamp-2">Kami mengundang putra-putri terbaik bangsa untuk bergabung dalam lingkungan pendidikan amanah dan futuristik.</p>
+                        </div>
+                        <div class="px-10 pb-10">
+                            <a href="#" class="inline-flex items-center gap-3 text-secondary font-bold text-xs uppercase tracking-widest group-hover:gap-5 transition-all">
+                                Baca Selengkapnya
+                                <span class="material-symbols-outlined">trending_flat</span>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Standard Card 3 -->
+                <div class="reveal">
+                    <article class="group news-card bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all border border-brand-forest/5 h-full flex flex-col">
+                        <div class="overflow-hidden aspect-video">
+                            <img src="https://images.unsplash.com/photo-1591115765373-520b7a21f7d7?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover" alt="News 4">
+                        </div>
+                        <div class="p-10 flex-grow">
+                            <span class="text-secondary font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">08 Mei 2024 • Opini</span>
+                            <h3 class="font-serif text-xl text-brand-forest mb-4 group-hover:text-primary transition-colors">Adab Menuntut Ilmu di Era Kecepatan Informasi</h3>
+                            <p class="text-on-surface-variant text-sm leading-relaxed line-clamp-2">Ulasan mendalam mengenai pentingnya filter moral dalam mengonsumsi berita digital untuk menjaga kesucian ilmu.</p>
+                        </div>
+                        <div class="px-10 pb-10">
+                            <a href="#" class="inline-flex items-center gap-3 text-secondary font-bold text-xs uppercase tracking-widest group-hover:gap-5 transition-all">
+                                Baca Selengkapnya
+                                <span class="material-symbols-outlined">trending_flat</span>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Standard Card 4 -->
+                <div class="reveal">
+                    <article class="group news-card bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all border border-brand-forest/5 h-full flex flex-col">
+                        <div class="overflow-hidden aspect-video">
+                            <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover" alt="News 5">
+                        </div>
+                        <div class="p-10 flex-grow">
+                            <span class="text-secondary font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">05 Mei 2024 • Kegiatan</span>
+                            <h3 class="font-serif text-xl text-brand-forest mb-4 group-hover:text-primary transition-colors">Rihlah Ilmiah: Mempelajari Arsitektur Masjid Nusantara</h3>
+                            <p class="text-on-surface-variant text-sm leading-relaxed line-clamp-2">Santri melakukan perjalanan edukatif ke pusat-pusat peradaban Islam di tanah air.</p>
+                        </div>
+                        <div class="px-10 pb-10">
+                            <a href="#" class="inline-flex items-center gap-3 text-secondary font-bold text-xs uppercase tracking-widest group-hover:gap-5 transition-all">
+                                Baca Selengkapnya
+                                <span class="material-symbols-outlined">trending_flat</span>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-20 flex justify-center items-center gap-3 reveal">
+                <button class="w-12 h-12 rounded-xl border border-brand-forest/10 flex items-center justify-center hover:bg-secondary hover:text-white transition-all text-brand-forest">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                <button class="w-12 h-12 rounded-xl bg-primary text-white font-bold">1</button>
+                <button class="w-12 h-12 rounded-xl border border-brand-forest/10 flex items-center justify-center hover:bg-brand-forest hover:text-white transition-all text-brand-forest font-bold">2</button>
+                <button class="w-12 h-12 rounded-xl border border-brand-forest/10 flex items-center justify-center hover:bg-brand-forest hover:text-white transition-all text-brand-forest font-bold">3</button>
+                <button class="w-12 h-12 rounded-xl border border-brand-forest/10 flex items-center justify-center hover:bg-secondary hover:text-white transition-all text-brand-forest">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-brand-forest text-white/50 py-16 px-6 lg:px-16 border-t border-white/5">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
+            <div class="md:col-span-1">
+                <h3 class="font-serif text-white text-2xl mb-6">Al-Furqan Academy</h3>
+                <p class="text-sm leading-relaxed mb-6">Mendidik dengan Amanah dan Tradisi Akademik untuk mencetak pemimpin masa depan yang berakhlaqul karimah.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center hover:bg-white/5 transition-all">
+                        <span class="material-symbols-outlined text-sm">public</span>
+                    </a>
+                    <a href="#" class="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center hover:bg-white/5 transition-all">
+                        <span class="material-symbols-outlined text-sm">share</span>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h5 class="text-white font-bold text-xs uppercase tracking-widest mb-6">Link Navigasi</h5>
+                <nav class="flex flex-col gap-4 text-sm">
+                    <a href="#" class="hover:text-secondary transition-colors">Visi & Misi</a>
+                    <a href="#" class="hover:text-secondary transition-colors">Kurikulum</a>
+                    <a href="#" class="hover:text-secondary transition-colors">Fasilitas</a>
+                    <a href="#" class="hover:text-secondary transition-colors">Galeri</a>
+                </nav>
+            </div>
+            <div>
+                <h5 class="text-white font-bold text-xs uppercase tracking-widest mb-6">Akademik</h5>
+                <nav class="flex flex-col gap-4 text-sm">
+                    <a href="#" class="hover:text-secondary transition-colors">Pendaftaran PSB</a>
+                    <a href="#" class="hover:text-secondary transition-colors">Beasiswa</a>
+                    <a href="#" class="hover:text-secondary transition-colors">Kalender</a>
+                    <a href="#" class="hover:text-secondary transition-colors">Karir</a>
+                </nav>
+            </div>
+            <div>
+                <h5 class="text-white font-bold text-xs uppercase tracking-widest mb-6">Kontak Kami</h5>
+                <p class="text-sm mb-4 flex items-center gap-3">
+                    <span class="material-symbols-outlined text-secondary">location_on</span>
+                    Jl. Pendidikan No. 42, Jawa Barat
+                </p>
+                <p class="text-sm mb-4 flex items-center gap-3">
+                    <span class="material-symbols-outlined text-secondary">call</span>
+                    +62 (21) 555-0123
+                </p>
+                <p class="text-sm flex items-center gap-3">
+                    <span class="material-symbols-outlined text-secondary">mail</span>
+                    info@alfurqan.academy
+                </p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/5 text-center text-xs">
+            <p>© 2024 Al-Furqan Academy. Mendidik dengan Amanah dan Tradisi Akademik.</p>
+        </div>
+    </footer>
+
+    <script>
+        // View Switching Logic
+        const homeView = document.getElementById('home-view');
+        const newsView = document.getElementById('news-view');
+        const navLinksHome = document.querySelectorAll('.nav-link-home');
+        const navLinksNews = document.querySelectorAll('.nav-link-news');
+
+        function showView(view) {
+            if (view === 'home') {
+                homeView.classList.remove('hidden');
+                newsView.classList.add('hidden');
+                
+                // Update active state
+                navLinksHome.forEach(el => el.classList.add('border-b-2', 'border-secondary', 'pb-1'));
+                navLinksNews.forEach(el => el.classList.remove('border-b-2', 'border-secondary', 'pb-1'));
+                
+                window.scrollTo(0, 0);
+            } else if (view === 'news') {
+                homeView.classList.add('hidden');
+                newsView.classList.remove('hidden');
+                
+                // Update active state
+                navLinksNews.forEach(el => el.classList.add('border-b-2', 'border-secondary', 'pb-1'));
+                navLinksHome.forEach(el => el.classList.remove('border-b-2', 'border-secondary', 'pb-1'));
+                
+                window.scrollTo(0, 0);
+            }
+            // Trigger observer for newly shown elements
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        }
+
+        // Hamburger Menu Logic
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            document.body.classList.toggle('overflow-hidden');
+            menuIcon.innerText = mobileMenu.classList.contains('open') ? 'close' : 'menu';
+        }
+
+        // Continuous Scroll Animation Logic
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    // Re-trigger animation when scrolling back up (User requested re-run)
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, observerOptions);
+
+        // Target all elements with class 'reveal'
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Header Background on Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.remove('py-6');
+                header.classList.add('py-4');
+            } else {
+                header.classList.add('py-6');
+                header.classList.remove('py-4');
+            }
+        });
+    </script>
+</body>
+</html>
