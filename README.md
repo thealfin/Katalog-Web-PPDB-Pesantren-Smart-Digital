@@ -11,7 +11,7 @@ Pilih dari beragam desain profesional • Live Responsive Preview • Download S
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4+-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![Pinia](https://img.shields.io/badge/Pinia-State_Management-F7D336?style=for-the-badge&logo=pinia&logoColor=black)](https://pinia.vuejs.org)
-[![Supabase](https://img.shields.io/badge/Supabase-Database-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com)
+[![Vercel KV](https://img.shields.io/badge/Vercel_KV-Data_Cache-FF0000?style=for-the-badge&logo=redis&logoColor=white)](https://vercel.com/docs/storage/vercel-kv)
 [![Vercel Blob](https://img.shields.io/badge/Vercel_Blob-Cloud_Storage-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/docs/storage/vercel-blob)
 [![Deploy](https://img.shields.io/badge/Live_Demo-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://katalog-website-ppdb-psd.vercel.app)
 
@@ -28,7 +28,8 @@ Pilih dari beragam desain profesional • Live Responsive Preview • Download S
 Inisiatif ini lahir di bawah naungan ekosistem **Pesantren Smart Digital (PSD)** untuk membantu lembaga pendidikan Islam menghadirkan representasi digital berkelas dunia, modern, dan islami tanpa harus mengeluarkan biaya pengembangan tinggi atau membangun sistem dari nol.
 
 ### 🌟 Nilai Utama Platform
-- **🕌 Desain Bernuansa Islami & Kontemporer:** Menggabungkan palet warna Deep Green (`#0A5C4F`), Imperial Gold (`#F4C430`), Mint, Slate, dan Rose dengan tipografi modern *Plus Jakarta Sans*.
+
+- **🕌 Desain Bernuansa Islami & Kontemporer:** Menggabungkan palet warna Deep Green (`#0A5C4F`), Imperial Gold (`#F4C430`), Mint, Slate, dan Rose dengan tipografi modern _Plus Jakarta Sans_.
 - **📱 Smart Responsive Preview:** Pengunjung dapat mencoba dan menjelajahi tampilan template secara langsung dalam mockup browser interaktif (Desktop, Tablet, dan Smartphone) sebelum mengunduh.
 - **⚡ Alur Instan & Download Bebas:** Santri, pengurus, maupun developer dapat mengunduh seluruh source code template dalam bentuk arsip **ZIP** siap pakai dengan sekali klik.
 - **🔄 Auto-Direct Integrasi Web App PSD:** Setiap template disiapkan dengan alur pendaftaran terintegrasi langsung ke sistem Web App PPDB Pesantren Smart Digital (Formulir online, upload berkas santri, pembayaran otomatis VA/QRIS, serta notifikasi WhatsApp).
@@ -41,13 +42,15 @@ Inisiatif ini lahir di bawah naungan ekosistem **Pesantren Smart Digital (PSD)**
 Berikut adalah visualisasi antarmuka aplikasi yang telah diimplementasikan:
 
 ### 1. 🏠 Halaman Katalog Utama & Filter Interaktif
-Etalase template dengan banner hero islami, filter kategori skema warna, gaya desain, status rilisan (*Terbaru / Unggulan*), dan pencarian real-time:
+
+Etalase template dengan banner hero islami, filter kategori skema warna, gaya desain, status rilisan (_Terbaru / Unggulan_), dan pencarian real-time:
 
 ![Halaman Katalog Utama](./docs/screenshots/landing-catalog.png)
 
 ---
 
 ### 2. 👁️ Halaman Detail & Live Interactive Preview
+
 Preview live template berbasis iframe sandbox dengan switcher resolusi (Desktop, Tablet, Mobile), informasi fitur lengkap, badge tag, dan tombol download source code:
 
 ![Detail & Live Preview](./docs/screenshots/template-detail.png)
@@ -55,6 +58,7 @@ Preview live template berbasis iframe sandbox dengan switcher resolusi (Desktop,
 ---
 
 ### 3. 🔐 Admin Login dengan Apple-Style macOS Controls
+
 Halaman autentikasi administrator dengan window bar ala macOS (lampu indikator merah, kuning, hijau), logo resmi PSD, dan proteksi brute-force rate limiter:
 
 ![Admin Login](./docs/screenshots/admin-login.png)
@@ -62,6 +66,7 @@ Halaman autentikasi administrator dengan window bar ala macOS (lampu indikator m
 ---
 
 ### 4. 📊 Admin Dashboard Analytics & Manajemen Koleksi
+
 Panel manajemen template yang menampilkan metrik statistik (Total Koleksi, Rilisan Baru, Pilihan Unggulan), tabel data interaktif, quick action preview/edit/hapus, serta tombol keluar dengan modal Apple glassmorphism:
 
 ![Admin Dashboard](./docs/screenshots/admin-dashboard.png)
@@ -69,6 +74,7 @@ Panel manajemen template yang menampilkan metrik statistik (Total Koleksi, Rilis
 ---
 
 ### 5. 📤 Form Upload Template & Dynamic Taxonomy
+
 Formulir upload dengan dukungan ekstraksi instan arsip ZIP via JSZip, preview thumbnail otomatis, direct upload ke Vercel Blob, serta modal tambah kategori warna & gaya desain baru secara dinamis:
 
 ![Admin Upload Template](./docs/screenshots/admin-upload.png)
@@ -93,32 +99,37 @@ Formulir upload dengan dukungan ekstraksi instan arsip ZIP via JSZip, preview th
 ```
 
 ### 1. 🔍 Mesin Pencarian & Filter Cerdas
+
 - **Pencarian Real-Time:** Filter berdasarkan nama template, kata kunci deskripsi, tag fitur, dan slug.
 - **Kategori Warna & Gaya Dinamis:** Filter skema warna (Green, Gold, Blue, Gray, Maroon, Purple, dll.) dan gaya visual (Modern-Rabbani, Ultra-Minimal, Prestisius, Cyber-Islamic, dll.).
-- **Quick Status Pill:** Tab filter instan untuk kategori *Semua*, *Terbaru (New Release)*, dan *Unggulan (Featured)*.
+- **Quick Status Pill:** Tab filter instan untuk kategori _Semua_, _Terbaru (New Release)_, dan _Unggulan (Featured)_.
 
 ### 2. 🖥️ Sistem Streaming & Live Sandbox Preview
-- **Streaming Proxy Server Engine:** Endpoint `server/api/templates/preview/[...path].get.ts` secara cerdas mengalirkan (*stream*) dokumen HTML, CSS, JavaScript, font, dan aset gambar langsung dari Vercel Blob Storage atau file lokal.
+
+- **Streaming Proxy Server Engine:** Endpoint `server/api/templates/preview/[...path].get.ts` secara cerdas mengalirkan (_stream_) dokumen HTML, CSS, JavaScript, font, dan aset gambar langsung dari Vercel Blob Storage atau file lokal.
 - **Device Viewport Switcher:** Memungkinkan calon pengguna menguji responsivitas template pada rasio Desktop (100%), Tablet (768px), dan Smartphone (375px).
 - **Fullscreen Mode:** Membuka demo website pada tab baru tanpa elemen pembungkus untuk peninjauan menyeluruh.
 
 ### 3. 📦 Generator Download & Kompresi Berkas
+
 - Menggunakan library client-side [`jszip`](https://stuk.github.io/jszip/) dan [`file-saver`](https://github.com/nicolo-ribaudo/FileSaver.js).
 - Pengunjung dapat mengunduh paket lengkap source code website secara instan tanpa membebani bandwidth pemrosesan server.
 
 ### 4. 🏷️ Dynamic Taxonomy System (`useTemplateTaxonomy.ts`)
-- Taksonomi kategori warna dan gaya desain tidak dikunci secara statis (*hardcoded*).
+
+- Taksonomi kategori warna dan gaya desain tidak dikunci secara statis (_hardcoded_).
 - Administrator dapat menambahkan opsi kategori warna dan gaya desain baru secara langsung dari form upload atau edit melalui pop-up modal modern.
 - Data taksonomi disimpan secara persisten di `localStorage` pada sisi client dan tersinkronisasi di filter katalog publik.
 
 ### 5. 🛡️ Keamanan & Manajemen Sesi
-- **Rate-Limiting Proteksi:** Mencegah serangan *brute force* pada halaman login admin. Jika gagal 5 kali berturut-turut, sistem mengunci login selama 30 detik.
+
+- **Rate-Limiting Proteksi:** Mencegah serangan _brute force_ pada halaman login admin. Jika gagal 5 kali berturut-turut, sistem mengunci login selama 30 detik.
 - **Route Guard Middleware:** File `middleware/auth.ts` memvalidasi status autentikasi sebelum mengizinkan akses ke seluruh sub-rute `/admin`.
 - **Destructive Action Safety:** Konfirmasi penghapusan dan logout menggunakan modal custom bergaya Apple Glassmorphism dengan indikator loading state.
 
 ---
 
-## 🗄️ Database & Storage Management
+## 🗄️ Cloud Storage & Data Management
 
 Aplikasi menggunakan pendekatan arsitektur **Hybrid Storage Resilience** yang fleksibel dan andal baik di lingkungan lokal maupun cloud serverless:
 
@@ -130,50 +141,30 @@ Aplikasi menggunakan pendekatan arsitektur **Hybrid Storage Resilience** yang fl
                                         │
                  ┌──────────────────────┴──────────────────────┐
                  ▼                                             ▼
-     [ Cloud Database & Storage ]                  [ Local Fallback System ]
-  ┌───────────────────────────────┐             ┌─────────────────────────────┐
-  │ • Supabase (PostgreSQL)       │             │ • data/templates.json       │
-  │   - Tabel 'templates'         │             │   - Standalone offline data │
-  │ • Vercel Blob Storage         │             │ • public/templates/         │
-  │   - ZIP source code packages  │             │   - Local static files      │
-  │   - Thumbnail & banner media  │             │   - Local preview assets    │
-  └───────────────────────────────┘             └─────────────────────────────┘
+     [ Cloud Storage & State (Vercel) ]            [ Local Fallback System ]
+  ┌───────────────────────────────────────┐     ┌─────────────────────────────┐
+  │ • Vercel Blob Storage                 │     │ • data/templates.json       │
+  │   - templates.json (katalog metadata) │     │   - Standalone offline data │
+  │   - ZIP source code packages          │     │ • public/templates/         │
+  │   - Thumbnail & preview media         │     │   - Local static files      │
+  │ • Vercel KV (Redis Key-Value Cache)   │     │   - Local preview assets    │
+  │   - Fast cached read/write            │     │                             │
+  └───────────────────────────────────────┘     └─────────────────────────────┘
 ```
 
-### 1. Database PostgreSQL (Supabase)
-Ketika `SUPABASE_URL` dan `SUPABASE_KEY` (atau `SUPABASE_SERVICE_ROLE_KEY`) dikonfigurasi, sistem secara otomatis menyimpan dan menyinkronkan seluruh katalog ke tabel `templates` di Supabase.
+### 1. Vercel Blob Cloud Storage (Utama di Production)
 
-**Struktur Skema Tabel (`templates`):**
-```sql
-CREATE TABLE templates (
-  id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
-  slug TEXT UNIQUE NOT NULL,
-  title TEXT NOT NULL,
-  description TEXT,
-  category TEXT NOT NULL,          -- Kategori warna (green, gold, blue, dll)
-  style TEXT NOT NULL,             -- Gaya desain (modern-rabbani, ultra-minimal, dll)
-  primary_color TEXT DEFAULT '#0A5C4F',
-  thumbnail_url TEXT,
-  zip_url TEXT,
-  demo_url TEXT,
-  features JSONB DEFAULT '[]'::jsonb,
-  tags JSONB DEFAULT '[]'::jsonb,
-  is_new BOOLEAN DEFAULT false,
-  is_featured BOOLEAN DEFAULT false,
-  is_premium BOOLEAN DEFAULT false,
-  download_count INTEGER DEFAULT 0,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-```
+- **Metadata Katalog (`templates.json`):** Di production, data seluruh template disimpan dan diperbarui langsung sebagai berkas JSON publik di Vercel Blob (`BLOB_KEY = 'templates.json'`).
+- **Direct Client-to-Cloud Upload:** Mengatasi batasan ukuran payload serverless Vercel (4.5 MB). Melalui endpoint `server/api/templates/upload-token.post.ts`, browser admin mengunggah file ZIP template dan thumbnail langsung ke Vercel Blob via `@vercel/blob/client`.
+- **Public CDN & Global Edge:** Seluruh berkas ZIP, gambar thumbnail, dan aset preview disajikan dengan cepat melalui jaringan CDN Vercel.
 
-### 2. Vercel Blob Storage
-- **Direct Client Upload:** Mengatasi batasan ukuran payload serverless Vercel (4.5 MB). Melalui endpoint `server/api/templates/upload-token.post.ts`, browser admin mengunggah file ZIP template langsung ke Vercel Blob via `@vercel/blob/client`.
-- **Public CDN Delivery:** Seluruh aset media dan ZIP disajikan dengan kecepatan tinggi melalui Vercel Global Edge Network.
+### 2. Vercel KV (Redis Cache - Opsional)
 
-### 3. Local JSON & Filesystem Fallback
-- Jika berjalan secara lokal atau variabel Supabase belum diisi, aplikasi **tidak akan crash**.
-- Sistem otomatis beralih menggunakan `data/templates.json` untuk data dan folder `public/templates/` untuk aset visual.
+- Jika variabel `KV_REST_API_URL` dan `KV_REST_API_TOKEN` tersedia di Vercel, sistem memanfaatkan Vercel KV sebagai layer caching in-memory berkecepatan tinggi sebelum membaca ke Blob.
+
+### 3. Local JSON & Filesystem (Development)
+
+- Ketika dijalankan secara lokal (`npm run dev`), sistem secara otomatis menggunakan berkas lokal [data/templates.json](file:///d:/All%20Project%20Website/Nuxt%20PSD%20katalog%20web/data/templates.json) sebagai database file-based dan folder `public/templates/` untuk aset preview.
 
 ---
 
@@ -239,7 +230,7 @@ CREATE TABLE templates (
 │   │       ├── [slug].put.ts           # Endpoint PUT perbarui data template
 │   │       └── [slug].delete.ts        # Endpoint DELETE hapus template dari database & storage
 │   └── 📂 utils/
-│       └── templates-store.ts          # Core repository layer (Supabase + Local JSON resilience)
+│       └── templates-store.ts          # Storage manager (Vercel Blob + Vercel KV + Local JSON)
 ├── 📂 stores/
 │   ├── auth.ts                         # Pinia store autentikasi, sesi admin, dan rate limiting
 │   └── templates.ts                    # Pinia store koleksi data katalog template
@@ -254,42 +245,46 @@ CREATE TABLE templates (
 
 ## 🛠️ Tech Stack & Ekosistem
 
-| Lapisan | Teknologi | Penggunaan & Keterangan |
-|---|---|---|
-| **Framework Utama** | [Nuxt 3](https://nuxt.com/) (v3.17+) | Full-stack Vue framework dengan SSR, file-based routing, dan Nitro engine |
-| **View Layer** | [Vue 3](https://vuejs.org/) (Composition API) | Reactive UI components dengan `<script setup lang="ts">` |
-| **Bahasa Pemrograman** | [TypeScript](https://www.typescriptlang.org/) | Strict type checking untuk reliabilitas kode skala enterprise |
-| **Styling & Desain** | [Tailwind CSS 3](https://tailwindcss.com/) | Utility-first CSS, custom Islamic color palette, dan efek glassmorphism |
-| **Tipografi** | [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) | Font modern, bersih, dan berstandar internasional |
-| **Ikonografi** | [Google Material Symbols](https://fonts.google.com/icons) | Ikon sistem elegan yang serasi di seluruh halaman web & admin |
-| **State Management** | [Pinia 3](https://pinia.vuejs.org/) | Reusable modular state untuk katalog dan sesi autentikasi |
-| **Database** | [Supabase](https://supabase.com/) (PostgreSQL) | Penyimpanan cloud persisten untuk metadata seluruh koleksi template |
-| **Cloud Storage** | [Vercel Blob](https://vercel.com/docs/storage/vercel-blob) | Penyimpanan arsip ZIP template dan gambar thumbnail dengan direct client upload |
-| **Kompresi Berkas** | [JSZip](https://stuk.github.io/jszip/) & [Adm-Zip](https://github.com/cthackers/adm-zip) | Kompresi, ekstraksi ZIP di browser dan server |
-| **Utilitas Gambar** | [Sharp](https://sharp.pixelplumbing.com/) | Optimasi dan pemrosesan gambar berkecepatan tinggi |
-| **Utilitas Reaktif** | [@vueuse/nuxt](https://vueuse.org/) | Helper hooks untuk keyboard event, clipboard, dan viewport |
+| Lapisan                | Teknologi                                                                                | Penggunaan & Keterangan                                                       |
+| ---------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| **Framework Utama**    | [Nuxt 3](https://nuxt.com/) (v3.17+)                                                     | Full-stack Vue framework dengan SSR, file-based routing, dan Nitro engine     |
+| **View Layer**         | [Vue 3](https://vuejs.org/) (Composition API)                                            | Reactive UI components dengan `<script setup lang="ts">`                      |
+| **Bahasa Pemrograman** | [TypeScript](https://www.typescriptlang.org/)                                            | Strict type checking untuk reliabilitas kode skala enterprise                 |
+| **Styling & Desain**   | [Tailwind CSS 3](https://tailwindcss.com/)                                               | Utility-first CSS, custom Islamic color palette, dan efek glassmorphism       |
+| **Tipografi**          | [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans)                 | Font modern, bersih, dan berstandar internasional                             |
+| **Ikonografi**         | [Google Material Symbols](https://fonts.google.com/icons)                                | Ikon sistem elegan yang serasi di seluruh halaman web & admin                 |
+| **State Management**   | [Pinia 3](https://pinia.vuejs.org/)                                                      | Reusable modular state untuk katalog dan sesi autentikasi                     |
+| **Cloud Storage**      | [Vercel Blob](https://vercel.com/docs/storage/vercel-blob)                               | Penyimpanan file metadata (templates.json), arsip ZIP template, dan thumbnail |
+| **Cache Store**        | [Vercel KV](https://vercel.com/docs/storage/vercel-kv) (Redis)                           | Key-value store untuk caching metadata template berkecepatan tinggi           |
+| **Kompresi Berkas**    | [JSZip](https://stuk.github.io/jszip/) & [Adm-Zip](https://github.com/cthackers/adm-zip) | Kompresi, ekstraksi ZIP di browser dan server                                 |
+| **Utilitas Gambar**    | [Sharp](https://sharp.pixelplumbing.com/)                                                | Optimasi dan pemrosesan gambar berkecepatan tinggi                            |
+| **Utilitas Reaktif**   | [@vueuse/nuxt](https://vueuse.org/)                                                      | Helper hooks untuk keyboard event, clipboard, dan viewport                    |
 
 ---
 
 ## 🚀 Panduan Memulai (Getting Started)
 
 ### Prasyarat Sistem
+
 - **Node.js:** Versi `18.x` atau lebih baru (Disarankan `20.x` LTS)
 - **Package Manager:** `npm`, `pnpm`, atau `yarn`
 - **Git**
 
 ### 1. Kloning Repository
+
 ```bash
 git clone https://github.com/thealfin/Katalog-Web-PPDB-Pesantren-Smart-Digital.git
 cd Katalog-Web-PPDB-Pesantren-Smart-Digital
 ```
 
 ### 2. Instalasi Dependensi
+
 ```bash
 npm install
 ```
 
 ### 3. Konfigurasi Environment Variables
+
 Salin file template `.env.example` atau buat file `.env` baru di direktori root:
 
 ```bash
@@ -307,24 +302,27 @@ NUXT_ADMIN_PASSWORD=password_admin_rahasia_anda
 NUXT_SESSION_SECRET=kunci_rahasia_sesi_acak_minimal_32_karakter
 
 # ==========================================
-# DATABASE SUPABASE (Opsional - Fallback ke local JSON jika kosong)
-# ==========================================
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_KEY=your-supabase-anon-or-service-role-key
-
-# ==========================================
-# CLOUD STORAGE VERCEL BLOB (Opsional untuk direct upload)
+# CLOUD STORAGE VERCEL BLOB (Wajib untuk upload di production)
 # ==========================================
 BLOB_READ_WRITE_TOKEN=vercel_blob_rw_xxxxxxxxxxxxxxxxxxxxxxxx
+
+# ==========================================
+# VERCEL KV CACHE (Opsional di Vercel)
+# ==========================================
+# KV_REST_API_URL=https://...
+# KV_REST_API_TOKEN=...
 ```
 
 ### 4. Menjalankan di Lingkungan Development
+
 ```bash
 npm run dev
 ```
+
 Buka browser pada alamat [http://localhost:3000](http://localhost:3000).
 
 ### 5. Build untuk Lingkungan Production
+
 ```bash
 # Build aplikasi Nuxt untuk deployment server / node
 npm run build
@@ -334,44 +332,50 @@ npm run preview
 ```
 
 ### 6. Deployment ke Vercel
+
 Proyek ini dioptimalkan untuk berjalan di Vercel:
+
 ```bash
 # Deploy langsung via Vercel CLI
 vercel --prod
 ```
-> Pastikan seluruh variabel environment (`NUXT_ADMIN_USERNAME`, `NUXT_ADMIN_PASSWORD`, `NUXT_SESSION_SECRET`, `BLOB_READ_WRITE_TOKEN`, dan `SUPABASE_*`) telah ditambahkan di menu **Project Settings > Environment Variables** pada dashboard Vercel.
+
+> Pastikan seluruh variabel environment (`NUXT_ADMIN_USERNAME`, `NUXT_ADMIN_PASSWORD`, `NUXT_SESSION_SECRET`, dan `BLOB_READ_WRITE_TOKEN`) telah ditambahkan di menu **Project Settings > Environment Variables** pada dashboard Vercel.
 
 ---
 
 ## 📋 Daftar Rute & Endpoint API
 
 ### Halaman Frontend (Pages)
-| Rute | Tipe | Keterangan |
-|---|---|---|
-| `/` | Publik | Halaman utama katalog, filter, showcase ekosistem PSD, dan FAQ |
-| `/template/[slug]` | Publik | Halaman detail template dengan live responsive preview iframe |
-| `/admin/login` | Publik (Admin) | Halaman login dengan rate limiter anti brute-force |
-| `/admin` | Terproteksi | Dashboard analytics, metrik koleksi, dan tabel aksi template |
-| `/admin/upload` | Terproteksi | Form upload template baru, extract ZIP, dan tambah taksonomi |
-| `/admin/edit/[slug]` | Terproteksi | Form pembaruan metadata dan aset template yang sudah ada |
+
+| Rute                 | Tipe           | Keterangan                                                     |
+| -------------------- | -------------- | -------------------------------------------------------------- |
+| `/`                  | Publik         | Halaman utama katalog, filter, showcase ekosistem PSD, dan FAQ |
+| `/template/[slug]`   | Publik         | Halaman detail template dengan live responsive preview iframe  |
+| `/admin/login`       | Publik (Admin) | Halaman login dengan rate limiter anti brute-force             |
+| `/admin`             | Terproteksi    | Dashboard analytics, metrik koleksi, dan tabel aksi template   |
+| `/admin/upload`      | Terproteksi    | Form upload template baru, extract ZIP, dan tambah taksonomi   |
+| `/admin/edit/[slug]` | Terproteksi    | Form pembaruan metadata dan aset template yang sudah ada       |
 
 ### Server API (Nitro Endpoints)
-| Endpoint | Method | Autentikasi | Keterangan |
-|---|---|---|---|
-| `/api/auth/login` | `POST` | Publik | Validasi username & password dengan rate limiting |
-| `/api/templates` | `GET` | Publik | Mengambil seluruh daftar template yang tersedia |
-| `/api/templates/[slug]` | `GET` | Publik | Mengambil data detail satu template |
-| `/api/templates/preview/[...path]` | `GET` | Publik | Streaming sandboxed aset preview (HTML, CSS, JS, Gambar) |
-| `/api/templates/upload` | `POST` | Terproteksi | Menyimpan template baru ke database/store |
-| `/api/templates/upload-token` | `POST` | Terproteksi | Menerbitkan token client-side upload ke Vercel Blob |
-| `/api/templates/[slug]` | `PUT` | Terproteksi | Memperbarui data template yang sudah tersimpan |
-| `/api/templates/[slug]` | `DELETE` | Terproteksi | Menghapus data template dan file terkait |
+
+| Endpoint                           | Method   | Autentikasi | Keterangan                                               |
+| ---------------------------------- | -------- | ----------- | -------------------------------------------------------- |
+| `/api/auth/login`                  | `POST`   | Publik      | Validasi username & password dengan rate limiting        |
+| `/api/templates`                   | `GET`    | Publik      | Mengambil seluruh daftar template yang tersedia          |
+| `/api/templates/[slug]`            | `GET`    | Publik      | Mengambil data detail satu template                      |
+| `/api/templates/preview/[...path]` | `GET`    | Publik      | Streaming sandboxed aset preview (HTML, CSS, JS, Gambar) |
+| `/api/templates/upload`            | `POST`   | Terproteksi | Menyimpan template baru ke database/store                |
+| `/api/templates/upload-token`      | `POST`   | Terproteksi | Menerbitkan token client-side upload ke Vercel Blob      |
+| `/api/templates/[slug]`            | `PUT`    | Terproteksi | Memperbarui data template yang sudah tersimpan           |
+| `/api/templates/[slug]`            | `DELETE` | Terproteksi | Menghapus data template dan file terkait                 |
 
 ---
 
 ## 🤝 Alur Integrasi Ekosistem PSD
 
-Setiap template website PPDB yang diunduh dari katalog ini siap dihubungkan secara mulus (*auto-direct*) dengan sistem aplikasi pendaftaran **Pesantren Smart Digital**:
+Setiap template website PPDB yang diunduh dari katalog ini siap dihubungkan secara mulus (_auto-direct_) dengan sistem aplikasi pendaftaran **Pesantren Smart Digital**:
+
 1. Tombol **"Daftar Online"** atau **"Daftar Inden"** pada template mengarah ke subdomain resmi pesantren (misal: `https://pendaftaran.[nama-pesantren].ponpes.id`).
 2. Calon wali santri mengisi formulir biodata dan mengunggah berkas santri baru secara online.
 3. Pembayaran biaya registrasi otomatis terverifikasi menggunakan Virtual Account Bank & QRIS.
@@ -383,14 +387,14 @@ Setiap template website PPDB yang diunduh dari katalog ini siap dihubungkan seca
 
 Proyek ini dilisensikan di bawah naungan lisensi **MIT License** — Anda bebas menggunakan, memodifikasi, dan mengimplementasikannya untuk kepentingan pondok pesantren dan institusi pendidikan Islam.
 
-Kontribusi, laporan kendala (*bug reports*), dan usulan template baru sangat diapresiasi! Silakan buat **Issue** atau ajukan **Pull Request**.
+Kontribusi, laporan kendala (_bug reports_), dan usulan template baru sangat diapresiasi! Silakan buat **Issue** atau ajukan **Pull Request**.
 
 ---
 
 <div align="center">
 
 **Dikembangkan dengan sepenuh hati oleh Tim Pesantren Smart Digital (PSD)**  
-*Mewujudkan Digitalisasi Pesantren yang Mandiri, Modern, dan Berdaya Saing Global.*
+_Mewujudkan Digitalisasi Pesantren yang Mandiri, Modern, dan Berdaya Saing Global._
 
 ⭐ **Jangan lupa berikan Star di GitHub jika project ini bermanfaat!** ⭐
 
