@@ -2,13 +2,11 @@
   <a
     :href="zipPath"
     :download="filename"
-    class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-green to-brand-green-light text-white px-6 py-3 rounded-xl font-semibold text-sm
-      hover:shadow-xl hover:shadow-brand-green/30 hover:-translate-y-0.5 active:translate-y-0
-      transition-all duration-300 shadow-lg shadow-brand-green/20 group"
+    class="w-full py-3 px-4 rounded-xl bg-[#0A5C4F] text-white font-extrabold text-xs hover:bg-[#F4C430] hover:text-[#0A5C4F] hover:shadow-lg transition-all duration-300 shadow-md flex items-center justify-center gap-2 font-sans active:translate-y-0.5"
     @click="handleDownload"
   >
-    <Icon name="heroicons:arrow-down-tray" class="text-base group-hover:animate-bounce" />
-    Download ZIP
+    <span class="material-symbols-outlined text-[18px]">download</span>
+    <span>Download Source Code (ZIP)</span>
   </a>
 </template>
 

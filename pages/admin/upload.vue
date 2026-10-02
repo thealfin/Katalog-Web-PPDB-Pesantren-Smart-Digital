@@ -2,13 +2,31 @@
   <div class="max-w-4xl animate-fade-in">
     <!-- Success Alert -->
     <Transition name="fade">
-      <div v-if="successMsg" class="mb-8 flex items-center gap-4 bg-emerald-50 border border-emerald-200 rounded-2xl px-6 py-5 shadow-sm">
-        <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center shrink-0">
-          <Icon name="heroicons:check" class="text-white text-xl" />
+      <div v-if="successMsg" class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-emerald-50 border border-emerald-200 rounded-2xl p-5 shadow-sm">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center shrink-0">
+            <Icon name="heroicons:check" class="text-white text-xl" />
+          </div>
+          <div>
+            <p class="text-emerald-900 font-bold text-base">Upload Berhasil!</p>
+            <p class="text-emerald-700 text-sm opacity-90">{{ successMsg }}</p>
+          </div>
         </div>
-        <div>
-          <p class="text-emerald-900 font-bold text-base">Upload Berhasil!</p>
-          <p class="text-emerald-700 text-sm opacity-80">{{ successMsg }}</p>
+        <div v-if="lastUploadedSlug" class="flex items-center gap-2 pt-2 sm:pt-0 self-end sm:self-auto">
+          <NuxtLink
+            :to="`/template/${lastUploadedSlug}`"
+            target="_blank"
+            class="px-4 py-2.5 bg-[#0A5C4F] text-white text-xs font-bold rounded-xl hover:bg-[#F4C430] hover:text-[#0A5C4F] transition-all flex items-center gap-1.5 shadow-sm"
+          >
+            <span>Buka Preview</span>
+            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+          </NuxtLink>
+          <NuxtLink
+            to="/admin"
+            class="px-4 py-2.5 bg-white text-slate-700 border border-slate-200 text-xs font-bold rounded-xl hover:bg-slate-50 transition-all flex items-center gap-1"
+          >
+            <span>Admin Panel</span>
+          </NuxtLink>
         </div>
       </div>
     </Transition>
@@ -82,20 +100,41 @@
               </div>
             </div>
             <div class="space-y-2">
-              <label class="block text-gray-700 font-semibold text-sm">Kategori Warna <span class="text-rose-500">*</span></label>
-              <select v-model="form.colorScheme" required class="admin-input-new">
+              <div class="flex items-center justify-between">
+                <label class="block text-gray-700 font-semibold text-sm">Kategori Warna <span class="text-rose-500">*</span></label>
+                <button
+                  type="button"
+                  @click="openAddColorModal"
+                  class="text-[11px] font-bold text-[#0A5C4F] hover:text-[#0A5C4F]/80 flex items-center gap-1 transition-colors hover:underline"
+                  title="Tambah Kategori Warna Baru"
+                >
+                  <span class="material-symbols-outlined text-[15px]">add_circle</span>
+                  <span>Tambah</span>
+                </button>
+              </div>
+              <select v-model="form.colorScheme" required class="admin-input-new" @change="onColorSchemeChange">
                 <option value="">Pilih warna...</option>
                 <option v-for="c in colorSchemes" :key="c.value" :value="c.value">{{ c.label }}</option>
+                <option value="__NEW__">+ Tambah Kategori Baru...</option>
               </select>
             </div>
             <div class="space-y-2">
-              <label class="block text-gray-700 font-semibold text-sm">Gaya Desain <span class="text-rose-500">*</span></label>
-              <select v-model="form.style" required class="admin-input-new">
+              <div class="flex items-center justify-between">
+                <label class="block text-gray-700 font-semibold text-sm">Gaya Desain <span class="text-rose-500">*</span></label>
+                <button
+                  type="button"
+                  @click="openAddStyleModal"
+                  class="text-[11px] font-bold text-[#0A5C4F] hover:text-[#0A5C4F]/80 flex items-center gap-1 transition-colors hover:underline"
+                  title="Tambah Gaya Desain Baru"
+                >
+                  <span class="material-symbols-outlined text-[15px]">add_circle</span>
+                  <span>Tambah</span>
+                </button>
+              </div>
+              <select v-model="form.style" required class="admin-input-new" @change="onStyleChange">
                 <option value="">Pilih gaya...</option>
-                <option value="minimal">Minimalist</option>
-                <option value="classic">Classic Islamic</option>
-                <option value="modern">Modern Glass</option>
-                <option value="formal">Executive Formal</option>
+                <option v-for="s in designStyles" :key="s.value" :value="s.value">{{ s.label }}</option>
+                <option value="__NEW__">+ Tambah Gaya Baru...</option>
               </select>
             </div>
           </div>
@@ -172,29 +211,174 @@
       </div>
 
       <!-- Actions -->
-      <div class="flex items-center justify-end gap-4 pt-4">
-        <NuxtLink to="/admin" class="px-8 py-3.5 text-gray-500 font-bold hover:text-gray-800 transition-colors">Batal</NuxtLink>
+      <div class="flex items-center justify-end gap-4 pt-4 font-sans">
+        <NuxtLink to="/admin" class="px-6 py-3.5 text-slate-500 font-bold hover:text-slate-800 transition-colors text-xs">
+          Batal
+        </NuxtLink>
         <button
           type="submit"
           :disabled="uploading"
-          class="bg-psd-green text-white px-10 py-3.5 rounded-2xl font-bold hover:bg-[#084a40] transition-all shadow-lg shadow-psd-green/20 flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+          class="bg-[#0A5C4F] text-white px-8 py-3.5 rounded-xl font-extrabold text-xs hover:bg-[#F4C430] hover:text-[#0A5C4F] transition-all shadow-md flex items-center gap-2 font-sans disabled:opacity-50 disabled:cursor-not-allowed active:translate-y-0.5"
         >
-          <Icon v-if="uploading" name="heroicons:arrow-path" class="animate-spin text-xl" />
-          <Icon v-else name="heroicons:cloud-arrow-up" class="text-xl" />
-          {{ uploading ? 'Proses Upload...' : 'Publish Template Sekarang' }}
+          <span v-if="uploading" class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
+          <span v-else class="material-symbols-outlined text-[18px]">cloud_upload</span>
+          <span>{{ uploading ? uploadStatusText : 'Publish Template Sekarang' }}</span>
         </button>
       </div>
     </form>
+
+    <!-- Modal Tambah Kategori Warna Baru -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <div v-if="showColorModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+          <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden" @click.stop>
+            <div class="px-6 py-5 border-b border-gray-100 bg-gray-50/70 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-emerald-100 text-[#0A5C4F] flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[20px]">palette</span>
+                </div>
+                <div>
+                  <h3 class="text-base font-bold text-gray-800 font-sans">Tambah Kategori Warna</h3>
+                  <p class="text-xs text-gray-400 font-sans">Tambahkan opsi skema warna baru</p>
+                </div>
+              </div>
+              <button type="button" @click="showColorModal = false" class="text-gray-400 hover:text-gray-700 p-1 rounded-lg">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+              </button>
+            </div>
+
+            <form @submit.prevent="saveNewColor" class="p-6 space-y-4 font-sans">
+              <div class="space-y-1.5">
+                <label class="block text-gray-700 font-semibold text-xs">Nama Kategori (Label Tampilan) <span class="text-rose-500">*</span></label>
+                <input
+                  v-model="newColorForm.label"
+                  type="text"
+                  placeholder="Contoh: Emerald Mewah, Slate Lavender, dsb."
+                  required
+                  class="admin-input-new text-xs"
+                  @input="generateColorValue"
+                  autofocus
+                />
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="block text-gray-700 font-semibold text-xs">Kode / ID Filter (Slug) <span class="text-rose-500">*</span></label>
+                <input
+                  v-model="newColorForm.value"
+                  type="text"
+                  placeholder="emerald, slate, hitam"
+                  required
+                  class="admin-input-new text-xs font-mono bg-gray-50"
+                />
+                <p class="text-[11px] text-gray-400">Digunakan sebagai value filter (huruf kecil tanpa spasi)</p>
+              </div>
+
+              <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-gray-100">
+                <button
+                  type="button"
+                  @click="showColorModal = false"
+                  class="px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 text-xs font-bold transition-all"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  class="px-5 py-2.5 rounded-xl bg-[#0A5C4F] hover:bg-[#F4C430] hover:text-[#0A5C4F] text-white text-xs font-bold shadow-md transition-all flex items-center gap-1.5 active:translate-y-0.5"
+                >
+                  <span class="material-symbols-outlined text-[16px]">check</span>
+                  <span>Simpan Kategori</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
+    <!-- Modal Tambah Gaya Desain Baru -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <div v-if="showStyleModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+          <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden" @click.stop>
+            <div class="px-6 py-5 border-b border-gray-100 bg-gray-50/70 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-amber-100 text-[#0A5C4F] flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[20px]">brush</span>
+                </div>
+                <div>
+                  <h3 class="text-base font-bold text-gray-800 font-sans">Tambah Gaya Desain</h3>
+                  <p class="text-xs text-gray-400 font-sans">Tambahkan opsi gaya desain template</p>
+                </div>
+              </div>
+              <button type="button" @click="showStyleModal = false" class="text-gray-400 hover:text-gray-700 p-1 rounded-lg">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+              </button>
+            </div>
+
+            <form @submit.prevent="saveNewStyle" class="p-6 space-y-4 font-sans">
+              <div class="space-y-1.5">
+                <label class="block text-gray-700 font-semibold text-xs">Nama Gaya Desain (Label Tampilan) <span class="text-rose-500">*</span></label>
+                <input
+                  v-model="newStyleForm.label"
+                  type="text"
+                  placeholder="Contoh: Futuristic Cyber, Modern Glass, dsb."
+                  required
+                  class="admin-input-new text-xs"
+                  @input="generateStyleValue"
+                  autofocus
+                />
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="block text-gray-700 font-semibold text-xs">Kode / ID Filter (Slug) <span class="text-rose-500">*</span></label>
+                <input
+                  v-model="newStyleForm.value"
+                  type="text"
+                  placeholder="futuristic, glass, retro"
+                  required
+                  class="admin-input-new text-xs font-mono bg-gray-50"
+                />
+                <p class="text-[11px] text-gray-400">Digunakan sebagai value filter (huruf kecil tanpa spasi)</p>
+              </div>
+
+              <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-gray-100">
+                <button
+                  type="button"
+                  @click="showStyleModal = false"
+                  class="px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 text-xs font-bold transition-all"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  class="px-5 py-2.5 rounded-xl bg-[#0A5C4F] hover:bg-[#F4C430] hover:text-[#0A5C4F] text-white text-xs font-bold shadow-md transition-all flex items-center gap-1.5 active:translate-y-0.5"
+                >
+                  <span class="material-symbols-outlined text-[16px]">check</span>
+                  <span>Simpan Gaya</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useAuthStore } from '~/stores/auth'
 import { upload } from '@vercel/blob/client'
+import { useTemplateTaxonomy } from '~/composables/useTemplateTaxonomy'
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
 
 const authStore = useAuthStore()
+const { colorSchemes, designStyles, initTaxonomy, addColorScheme, addDesignStyle } = useTemplateTaxonomy()
+
+onMounted(() => {
+  authStore.init()
+  initTaxonomy()
+})
 
 const form = reactive({
   name: '',
@@ -214,23 +398,85 @@ const previewImageFile = ref<File | null>(null)
 const previewImageUrl = ref('')
 const zipFile = ref<File | null>(null)
 const uploading = ref(false)
+const uploadStatusText = ref('Proses Upload...')
+const lastUploadedSlug = ref('')
 const successMsg = ref('')
 const errorMsg = ref('')
 
 const previewInput = ref<HTMLInputElement>()
 const zipInput = ref<HTMLInputElement>()
 
-const colorSchemes = [
-  { value: 'green', label: 'Hijau (Green)' },
-  { value: 'blue', label: 'Biru (Blue)' },
-  { value: 'gold', label: 'Emas (Gold)' },
-  { value: 'maroon', label: 'Marun (Maroon)' },
-  { value: 'teal', label: 'Tosca (Teal)' },
-  { value: 'gray', label: 'Abu-abu (Gray)' },
-  { value: 'purple', label: 'Ungu (Purple)' },
-  { value: 'orange', label: 'Oranye (Orange)' },
-  { value: 'brown', label: 'Coklat (Brown)' },
-]
+// State Modals
+const showColorModal = ref(false)
+const showStyleModal = ref(false)
+
+const newColorForm = reactive({
+  label: '',
+  value: '',
+})
+
+const newStyleForm = reactive({
+  label: '',
+  value: '',
+})
+
+const openAddColorModal = () => {
+  newColorForm.label = ''
+  newColorForm.value = ''
+  showColorModal.value = true
+}
+
+const openAddStyleModal = () => {
+  newStyleForm.label = ''
+  newStyleForm.value = ''
+  showStyleModal.value = true
+}
+
+const onColorSchemeChange = () => {
+  if (form.colorScheme === '__NEW__') {
+    form.colorScheme = ''
+    openAddColorModal()
+  }
+}
+
+const onStyleChange = () => {
+  if (form.style === '__NEW__') {
+    form.style = ''
+    openAddStyleModal()
+  }
+}
+
+const generateColorValue = () => {
+  newColorForm.value = newColorForm.label
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim()
+}
+
+const generateStyleValue = () => {
+  newStyleForm.value = newStyleForm.label
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim()
+}
+
+const saveNewColor = () => {
+  if (!newColorForm.label.trim()) return
+  const item = addColorScheme(newColorForm.label, newColorForm.value)
+  form.colorScheme = item.value
+  showColorModal.value = false
+}
+
+const saveNewStyle = () => {
+  if (!newStyleForm.label.trim()) return
+  const item = addDesignStyle(newStyleForm.label, newStyleForm.value)
+  form.style = item.value
+  showStyleModal.value = false
+}
 
 const generateSlug = () => {
   form.slug = form.name
@@ -283,11 +529,12 @@ const formatBytes = (bytes: number) => {
 
 const handleUpload = async () => {
   if (!zipFile.value) {
-    errorMsg.value = 'File ZIP wajib diupload'
+    errorMsg.value = 'File ZIP template wajib dipilih'
     return
   }
 
   uploading.value = true
+  uploadStatusText.value = 'Menyiapkan berkas...'
   errorMsg.value = ''
   successMsg.value = ''
 
@@ -297,8 +544,7 @@ const handleUpload = async () => {
     let imageUrl = ''
 
     if (isProd) {
-      // PRODUCTION: upload langsung dari browser ke Vercel Blob.
-      // File tidak melewati serverless function, jadi aman dari limit 4.5MB.
+      // PRODUCTION: upload langsung dari browser ke Vercel Blob (bypasses serverless 4.5MB limit)
       const clientPayload = JSON.stringify({
         name: form.name,
         slug: form.slug,
@@ -311,6 +557,7 @@ const handleUpload = async () => {
         features: form.features,
       })
 
+      uploadStatusText.value = 'Mengupload file ZIP ke Cloud Storage...'
       const zipResult = await upload(`templates/${form.slug}/source.zip`, zipFile.value, {
         access: 'public',
         multipart: true,
@@ -318,10 +565,14 @@ const handleUpload = async () => {
         handleUploadUrl: '/api/templates/upload-token',
         clientPayload,
         headers: { 'x-admin-auth': 'true' },
+        onUploadProgress: (progress) => {
+          uploadStatusText.value = `Mengupload ZIP (${Math.round(progress.percentage)}%)...`
+        },
       })
       zipUrl = zipResult.url
 
       if (previewImageFile.value) {
+        uploadStatusText.value = 'Mengupload gambar thumbnail...'
         const imgResult = await upload(`templates/${form.slug}/preview.png`, previewImageFile.value, {
           access: 'public',
           multipart: true,
@@ -333,40 +584,77 @@ const handleUpload = async () => {
       }
     }
 
-    const formData = new FormData()
-    formData.append('name', form.name)
-    formData.append('slug', form.slug)
-    formData.append('description', form.description)
-    formData.append('theme', form.theme)
-    formData.append('colorPrimary', form.colorPrimary)
-    formData.append('colorScheme', form.colorScheme)
-    formData.append('style', form.style)
-    formData.append('tags', form.tags)
-    formData.append('features', form.features)
-    if (!zipUrl) formData.append('zipFile', zipFile.value)
-    if (zipUrl) formData.append('zipUrl', zipUrl)
-    if (imageUrl) formData.append('previewImageUrl', imageUrl)
-    if (previewImageFile.value && !imageUrl) formData.append('previewImage', previewImageFile.value)
+    uploadStatusText.value = 'Menyimpan konfigurasi template...'
 
-    await $fetch('/api/templates/upload', {
-      method: 'POST',
-      body: formData,
-      headers: { 'x-admin-auth': 'true' },
-    })
-    successMsg.value = `Template "${form.name}" telah berhasil dipublikasikan!`
+    if (zipUrl) {
+      // Kirim via JSON untuk payload metadata yang ringan dan cepat
+      await $fetch('/api/templates/upload', {
+        method: 'POST',
+        body: {
+          name: form.name,
+          slug: form.slug,
+          description: form.description,
+          theme: form.theme,
+          colorPrimary: form.colorPrimary,
+          colorScheme: form.colorScheme,
+          style: form.style,
+          tags: form.tags,
+          features: form.features,
+          zipUrl,
+          previewImageUrl: imageUrl,
+        },
+        headers: { 'x-admin-auth': 'true' },
+      })
+    } else {
+      // Lokal / dev fallback dengan multipart FormData
+      const formData = new FormData()
+      formData.append('name', form.name)
+      formData.append('slug', form.slug)
+      formData.append('description', form.description)
+      formData.append('theme', form.theme)
+      formData.append('colorPrimary', form.colorPrimary)
+      formData.append('colorScheme', form.colorScheme)
+      formData.append('style', form.style)
+      formData.append('tags', form.tags)
+      formData.append('features', form.features)
+      if (zipFile.value) formData.append('zipFile', zipFile.value)
+      if (previewImageFile.value) formData.append('previewImage', previewImageFile.value)
+
+      await $fetch('/api/templates/upload', {
+        method: 'POST',
+        body: formData,
+        headers: { 'x-admin-auth': 'true' },
+      })
+    }
+
+    lastUploadedSlug.value = form.slug
+    successMsg.value = `Template "${form.name}" telah berhasil dipublikasikan dan siap digunakan!`
+
     // Reset form
     Object.assign(form, {
-      name: '', slug: '', description: '', theme: '',
-      colorPrimary: '#0A5C4F', colorScheme: '', style: '',
-      tags: '', isNew: true, isFeatured: false,
+      name: '',
+      slug: '',
+      description: '',
+      theme: '',
+      colorPrimary: '#0A5C4F',
+      colorScheme: '',
+      style: '',
+      tags: '',
+      isNew: true,
+      isFeatured: false,
     })
     zipFile.value = null
     previewImageFile.value = null
     previewImageUrl.value = ''
   } catch (e: any) {
-    errorMsg.value = e?.data?.message || 'Terjadi kesalahan saat mengupload. Silakan coba lagi.'
+    console.error('Upload template error:', e)
+    errorMsg.value =
+      e?.data?.message ||
+      e?.message ||
+      'Terjadi kesalahan saat mengupload template. Silakan periksa koneksi atau coba lagi.'
   } finally {
     uploading.value = false
+    uploadStatusText.value = 'Publish Template Sekarang'
   }
 }
 </script>

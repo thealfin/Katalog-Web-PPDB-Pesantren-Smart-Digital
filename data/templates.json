@@ -1,5 +1,44 @@
 [
   {
+    "id": "template-25",
+    "slug": "sunanul-muhtadin",
+    "name": "Sunanul Muhtadin",
+    "description": "Template website PPDB pesantren modern eksklusif bertema Forest Green & Gold Rabbani. Dilengkapi dukungan alur pendaftaran Inden multi-tahun ajaran (TA 2027/2028), video profil hero interaktif, kurikulum terpadu (Tahfidz, Kitab Kuning, Bahasa Asing, Sains), serta integrasi otomatis ke portal pendaftaran web app PSD.",
+    "theme": "modern-rabbani",
+    "colorPrimary": "#00342b",
+    "colorScheme": "green",
+    "style": "premium",
+    "pages": 1,
+    "features": [
+      "hero",
+      "profil",
+      "keunggulan",
+      "program",
+      "galeri",
+      "testimoni",
+      "pendaftaran",
+      "lokasi",
+      "inden"
+    ],
+    "tags": [
+      "modern",
+      "rabbani",
+      "inden",
+      "forest-green",
+      "gold",
+      "tahfidz",
+      "sains",
+      "premium"
+    ],
+    "previewUrl": "/templates/sunanul-muhtadin/index.html",
+    "previewImage": "/templates/sunanul-muhtadin/preview.png",
+    "zipPath": "/templates/sunanul-muhtadin.zip",
+    "createdAt": "2026-10-02",
+    "isNew": true,
+    "isFeatured": true,
+    "updatedAt": "2026-10-02"
+  },
+  {
     "id": "template-03",
     "slug": "emas-mulia",
     "name": "Emas Mulia",

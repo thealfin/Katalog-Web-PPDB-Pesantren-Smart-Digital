@@ -62,18 +62,41 @@
             </div>
           </div>
           <div class="space-y-2">
-            <label class="block text-gray-700 font-semibold text-sm">Kategori Warna</label>
-            <select v-model="form.colorScheme" required class="admin-input-new">
+            <div class="flex items-center justify-between">
+              <label class="block text-gray-700 font-semibold text-sm">Kategori Warna <span class="text-rose-500">*</span></label>
+              <button
+                type="button"
+                @click="openAddColorModal"
+                class="text-[11px] font-bold text-[#0A5C4F] hover:text-[#0A5C4F]/80 flex items-center gap-1 transition-colors hover:underline"
+                title="Tambah Kategori Warna Baru"
+              >
+                <span class="material-symbols-outlined text-[15px]">add_circle</span>
+                <span>Tambah</span>
+              </button>
+            </div>
+            <select v-model="form.colorScheme" required class="admin-input-new" @change="onColorSchemeChange">
+              <option value="">Pilih warna...</option>
               <option v-for="c in colorSchemes" :key="c.value" :value="c.value">{{ c.label }}</option>
+              <option value="__NEW__">+ Tambah Kategori Baru...</option>
             </select>
           </div>
           <div class="space-y-2">
-            <label class="block text-gray-700 font-semibold text-sm">Gaya Desain</label>
-            <select v-model="form.style" required class="admin-input-new">
-              <option value="minimal">Minimalist</option>
-              <option value="classic">Classic Islamic</option>
-              <option value="modern">Modern Glass</option>
-              <option value="formal">Executive Formal</option>
+            <div class="flex items-center justify-between">
+              <label class="block text-gray-700 font-semibold text-sm">Gaya Desain <span class="text-rose-500">*</span></label>
+              <button
+                type="button"
+                @click="openAddStyleModal"
+                class="text-[11px] font-bold text-[#0A5C4F] hover:text-[#0A5C4F]/80 flex items-center gap-1 transition-colors hover:underline"
+                title="Tambah Gaya Desain Baru"
+              >
+                <span class="material-symbols-outlined text-[15px]">add_circle</span>
+                <span>Tambah</span>
+              </button>
+            </div>
+            <select v-model="form.style" required class="admin-input-new" @change="onStyleChange">
+              <option value="">Pilih gaya...</option>
+              <option v-for="s in designStyles" :key="s.value" :value="s.value">{{ s.label }}</option>
+              <option value="__NEW__">+ Tambah Gaya Baru...</option>
             </select>
           </div>
           <div class="sm:col-span-3 space-y-2">
@@ -105,11 +128,17 @@
           <div class="flex items-center gap-8">
             <label class="flex items-center gap-3 cursor-pointer group">
               <input v-model="form.isNew" type="checkbox" class="w-5 h-5 rounded-lg accent-psd-green" />
-              <span class="text-gray-700 font-medium text-sm group-hover:text-psd-green transition-colors">Tandai sebagai Baru ✨</span>
+              <span class="text-gray-700 font-medium text-sm group-hover:text-psd-green transition-colors inline-flex items-center gap-1">
+                <span>Tandai sebagai Baru</span>
+                <span class="material-symbols-outlined text-[15px] text-[#0A5C4F]">bolt</span>
+              </span>
             </label>
             <label class="flex items-center gap-3 cursor-pointer group">
               <input v-model="form.isFeatured" type="checkbox" class="w-5 h-5 rounded-lg accent-psd-green" />
-              <span class="text-gray-700 font-medium text-sm group-hover:text-psd-green transition-colors">Tandai sebagai Unggulan ⭐</span>
+              <span class="text-gray-700 font-medium text-sm group-hover:text-psd-green transition-colors inline-flex items-center gap-1">
+                <span>Tandai sebagai Unggulan</span>
+                <span class="material-symbols-outlined text-[15px] text-[#F4C430]">star</span>
+              </span>
             </label>
           </div>
         </div>
@@ -172,30 +201,171 @@
       </div>
 
       <!-- Actions -->
-      <div class="flex items-center justify-end gap-4 pt-4 pb-12">
-        <NuxtLink to="/admin" class="px-8 py-3.5 text-gray-500 font-bold hover:text-gray-800 transition-colors">Batal</NuxtLink>
+      <div class="flex items-center justify-end gap-4 pt-4 pb-12 font-sans">
+        <NuxtLink to="/admin" class="px-6 py-3.5 text-slate-500 font-bold hover:text-slate-800 transition-colors text-xs">
+          Batal
+        </NuxtLink>
         <button
           type="submit"
           :disabled="updating"
-          class="bg-psd-green text-white px-10 py-3.5 rounded-2xl font-bold hover:bg-[#084a40] transition-all shadow-lg shadow-psd-green/20 flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+          class="bg-[#0A5C4F] text-white px-8 py-3.5 rounded-xl font-extrabold text-xs hover:bg-[#F4C430] hover:text-[#0A5C4F] transition-all shadow-md flex items-center gap-2 font-sans disabled:opacity-50 disabled:cursor-not-allowed active:translate-y-0.5"
         >
-          <Icon v-if="updating" name="heroicons:arrow-path" class="animate-spin text-xl" />
-          <Icon v-else name="heroicons:check-circle" class="text-xl" />
-          {{ updating ? 'Menyimpan...' : 'Simpan Perubahan' }}
+          <span v-if="updating" class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
+          <span v-else class="material-symbols-outlined text-[18px]">check_circle</span>
+          <span>{{ updating ? 'Menyimpan...' : 'Simpan Perubahan' }}</span>
         </button>
       </div>
     </form>
+
+    <!-- Modal Tambah Kategori Warna Baru -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <div v-if="showColorModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+          <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden" @click.stop>
+            <div class="px-6 py-5 border-b border-gray-100 bg-gray-50/70 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-emerald-100 text-[#0A5C4F] flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[20px]">palette</span>
+                </div>
+                <div>
+                  <h3 class="text-base font-bold text-gray-800 font-sans">Tambah Kategori Warna</h3>
+                  <p class="text-xs text-gray-400 font-sans">Tambahkan opsi skema warna baru</p>
+                </div>
+              </div>
+              <button type="button" @click="showColorModal = false" class="text-gray-400 hover:text-gray-700 p-1 rounded-lg">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+              </button>
+            </div>
+
+            <form @submit.prevent="saveNewColor" class="p-6 space-y-4 font-sans">
+              <div class="space-y-1.5">
+                <label class="block text-gray-700 font-semibold text-xs">Nama Kategori (Label Tampilan) <span class="text-rose-500">*</span></label>
+                <input
+                  v-model="newColorForm.label"
+                  type="text"
+                  placeholder="Contoh: Emerald Mewah, Slate Lavender, dsb."
+                  required
+                  class="admin-input-new text-xs"
+                  @input="generateColorValue"
+                  autofocus
+                />
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="block text-gray-700 font-semibold text-xs">Kode / ID Filter (Slug) <span class="text-rose-500">*</span></label>
+                <input
+                  v-model="newColorForm.value"
+                  type="text"
+                  placeholder="emerald, slate, hitam"
+                  required
+                  class="admin-input-new text-xs font-mono bg-gray-50"
+                />
+                <p class="text-[11px] text-gray-400">Digunakan sebagai value filter (huruf kecil tanpa spasi)</p>
+              </div>
+
+              <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-gray-100">
+                <button
+                  type="button"
+                  @click="showColorModal = false"
+                  class="px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 text-xs font-bold transition-all"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  class="px-5 py-2.5 rounded-xl bg-[#0A5C4F] hover:bg-[#F4C430] hover:text-[#0A5C4F] text-white text-xs font-bold shadow-md transition-all flex items-center gap-1.5 active:translate-y-0.5"
+                >
+                  <span class="material-symbols-outlined text-[16px]">check</span>
+                  <span>Simpan Kategori</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
+    <!-- Modal Tambah Gaya Desain Baru -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <div v-if="showStyleModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+          <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden" @click.stop>
+            <div class="px-6 py-5 border-b border-gray-100 bg-gray-50/70 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-amber-100 text-[#0A5C4F] flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[20px]">brush</span>
+                </div>
+                <div>
+                  <h3 class="text-base font-bold text-gray-800 font-sans">Tambah Gaya Desain</h3>
+                  <p class="text-xs text-gray-400 font-sans">Tambahkan opsi gaya desain template</p>
+                </div>
+              </div>
+              <button type="button" @click="showStyleModal = false" class="text-gray-400 hover:text-gray-700 p-1 rounded-lg">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+              </button>
+            </div>
+
+            <form @submit.prevent="saveNewStyle" class="p-6 space-y-4 font-sans">
+              <div class="space-y-1.5">
+                <label class="block text-gray-700 font-semibold text-xs">Nama Gaya Desain (Label Tampilan) <span class="text-rose-500">*</span></label>
+                <input
+                  v-model="newStyleForm.label"
+                  type="text"
+                  placeholder="Contoh: Futuristic Cyber, Modern Glass, dsb."
+                  required
+                  class="admin-input-new text-xs"
+                  @input="generateStyleValue"
+                  autofocus
+                />
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="block text-gray-700 font-semibold text-xs">Kode / ID Filter (Slug) <span class="text-rose-500">*</span></label>
+                <input
+                  v-model="newStyleForm.value"
+                  type="text"
+                  placeholder="futuristic, glass, retro"
+                  required
+                  class="admin-input-new text-xs font-mono bg-gray-50"
+                />
+                <p class="text-[11px] text-gray-400">Digunakan sebagai value filter (huruf kecil tanpa spasi)</p>
+              </div>
+
+              <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-gray-100">
+                <button
+                  type="button"
+                  @click="showStyleModal = false"
+                  class="px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 text-xs font-bold transition-all"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  class="px-5 py-2.5 rounded-xl bg-[#0A5C4F] hover:bg-[#F4C430] hover:text-[#0A5C4F] text-white text-xs font-bold shadow-md transition-all flex items-center gap-1.5 active:translate-y-0.5"
+                >
+                  <span class="material-symbols-outlined text-[16px]">check</span>
+                  <span>Simpan Gaya</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
 import { upload } from '@vercel/blob/client'
+import { useTemplateTaxonomy } from '~/composables/useTemplateTaxonomy'
 
 const route = useRoute()
 const router = useRouter()
 const slug = route.params.slug as string
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+
+const { colorSchemes, designStyles, initTaxonomy, addColorScheme, addDesignStyle } = useTemplateTaxonomy()
 
 const loading = ref(true)
 const updating = ref(false)
@@ -221,22 +391,89 @@ const zipFile = ref<File | null>(null)
 const previewInput = ref<HTMLInputElement>()
 const zipInput = ref<HTMLInputElement>()
 
-const colorSchemes = [
-  { value: 'green', label: 'Hijau (Green)' },
-  { value: 'blue', label: 'Biru (Blue)' },
-  { value: 'gold', label: 'Emas (Gold)' },
-  { value: 'maroon', label: 'Marun (Maroon)' },
-  { value: 'teal', label: 'Tosca (Teal)' },
-  { value: 'gray', label: 'Abu-abu (Gray)' },
-  { value: 'purple', label: 'Ungu (Purple)' },
-  { value: 'orange', label: 'Oranye (Orange)' },
-  { value: 'brown', label: 'Coklat (Brown)' },
-]
+// State Modals
+const showColorModal = ref(false)
+const showStyleModal = ref(false)
+
+const newColorForm = reactive({
+  label: '',
+  value: '',
+})
+
+const newStyleForm = reactive({
+  label: '',
+  value: '',
+})
+
+const openAddColorModal = () => {
+  newColorForm.label = ''
+  newColorForm.value = ''
+  showColorModal.value = true
+}
+
+const openAddStyleModal = () => {
+  newStyleForm.label = ''
+  newStyleForm.value = ''
+  showStyleModal.value = true
+}
+
+const onColorSchemeChange = () => {
+  if (form.colorScheme === '__NEW__') {
+    form.colorScheme = ''
+    openAddColorModal()
+  }
+}
+
+const onStyleChange = () => {
+  if (form.style === '__NEW__') {
+    form.style = ''
+    openAddStyleModal()
+  }
+}
+
+const generateColorValue = () => {
+  newColorForm.value = newColorForm.label
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim()
+}
+
+const generateStyleValue = () => {
+  newStyleForm.value = newStyleForm.label
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim()
+}
+
+const saveNewColor = () => {
+  if (!newColorForm.label.trim()) return
+  const item = addColorScheme(newColorForm.label, newColorForm.value)
+  form.colorScheme = item.value
+  showColorModal.value = false
+}
+
+const saveNewStyle = () => {
+  if (!newStyleForm.label.trim()) return
+  const item = addDesignStyle(newStyleForm.label, newStyleForm.value)
+  form.style = item.value
+  showStyleModal.value = false
+}
 
 // Fetch existing data
 onMounted(async () => {
+  initTaxonomy()
   try {
     const data: any = await $fetch(`/api/templates/${slug}`)
+    if (data.colorScheme && !colorSchemes.value.some((c) => c.value === data.colorScheme)) {
+      addColorScheme(data.colorScheme, data.colorScheme)
+    }
+    if (data.style && !designStyles.value.some((s) => s.value === data.style)) {
+      addDesignStyle(data.style, data.style)
+    }
     Object.assign(form, {
       name: data.name,
       description: data.description,

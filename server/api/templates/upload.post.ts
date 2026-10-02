@@ -2,6 +2,7 @@ import { put } from '@vercel/blob'
 import { writeFile, mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
 import { existsSync } from 'node:fs'
+import AdmZip from 'adm-zip'
 
 export default defineEventHandler(async (event) => {
   // 1. Cek Auth
@@ -10,41 +11,80 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, message: 'Tidak terautentikasi' })
   }
 
-  const formData = await readMultipartFormData(event)
-  if (!formData) throw createError({ statusCode: 400, message: 'Form data kosong' })
+  const contentType = getRequestHeader(event, 'content-type') || ''
+  const isProd = process.env.NODE_ENV === 'production'
 
-  // Helper untuk ambil field
-  const getField = (name: string) => formData.find((f) => f.name === name)?.data?.toString()
+  let name = ''
+  let slug = ''
+  let description = ''
+  let theme = ''
+  let colorScheme = ''
+  let colorPrimary = '#0A5C4F'
+  let style = ''
+  let features: string[] = []
+  let tags: string[] = []
+  let zipUrl = ''
+  let imageUrl = ''
 
-  const name = getField('name')
-  const slug = getField('slug')
-  const description = getField('description')
-  const theme = getField('theme')
-  const colorScheme = getField('colorScheme')
-  const colorPrimary = getField('colorPrimary') || '#166534'
-  const style = getField('style')
-  const features = getField('features')?.split(',').map((f) => f.trim()) || []
-  const tags = getField('tags')?.split(',').map((t) => t.trim()) || []
+  let zipFile: { filename?: string; data: Buffer } | undefined
+  let previewImage: { filename?: string; data: Buffer } | undefined
 
-  const zipFile = formData.find((f) => f.name === 'zipFile')
-  const previewImage = formData.find((f) => f.name === 'previewImage')
-  const zipUrlFromClient = getField('zipUrl')
-  const imageUrlFromClient = getField('previewImageUrl')
+  if (contentType.includes('application/json')) {
+    // A. Payload JSON (misal saat client-side Vercel Blob upload sudah selesai)
+    const body = await readBody(event)
+    name = body.name
+    slug = body.slug
+    description = body.description
+    theme = body.theme
+    colorScheme = body.colorScheme
+    colorPrimary = body.colorPrimary || '#0A5C4F'
+    style = body.style
+    features = Array.isArray(body.features)
+      ? body.features
+      : (body.features || '').split(',').map((f: string) => f.trim()).filter(Boolean)
+    tags = Array.isArray(body.tags)
+      ? body.tags
+      : (body.tags || '').split(',').map((t: string) => t.trim()).filter(Boolean)
+    zipUrl = body.zipUrl || ''
+    imageUrl = body.previewImageUrl || body.previewImage || ''
+  } else {
+    // B. Payload Multipart FormData
+    const formData = await readMultipartFormData(event)
+    if (!formData) throw createError({ statusCode: 400, message: 'Form data kosong' })
 
-  if (!name || !slug || (!zipFile && !zipUrlFromClient)) {
+    const getField = (fieldName: string) => formData.find((f) => f.name === fieldName)?.data?.toString()
+
+    name = getField('name') || ''
+    slug = getField('slug') || ''
+    description = getField('description') || ''
+    theme = getField('theme') || ''
+    colorScheme = getField('colorScheme') || ''
+    colorPrimary = getField('colorPrimary') || '#0A5C4F'
+    style = getField('style') || ''
+    features = (getField('features') || '').split(',').map((f) => f.trim()).filter(Boolean)
+    tags = (getField('tags') || '').split(',').map((t) => t.trim()).filter(Boolean)
+
+    const rawZip = formData.find((f) => f.name === 'zipFile')
+    if (rawZip && rawZip.data && rawZip.data.length > 0) {
+      zipFile = { filename: rawZip.filename, data: rawZip.data }
+    }
+
+    const rawImg = formData.find((f) => f.name === 'previewImage')
+    if (rawImg && rawImg.data && rawImg.data.length > 0) {
+      previewImage = { filename: rawImg.filename, data: rawImg.data }
+    }
+
+    zipUrl = getField('zipUrl') || ''
+    imageUrl = getField('previewImageUrl') || ''
+  }
+
+  if (!name || !slug || (!zipFile && !zipUrl)) {
     throw createError({ statusCode: 400, message: 'Nama, Slug, dan File ZIP wajib diisi' })
   }
 
-  const isProd = process.env.NODE_ENV === 'production'
-  let zipUrl = zipUrlFromClient || ''
-  let imageUrl = imageUrlFromClient || ''
-
   // --- 2. PENYIMPANAN FILE ---
   if (isProd) {
-    // A. PRODUCTION: Pakai Vercel Blob
-    // File sudah diupload langsung dari browser (client-side upload) untuk
-    // menghindari limit 4.5MB request body Vercel Function. Di sini hanya
-    // butuh URL-nya. Tetap dukung upload lewat server untuk kompatibilitas.
+    // PRODUCTION: Gunakan Vercel Blob (access: public)
     if (zipFile) {
       const zipBlob = await put(`templates/${slug}/${zipFile.filename || 'source.zip'}`, zipFile.data, {
         access: 'public',
@@ -60,13 +100,23 @@ export default defineEventHandler(async (event) => {
       imageUrl = imgBlob.url
     }
   } else {
-    // B. LOKAL: Pakai File System
+    // LOKAL: Gunakan File System & Ekstrak ZIP agar preview lokal langsung aktif
     const templateDir = join(process.cwd(), 'public', 'templates', slug)
     if (!existsSync(templateDir)) await mkdir(templateDir, { recursive: true })
 
-    const zipPath = join(templateDir, 'source.zip')
-    await writeFile(zipPath, zipFile.data)
-    zipUrl = `/templates/${slug}/source.zip`
+    if (zipFile) {
+      const zipPath = join(templateDir, 'source.zip')
+      await writeFile(zipPath, zipFile.data)
+      zipUrl = `/templates/${slug}/source.zip`
+
+      // Ekstrak isi ZIP untuk live preview lokal
+      try {
+        const zip = new AdmZip(zipFile.data)
+        zip.extractAllTo(templateDir, true)
+      } catch (e) {
+        console.error('Peringatan: Gagal mengekstrak isi ZIP di lokal:', e)
+      }
+    }
 
     if (previewImage) {
       const imgPath = join(templateDir, 'preview.png')
@@ -77,25 +127,29 @@ export default defineEventHandler(async (event) => {
 
   // --- 3. PENYIMPANAN DATA (METADATA) ---
   const newTemplate = {
-    id: Date.now(),
-    name,
+    id: `template-${Date.now()}`,
     slug,
+    name,
     description,
     theme,
     colorPrimary,
     colorScheme,
     style,
+    pages: 1,
     features,
     tags,
-    zipUrl,
-    previewImage: imageUrl,
+    previewUrl: `/api/templates/preview/${slug}/index.html`,
+    previewImage: imageUrl || `/templates/${slug}/preview.png`,
+    zipPath: zipUrl,
+    zipUrl: zipUrl,
     createdAt: new Date().toISOString().split('T')[0],
     isNew: true,
     isFeatured: false,
+    updatedAt: new Date().toISOString().split('T')[0],
   }
 
   let currentTemplates: any[] = await readTemplates()
-  // Filter if already exists (slug unique)
+  // Filter slug yang sama (slug unik)
   currentTemplates = currentTemplates.filter((t) => t.slug !== slug)
   currentTemplates.unshift(newTemplate)
   await writeTemplates(currentTemplates)

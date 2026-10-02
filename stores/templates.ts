@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 export interface Template {
-  id: string
+  id: string | number
   slug: string
   name: string
   description: string
@@ -9,15 +9,17 @@ export interface Template {
   colorPrimary: string
   colorScheme: string
   style: string
-  pages: number
+  pages?: number
   features: string[]
   tags: string[]
   previewUrl: string
   previewImage: string
-  zipPath: string
+  zipPath?: string
+  zipUrl?: string
   createdAt: string
   isNew: boolean
   isFeatured: boolean
+  updatedAt?: string
 }
 
 export interface FilterState {

@@ -2,6 +2,7 @@ import { put } from '@vercel/blob'
 import { writeFile, mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
 import { existsSync } from 'node:fs'
+import AdmZip from 'adm-zip'
 
 export default defineEventHandler(async (event) => {
   // 1. Cek Auth
@@ -62,7 +63,10 @@ export default defineEventHandler(async (event) => {
   // --- 4. UPDATE FILE (OPSIONAL) ---
   if (isProd) {
     // File baru sudah diupload langsung dari browser (client-side upload).
-    if (zipUrlFromClient) template.zipUrl = zipUrlFromClient
+    if (zipUrlFromClient) {
+      template.zipUrl = zipUrlFromClient
+      template.zipPath = zipUrlFromClient
+    }
     if (imageUrlFromClient) template.previewImage = imageUrlFromClient
 
     if (zipFile && zipFile.data.length > 0) {
@@ -71,6 +75,7 @@ export default defineEventHandler(async (event) => {
         contentType: 'application/zip',
       })
       template.zipUrl = zipBlob.url
+      template.zipPath = zipBlob.url
     }
     if (previewImage && previewImage.data.length > 0) {
       const imgBlob = await put(`templates/${slug}/${previewImage.filename || 'preview.png'}`, previewImage.data, {
@@ -85,11 +90,23 @@ export default defineEventHandler(async (event) => {
     if (zipFile && zipFile.data.length > 0) {
       await writeFile(join(templateDir, 'source.zip'), zipFile.data)
       template.zipUrl = `/templates/${slug}/source.zip`
+      template.zipPath = `/templates/${slug}/source.zip`
+
+      try {
+        const zip = new AdmZip(zipFile.data)
+        zip.extractAllTo(templateDir, true)
+      } catch (e) {
+        console.error('Gagal ekstrak zip lokal:', e)
+      }
     }
     if (previewImage && previewImage.data.length > 0) {
       await writeFile(join(templateDir, 'preview.png'), previewImage.data)
       template.previewImage = `/templates/${slug}/preview.png`
     }
+  }
+
+  if (!template.previewUrl) {
+    template.previewUrl = `/api/templates/preview/${slug}/index.html`
   }
 
   // --- 5. SIMPAN ---

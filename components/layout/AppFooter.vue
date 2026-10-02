@@ -1,57 +1,216 @@
 <template>
-  <footer class="bg-[#0f1a0f] text-white mt-20">
-    <!-- Ornament top border -->
-    <div class="h-1 bg-gradient-to-r from-brand-green via-brand-gold to-brand-green"></div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Brand -->
-        <div>
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-green to-brand-green-light flex items-center justify-center">
-              <span class="text-white text-xl">🕌</span>
-            </div>
-            <div>
-              <p class="font-display font-bold text-white text-sm">PSD Web PPDB Katalog</p>
-              <p class="text-brand-green-light text-xs">Pesantren Smart Digital</p>
-            </div>
+  <footer
+    class="bg-psd-green text-white relative overflow-hidden"
+    style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'20\' viewBox=\'0 0 100 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.735-5.197-1.575-8.244-2.653C65.666 14.195 59.554 11.968 50 11.968c-9.643 0-16.196 2.37-25.766 5.672-3.238 1.117-6.07 1.962-8.683 2.682h5.633zM28.452 8.35c3.06-.47 6.326-.743 9.77-.743 17.585 0 28.528 7.058 35.15 13.393h6.233c-7.77-7.61-20.252-14.393-41.383-14.393-4.717 0-9.124.443-13.155 1.144L28.452 8.35z\' fill=\'%23136f60\' fill-opacity=\'0.45\' fill-rule=\'evenodd\'/%3E%3C/svg%3E');"
+  >
+    <!-- Main Footer Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
+        <!-- Col 1: Brand & Socials (Span 4) -->
+        <div class="lg:col-span-4 flex flex-col gap-5">
+          <!-- Logo PSD Official in circle -->
+          <div class="w-16 h-16 rounded-full overflow-hidden shadow-lg border-2 border-emerald-400/40 flex items-center justify-center shrink-0 bg-white">
+            <img
+              src="/logo-psd.jpeg"
+              alt="Logo Pesantren Smart Digital"
+              class="w-full h-full object-cover rounded-full"
+            />
           </div>
-          <p class="text-gray-400 text-sm leading-relaxed">
-            Platform katalog template website PPDB profesional untuk Pondok Pesantren Indonesia. 17+ desain siap pakai, mudah dikustomisasi.
+
+          <p class="text-gray-100/90 text-sm leading-relaxed max-w-sm font-normal">
+            Platform Manajemen Pesantren Digital terintegrasi yang memudahkan pengasuh, pengurus, dan wali santri dalam satu ekosistem.
           </p>
+
+          <!-- Social Media Icons (Round pills) -->
+          <div class="flex items-center gap-3 pt-1">
+            <!-- Instagram -->
+            <a
+              href="https://www.instagram.com/pesantrensmartdigital"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram Pesantren Smart Digital"
+              class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#F4C430] hover:text-[#0A5C4F] transition-all duration-300 flex items-center justify-center text-white border border-white/20 shadow-sm"
+            >
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+
+            <!-- Facebook -->
+            <a
+              href="https://www.facebook.com/share/1aJZkvSkWx/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook Pesantren Smart Digital"
+              class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#F4C430] hover:text-[#0A5C4F] transition-all duration-300 flex items-center justify-center text-white border border-white/20 shadow-sm"
+            >
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.6 5H18V0h-3.808C10.595 0 9 1.582 9 4.615V8z"/>
+              </svg>
+            </a>
+
+            <!-- TikTok -->
+            <a
+              href="https://www.tiktok.com/@pesantrensmartdigital_"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok Pesantren Smart Digital"
+              class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#F4C430] hover:text-[#0A5C4F] transition-all duration-300 flex items-center justify-center text-white border border-white/20 shadow-sm"
+            >
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+              </svg>
+            </a>
+          </div>
         </div>
 
-        <!-- Links -->
-        <div>
-          <h3 class="text-white font-semibold text-sm mb-4">Navigasi</h3>
-          <ul class="space-y-2">
-            <li v-for="link in navLinks" :key="link.to">
-              <NuxtLink :to="link.to" class="text-gray-400 hover:text-brand-green-light transition-colors text-sm">
-                {{ link.label }}
-              </NuxtLink>
+        <!-- Col 2: Navigasi (Span 2) -->
+        <div class="lg:col-span-2 flex flex-col gap-4">
+          <div>
+            <h3 class="text-white font-bold text-base tracking-tight">Navigasi</h3>
+            <span class="block h-1 w-8 bg-[#F4C430] rounded-full mt-1.5"></span>
+          </div>
+
+          <ul class="flex flex-col gap-2.5">
+            <li>
+              <a
+                href="https://pesantrensmartdigital.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-200 hover:text-[#F4C430] transition-colors text-sm font-medium"
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://pesantrensmartdigital.com/features"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-200 hover:text-[#F4C430] transition-colors text-sm font-medium"
+              >
+                Fitur Utama
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://pesantrensmartdigital.com/gallery"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-200 hover:text-[#F4C430] transition-colors text-sm font-medium"
+              >
+                Gallery
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://pesantrensmartdigital.com/berita"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-200 hover:text-[#F4C430] transition-colors text-sm font-medium"
+              >
+                Berita &amp; Artikel
+              </a>
             </li>
           </ul>
         </div>
 
-        <!-- Info -->
-        <div>
-          <h3 class="text-white font-semibold text-sm mb-4">Template Tersedia</h3>
-          <div class="flex flex-wrap gap-2">
-            <span
-              v-for="color in colorSchemes"
-              :key="color.value"
-              class="text-xs px-3 py-1 rounded-full border border-gray-700 text-gray-400"
+        <!-- Col 3: Hubungi Kami (Span 3) -->
+        <div class="lg:col-span-3 flex flex-col gap-4">
+          <div>
+            <h3 class="text-white font-bold text-base tracking-tight">Hubungi Kami</h3>
+            <span class="block h-1 w-10 bg-[#F4C430] rounded-full mt-1.5"></span>
+          </div>
+
+          <ul class="flex flex-col gap-3 text-sm text-gray-200">
+            <!-- Address -->
+            <li class="flex items-start gap-2.5">
+              <span class="material-symbols-outlined text-[#F4C430] text-[20px] shrink-0 mt-0.5">location_on</span>
+              <span class="leading-relaxed">
+                Perumahan Graha Madu Claster 3 no 31, Tj. Senang, Kec. Tj. Senang, Kota Bandar Lampung,
+              </span>
+            </li>
+
+            <!-- Phone / WhatsApp -->
+            <li class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[#F4C430] text-[20px] shrink-0">call</span>
+              <a
+                href="https://wa.me/6281368946818?text=saya%20mendapat%20informasi%20dari%20website%20pesantrensmartdigital.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-[#F4C430] transition-colors font-medium"
+              >
+                081368946818
+              </a>
+            </li>
+
+            <!-- Email -->
+            <li class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[#F4C430] text-[20px] shrink-0">mail</span>
+              <a
+                href="mailto:admin@pesantrensmartdigital.com"
+                class="hover:text-[#F4C430] transition-colors font-medium break-all"
+              >
+                admin@pesantrensmartdigital.com
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Download App (Span 3) -->
+        <div class="lg:col-span-3 flex flex-col gap-4">
+          <div>
+            <h3 class="text-white font-bold text-base tracking-tight">Download App</h3>
+            <span class="block h-1 w-10 bg-[#F4C430] rounded-full mt-1.5"></span>
+          </div>
+
+          <p class="text-xs text-gray-200 italic leading-relaxed">
+            Dapatkan Aplikasi Ekosistem Pesantren Smart Digital di PlayStore &amp; AppStore.
+          </p>
+
+          <!-- Store Badges -->
+          <div class="flex flex-col gap-2.5 pt-1">
+            <!-- Google Play Store Badge -->
+            <a
+              href="https://pesantrensmartdigital.com/#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full sm:w-56 bg-[#06351F]/90 hover:bg-[#06351F] border border-white/15 hover:border-emerald-400/40 rounded-xl px-4 py-2.5 flex items-center gap-3 transition-all duration-300 shadow-md group"
             >
-              {{ color.label }}
-            </span>
+              <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current text-white shrink-0 group-hover:scale-105 transition-transform">
+                <title>Google Play</title>
+                <path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/>
+              </svg>
+              <div class="flex flex-col text-left">
+                <span class="text-[9px] uppercase tracking-wider text-gray-300 font-medium leading-none">Tersedia di</span>
+                <span class="text-sm font-bold text-white tracking-tight leading-snug">Google Play</span>
+              </div>
+            </a>
+
+            <!-- Apple App Store Badge -->
+            <a
+              href="https://pesantrensmartdigital.com/#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full sm:w-56 bg-[#06351F]/90 hover:bg-[#06351F] border border-white/15 hover:border-emerald-400/40 rounded-xl px-4 py-2.5 flex items-center gap-3 transition-all duration-300 shadow-md group"
+            >
+              <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current text-white shrink-0 group-hover:scale-105 transition-transform">
+                <title>App Store</title>
+                <path d="M8.8086 14.9194l6.1107-11.0368c.0837-.1513.1682-.302.2437-.4584.0685-.142.1267-.2854.1646-.4403.0803-.3259.0588-.6656-.066-.9767-.1238-.3095-.3417-.5678-.6201-.7355a1.4175 1.4175 0 0 0-.921-.1924c-.3207.043-.6135.1935-.8443.4288-.1094.1118-.1996.2361-.2832.369-.092.1463-.175.2979-.259.4492l-.3864.6979-.3865-.6979c-.0837-.1515-.1667-.303-.2587-.4492-.0837-.1329-.1739-.2572-.2835-.369-.2305-.2353-.5233-.3857-.844-.429a1.4181 1.4181 0 0 0-.921.1926c-.2784.1677-.4964.426-.6203.7355-.1246.311-.1461.6508-.066.9767.038.155.0962.2984.1648.4403.0753.1564.1598.307.2437.4584l1.248 2.2543-4.8625 8.7825H2.0295c-.1676 0-.3351-.0007-.5026.0092-.1522.009-.3004.0284-.448.0714-.3108.0906-.5822.2798-.7783.548-.195.2665-.3006.5929-.3006.9279 0 .3352.1057.6612.3006.9277.196.2683.4675.4575.7782.548.1477.043.296.0623.4481.0715.1675.01.335.009.5026.009h13.0974c.0171-.0357.059-.1294.1-.2697.415-1.4151-.6156-2.843-2.0347-2.843zM3.113 18.5418l-.7922 1.5008c-.0818.1553-.1644.31-.2384.4705-.067.1458-.124.293-.1611.452-.0785.3346-.0576.6834.0645 1.0029.1212.3175.3346.583.607.7549.2727.172.5891.2416.9013.1975.3139-.044.6005-.1986.8263-.4402.1072-.1148.1954-.2424.2772-.3787.0902-.1503.1714-.3059.2535-.4612L6 19.4636c-.0896-.149-.9473-1.4704-2.887-.9218m20.5861-3.0056a1.4707 1.4707 0 0 0-.779-.5407c-.1476-.0425-.2961-.0616-.4483-.0705-.1678-.0099-.3352-.0091-.503-.0091H18.648l-4.3891-7.817c-.6655.7005-.9632 1.485-1.0773 2.1976-.1655 1.0333.0367 2.0934.546 3.0004l5.2741 9.3933c.084.1494.167.299.2591.4435.0837.131.1739.2537.2836.364.231.2323.5238.3809.8449.4232.3192.0424.643-.0244.9217-.1899.2784-.1653.4968-.4204.621-.7257.1246-.3072.146-.6425.0658-.9641-.0381-.1529-.0962-.2945-.165-.4346-.0753-.1543-.1598-.303-.2438-.4524l-1.216-2.1662h1.596c.1677 0 .3351.0009.5029-.009.1522-.009.3007-.028.4483-.0705a1.4707 1.4707 0 0 0 .779-.5407A1.5386 1.5386 0 0 0 24 16.452a1.539 1.539 0 0 0-.3009-.9158Z"/>
+              </svg>
+              <div class="flex flex-col text-left">
+                <span class="text-[9px] uppercase tracking-wider text-gray-300 font-medium leading-none">Tersedia di</span>
+                <span class="text-sm font-bold text-white tracking-tight leading-snug">App Store</span>
+              </div>
+            </a>
           </div>
         </div>
       </div>
 
-      <!-- Bottom -->
-      <div class="mt-10 pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p class="text-gray-500 text-sm">
-          © {{ new Date().getFullYear() }} Pesantren Smart Digital.
+      <!-- Bottom Copyright Row -->
+      <div class="mt-14 pt-8 border-t border-white/15 flex items-center justify-center text-center">
+        <p class="text-gray-200 text-xs font-normal">
+          &copy; 2026 Pesantren Smart Digital. All Rights Reserved.
         </p>
       </div>
     </div>
@@ -59,20 +218,4 @@
 </template>
 
 <script setup lang="ts">
-const navLinks = [
-  { to: '/', label: 'Katalog Template' },
-  { to: '/?sortBy=featured', label: 'Template Unggulan' },
-  { to: '/?sortBy=newest', label: 'Template Terbaru' },
-  { to: '/admin/login', label: 'Admin Login' },
-]
-
-const colorSchemes = [
-  { value: 'green', label: 'Hijau' },
-  { value: 'blue', label: 'Biru' },
-  { value: 'gold', label: 'Emas' },
-  { value: 'maroon', label: 'Marun' },
-  { value: 'teal', label: 'Tosca' },
-  { value: 'gray', label: 'Abu' },
-  { value: 'purple', label: 'Ungu' },
-]
 </script>
