@@ -4,12 +4,13 @@ import { join } from 'node:path'
 import { existsSync } from 'node:fs'
 import AdmZip from 'adm-zip'
 
+import { requireAdminAuth } from '~/server/utils/db'
+import { getTemplateBySlug, saveTemplate } from '~/server/utils/templates-store'
+import { uploadBlob, isBlobConfigured } from '~/server/utils/blob-storage'
+
 export default defineEventHandler(async (event) => {
   // 1. Cek Auth
-  const authHeader = getRequestHeader(event, 'x-admin-auth')
-  if (!authHeader || authHeader !== 'true') {
-    throw createError({ statusCode: 401, message: 'Tidak terautentikasi' })
-  }
+  requireAdminAuth(event)
 
   const slug = getRouterParam(event, 'slug')
   if (!slug) throw createError({ statusCode: 400, message: 'Slug tidak ditemukan' })
@@ -40,12 +41,10 @@ export default defineEventHandler(async (event) => {
   const isProd = process.env.NODE_ENV === 'production'
 
   // --- 2. AMBIL DATA LAMA ---
-  const currentTemplates = await readTemplates()
+  const existing = await getTemplateBySlug(slug)
+  if (!existing) throw createError({ statusCode: 404, message: 'Template tidak ditemukan' })
 
-  const index = currentTemplates.findIndex((t) => t.slug === slug)
-  if (index === -1) throw createError({ statusCode: 404, message: 'Template tidak ditemukan' })
-
-  const template = { ...currentTemplates[index] }
+  const template = { ...existing }
 
   // --- 3. UPDATE METADATA ---
   if (name) template.name = name
@@ -61,47 +60,57 @@ export default defineEventHandler(async (event) => {
   template.updatedAt = new Date().toISOString().split('T')[0]
 
   // --- 4. UPDATE FILE (OPSIONAL) ---
-  if (isProd) {
-    // File baru sudah diupload langsung dari browser (client-side upload).
-    if (zipUrlFromClient) {
-      template.zipUrl = zipUrlFromClient
-      template.zipPath = zipUrlFromClient
-    }
-    if (imageUrlFromClient) template.previewImage = imageUrlFromClient
+  const useBlob = isBlobConfigured() || isProd
 
+  if (zipUrlFromClient) {
+    template.zipUrl = zipUrlFromClient
+    template.zipPath = zipUrlFromClient
+  }
+  if (imageUrlFromClient) {
+    template.previewImage = imageUrlFromClient
+  }
+
+  if (useBlob) {
     if (zipFile && zipFile.data.length > 0) {
-      const zipBlob = await put(`templates/${slug}/${zipFile.filename || 'source.zip'}`, zipFile.data, {
-        access: 'public',
+      const zipBlob = await uploadBlob(`templates/${slug}/${zipFile.filename || 'source.zip'}`, zipFile.data, {
         contentType: 'application/zip',
       })
       template.zipUrl = zipBlob.url
       template.zipPath = zipBlob.url
     }
     if (previewImage && previewImage.data.length > 0) {
-      const imgBlob = await put(`templates/${slug}/${previewImage.filename || 'preview.png'}`, previewImage.data, {
-        access: 'public',
-      })
+      const imgBlob = await uploadBlob(`templates/${slug}/${previewImage.filename || 'preview.png'}`, previewImage.data)
       template.previewImage = imgBlob.url
     }
-  } else {
-    const templateDir = join(process.cwd(), 'public', 'templates', slug)
-    if (!existsSync(templateDir)) await mkdir(templateDir, { recursive: true })
+  }
 
-    if (zipFile && zipFile.data.length > 0) {
-      await writeFile(join(templateDir, 'source.zip'), zipFile.data)
-      template.zipUrl = `/templates/${slug}/source.zip`
-      template.zipPath = `/templates/${slug}/source.zip`
+  if (!isProd) {
+    try {
+      const templateDir = join(process.cwd(), 'public', 'templates', slug)
+      if (!existsSync(templateDir)) await mkdir(templateDir, { recursive: true })
 
-      try {
-        const zip = new AdmZip(zipFile.data)
-        zip.extractAllTo(templateDir, true)
-      } catch (e) {
-        console.error('Gagal ekstrak zip lokal:', e)
+      if (zipFile && zipFile.data.length > 0) {
+        await writeFile(join(templateDir, 'source.zip'), zipFile.data)
+        if (!template.zipUrl) {
+          template.zipUrl = `/templates/${slug}/source.zip`
+          template.zipPath = `/templates/${slug}/source.zip`
+        }
+
+        try {
+          const zip = new AdmZip(zipFile.data)
+          zip.extractAllTo(templateDir, true)
+        } catch (e) {
+          console.warn('[STORAGE] Gagal ekstrak zip lokal:', e)
+        }
       }
-    }
-    if (previewImage && previewImage.data.length > 0) {
-      await writeFile(join(templateDir, 'preview.png'), previewImage.data)
-      template.previewImage = `/templates/${slug}/preview.png`
+      if (previewImage && previewImage.data.length > 0) {
+        await writeFile(join(templateDir, 'preview.png'), previewImage.data)
+        if (!template.previewImage) {
+          template.previewImage = `/templates/${slug}/preview.png`
+        }
+      }
+    } catch (localErr) {
+      console.warn('[STORAGE] Peringatan penulisan file lokal:', localErr)
     }
   }
 
@@ -109,9 +118,8 @@ export default defineEventHandler(async (event) => {
     template.previewUrl = `/api/templates/preview/${slug}/index.html`
   }
 
-  // --- 5. SIMPAN ---
-  currentTemplates[index] = template
-  await writeTemplates(currentTemplates)
+  // --- 5. SIMPAN KE NEON DB ---
+  await saveTemplate(template)
 
   return { success: true, template }
 })

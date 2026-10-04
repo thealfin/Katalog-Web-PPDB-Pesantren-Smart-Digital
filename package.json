@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
     "@pinia/nuxt": "^0.11.3",
     "@vercel/blob": "^2.3.3",
     "@vercel/kv": "^3.0.0",

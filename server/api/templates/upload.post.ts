@@ -4,12 +4,13 @@ import { join } from 'node:path'
 import { existsSync } from 'node:fs'
 import AdmZip from 'adm-zip'
 
+import { requireAdminAuth } from '~/server/utils/db'
+import { saveTemplate } from '~/server/utils/templates-store'
+import { uploadBlob, isBlobConfigured } from '~/server/utils/blob-storage'
+
 export default defineEventHandler(async (event) => {
-  // 1. Cek Auth
-  const authHeader = getRequestHeader(event, 'x-admin-auth')
-  if (!authHeader || authHeader !== 'true') {
-    throw createError({ statusCode: 401, message: 'Tidak terautentikasi' })
-  }
+  // 1. Cek Auth (Bearer Token / Cookie / Header)
+  requireAdminAuth(event)
 
   const contentType = getRequestHeader(event, 'content-type') || ''
   const isProd = process.env.NODE_ENV === 'production'
@@ -29,6 +30,9 @@ export default defineEventHandler(async (event) => {
   let zipFile: { filename?: string; data: Buffer } | undefined
   let previewImage: { filename?: string; data: Buffer } | undefined
 
+  let isNew = true
+  let isFeatured = false
+
   if (contentType.includes('application/json')) {
     // A. Payload JSON (misal saat client-side Vercel Blob upload sudah selesai)
     const body = await readBody(event)
@@ -45,6 +49,8 @@ export default defineEventHandler(async (event) => {
     tags = Array.isArray(body.tags)
       ? body.tags
       : (body.tags || '').split(',').map((t: string) => t.trim()).filter(Boolean)
+    isNew = body.isNew !== undefined ? Boolean(body.isNew) : true
+    isFeatured = body.isFeatured !== undefined ? Boolean(body.isFeatured) : false
     zipUrl = body.zipUrl || ''
     imageUrl = body.previewImageUrl || body.previewImage || ''
   } else {
@@ -83,45 +89,49 @@ export default defineEventHandler(async (event) => {
   }
 
   // --- 2. PENYIMPANAN FILE ---
-  if (isProd) {
-    // PRODUCTION: Gunakan Vercel Blob (access: public)
+  const useBlob = isBlobConfigured() || isProd
+
+  if (useBlob) {
+    // Gunakan Vercel Blob Storage
     if (zipFile) {
-      const zipBlob = await put(`templates/${slug}/${zipFile.filename || 'source.zip'}`, zipFile.data, {
-        access: 'public',
+      const zipBlob = await uploadBlob(`templates/${slug}/${zipFile.filename || 'source.zip'}`, zipFile.data, {
         contentType: 'application/zip',
       })
       zipUrl = zipBlob.url
     }
 
     if (previewImage) {
-      const imgBlob = await put(`templates/${slug}/${previewImage.filename || 'preview.png'}`, previewImage.data, {
-        access: 'public',
-      })
+      const imgBlob = await uploadBlob(`templates/${slug}/${previewImage.filename || 'preview.png'}`, previewImage.data)
       imageUrl = imgBlob.url
     }
-  } else {
-    // LOKAL: Gunakan File System & Ekstrak ZIP agar preview lokal langsung aktif
-    const templateDir = join(process.cwd(), 'public', 'templates', slug)
-    if (!existsSync(templateDir)) await mkdir(templateDir, { recursive: true })
+  }
 
-    if (zipFile) {
-      const zipPath = join(templateDir, 'source.zip')
-      await writeFile(zipPath, zipFile.data)
-      zipUrl = `/templates/${slug}/source.zip`
+  // Jika di lokal (dev), ekstrak file ke folder public untuk fallback live preview offline
+  if (!isProd) {
+    try {
+      const templateDir = join(process.cwd(), 'public', 'templates', slug)
+      if (!existsSync(templateDir)) await mkdir(templateDir, { recursive: true })
 
-      // Ekstrak isi ZIP untuk live preview lokal
-      try {
-        const zip = new AdmZip(zipFile.data)
-        zip.extractAllTo(templateDir, true)
-      } catch (e) {
-        console.error('Peringatan: Gagal mengekstrak isi ZIP di lokal:', e)
+      if (zipFile) {
+        const zipPath = join(templateDir, 'source.zip')
+        await writeFile(zipPath, zipFile.data)
+        if (!zipUrl) zipUrl = `/templates/${slug}/source.zip`
+
+        try {
+          const zip = new AdmZip(zipFile.data)
+          zip.extractAllTo(templateDir, true)
+        } catch (e) {
+          console.warn('[STORAGE] Gagal ekstrak zip lokal:', e)
+        }
       }
-    }
 
-    if (previewImage) {
-      const imgPath = join(templateDir, 'preview.png')
-      await writeFile(imgPath, previewImage.data)
-      imageUrl = `/templates/${slug}/preview.png`
+      if (previewImage) {
+        const imgPath = join(templateDir, 'preview.png')
+        await writeFile(imgPath, previewImage.data)
+        if (!imageUrl) imageUrl = `/templates/${slug}/preview.png`
+      }
+    } catch (localErr) {
+      console.warn('[STORAGE] Peringatan penulisan file lokal:', localErr)
     }
   }
 
@@ -148,11 +158,7 @@ export default defineEventHandler(async (event) => {
     updatedAt: new Date().toISOString().split('T')[0],
   }
 
-  let currentTemplates: any[] = await readTemplates()
-  // Filter slug yang sama (slug unik)
-  currentTemplates = currentTemplates.filter((t) => t.slug !== slug)
-  currentTemplates.unshift(newTemplate)
-  await writeTemplates(currentTemplates)
+  await saveTemplate(newTemplate)
 
   return { success: true, template: newTemplate }
 })

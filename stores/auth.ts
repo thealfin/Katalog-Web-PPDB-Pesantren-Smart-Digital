@@ -4,6 +4,7 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     isAuthenticated: false,
     username: '',
+    token: '',
     _loginAttempts: 0,
     _lockUntil: 0,
   }),
@@ -12,6 +13,15 @@ export const useAuthStore = defineStore('auth', {
     isAdmin: (state) => state.isAuthenticated,
     isLocked: (state) => Date.now() < state._lockUntil,
     remainingLockTime: (state) => Math.ceil((state._lockUntil - Date.now()) / 1000),
+    authHeaders: (state) => {
+      const headers: Record<string, string> = {
+        'x-admin-auth': 'true', // Fallback compatibility
+      }
+      if (state.token) {
+        headers['Authorization'] = `Bearer ${state.token}`
+      }
+      return headers
+    },
   },
 
   actions: {
@@ -23,15 +33,17 @@ export const useAuthStore = defineStore('auth', {
             const data = JSON.parse(stored)
             this.isAuthenticated = data.isAuthenticated || false
             this.username = data.username || ''
+            this.token = data.token || ''
           } catch {
             this.isAuthenticated = false
+            this.token = ''
           }
         }
       }
     },
 
     async login(username: string, password: string): Promise<{ success: boolean; message: string }> {
-      // Rate limiting
+      // Rate limiting lokal
       if (this.isLocked) {
         return {
           success: false,
@@ -40,22 +52,27 @@ export const useAuthStore = defineStore('auth', {
       }
 
       try {
-        const response = await $fetch('/api/auth/login', {
+        const response: any = await $fetch('/api/auth/login', {
           method: 'POST',
           body: { username, password },
         })
 
         if (response.success) {
           this.isAuthenticated = true
-          this.username = username
+          this.username = response.user?.username || username
+          this.token = response.token || ''
           this._loginAttempts = 0
           this._lockUntil = 0
 
           if (process.client) {
-            localStorage.setItem('psd_auth', JSON.stringify({
-              isAuthenticated: true,
-              username,
-            }))
+            localStorage.setItem(
+              'psd_auth',
+              JSON.stringify({
+                isAuthenticated: true,
+                username: this.username,
+                token: this.token,
+              })
+            )
           }
 
           return { success: true, message: 'Login berhasil!' }
@@ -81,9 +98,15 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    logout() {
+    async logout() {
+      try {
+        await $fetch('/api/auth/logout', { method: 'POST' })
+      } catch {
+        // Abaikan jika offline
+      }
       this.isAuthenticated = false
       this.username = ''
+      this.token = ''
       if (process.client) {
         localStorage.removeItem('psd_auth')
       }

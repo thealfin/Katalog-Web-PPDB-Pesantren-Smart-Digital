@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "question": "Apakah pembuatan website PPDB ini gratis untuk mitra PSD?",
+    "answer": "Pilihan desain template dalam katalog ini bebas dipilih, namun terdapat biaya tambahan untuk proses pembuatan, kustomisasi, dan setup teknis website PPDB lembaga Anda. Untuk rincian biaya dapat dikonsultasikan langsung dengan pendamping dari yayasan masing-masing.",
+    "orderIndex": 0,
+    "isPublished": true,
+    "createdAt": "2026-10-04T06:06:33.411Z",
+    "updatedAt": "2026-10-04T06:06:33.411Z"
+  },
+  {
+    "id": 2,
+    "question": "Bagaimana cara menghubungkan template dengan domain resmi pondok kami?",
+    "answer": "Tim teknis PSD akan memandu proses pointing DNS dari domain pondok Anda (misal: pendaftaran.namaponpes.ponpes.id). Proses konfigurasi berlangsung cepat dengan sertifikat SSL gratis (HTTPS) otomatis terpasang.",
+    "orderIndex": 1,
+    "isPublished": true,
+    "createdAt": "2026-10-04T06:06:33.458Z",
+    "updatedAt": "2026-10-04T06:06:33.458Z"
+  },
+  {
+    "id": 3,
+    "question": "Apakah tim PSD membantu proses upload logo, visi misi, dan galeri foto pondok?",
+    "answer": "Tentu saja. Anda cukup menyediakan materi dasar (logo lembaga, foto media lingkungan dan kegiatan di pesantren, teks profil, deskripsi program dan kegiatan, program unggulan (jika ada), dan kontak person panitia PPDB), dan tim pendamping PSD akan membantu proses input hingga website siap digunakan santri baru.",
+    "orderIndex": 2,
+    "isPublished": true,
+    "createdAt": "2026-10-04T06:06:33.495Z",
+    "updatedAt": "2026-10-04T06:06:33.495Z"
+  },
+  {
+    "id": 4,
+    "question": "Apakah formulir pendaftaran bisa disesuaikan dengan jalur seleksi pondok?",
+    "answer": "Sangat bisa. Anda dapat mengaktifkan jalur reguler, jalur beasiswa tahfidz, jalur prestasi akademik, maupun jalur pindahan dengan kolom isian data wali dan berkas yang dapat disesuaikan kebutuhan panitia PPDB pondok Anda.",
+    "orderIndex": 3,
+    "isPublished": true,
+    "createdAt": "2026-10-04T06:06:33.530Z",
+    "updatedAt": "2026-10-04T06:06:33.530Z"
+  }
+]

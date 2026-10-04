@@ -358,12 +358,14 @@
 <script setup lang="ts">
 import { upload } from '@vercel/blob/client'
 import { useTemplateTaxonomy } from '~/composables/useTemplateTaxonomy'
+import { useAuthStore } from '~/stores/auth'
 
 const route = useRoute()
 const router = useRouter()
 const slug = route.params.slug as string
 
 definePageMeta({ layout: 'admin', middleware: 'auth' })
+const authStore = useAuthStore()
 
 const { colorSchemes, designStyles, initTaxonomy, addColorScheme, addDesignStyle } = useTemplateTaxonomy()
 
@@ -537,7 +539,7 @@ const handleUpdate = async () => {
           contentType: 'application/zip',
           handleUploadUrl: '/api/templates/upload-token',
           clientPayload,
-          headers: { 'x-admin-auth': 'true' },
+          headers: authStore.authHeaders,
         })
         zipUrl = zipResult.url
       }
@@ -548,7 +550,7 @@ const handleUpdate = async () => {
           multipart: true,
           handleUploadUrl: '/api/templates/upload-token',
           clientPayload,
-          headers: { 'x-admin-auth': 'true' },
+          headers: authStore.authHeaders,
         })
         imageUrl = imgResult.url
       }
@@ -574,7 +576,7 @@ const handleUpdate = async () => {
     await $fetch(`/api/templates/${slug}`, {
       method: 'PUT',
       body: formData,
-      headers: { 'x-admin-auth': 'true' },
+      headers: authStore.authHeaders,
     })
     alert('Template berhasil diperbarui!')
     router.push('/admin')

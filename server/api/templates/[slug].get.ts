@@ -1,14 +1,15 @@
+import { getTemplateBySlug } from '~/server/utils/templates-store'
+
 export default defineEventHandler(async (event) => {
   const slug = getRouterParam(event, 'slug')
+  if (!slug) throw createError({ statusCode: 400, message: 'Slug tidak valid' })
 
-  const templates = await readTemplates()
-
-  const template = templates.find(t => t.slug === slug)
+  const template = await getTemplateBySlug(slug)
 
   if (!template) {
     throw createError({
       statusCode: 404,
-      message: 'Template tidak ditemukan'
+      message: 'Template tidak ditemukan',
     })
   }
 

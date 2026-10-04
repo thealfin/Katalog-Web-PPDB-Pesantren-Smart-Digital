@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useAuthStore } from './auth'
 
 export interface Template {
   id: string | number
@@ -129,10 +130,11 @@ export const useTemplatesStore = defineStore('templates', {
     },
 
     async deleteTemplate(slug: string) {
+      const authStore = useAuthStore()
       try {
         await $fetch(`/api/templates/${slug}`, {
           method: 'DELETE',
-          headers: { 'x-admin-auth': 'true' },
+          headers: authStore.authHeaders,
         })
         this.templates = this.templates.filter((t) => t.slug !== slug)
         return { success: true }

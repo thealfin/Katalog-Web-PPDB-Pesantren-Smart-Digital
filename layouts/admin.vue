@@ -176,12 +176,14 @@ const route = useRoute()
 const navItems = [
   { to: '/admin', label: 'Dashboard', icon: 'dashboard' },
   { to: '/admin/upload', label: 'Upload Template', icon: 'cloud_upload' },
+  { to: '/admin/faqs', label: 'Kelola FAQ', icon: 'quiz' },
   { to: '/', label: 'Katalog Live', icon: 'public' },
 ]
 
 const pageTitles: Record<string, string> = {
   '/admin': 'Dashboard Analytics & Koleksi',
   '/admin/upload': 'Upload Template Baru',
+  '/admin/faqs': 'Kelola Pertanyaan Umum (FAQ)',
 }
 
 const pageTitle = computed(() => pageTitles[route.path] || 'Admin Panel')

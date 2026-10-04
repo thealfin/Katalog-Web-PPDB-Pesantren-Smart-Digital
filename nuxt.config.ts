@@ -24,6 +24,8 @@ export default defineNuxtConfig({
     adminUsername: process.env.NUXT_ADMIN_USERNAME || 'psdadmin',
     adminPassword: process.env.NUXT_ADMIN_PASSWORD || 'ppdb2026secure!',
     sessionSecret: process.env.NUXT_SESSION_SECRET || 'psd-secret-key-2026',
+    databaseUrl: process.env.DATABASE_URL || process.env.POSTGRES_URL || '',
+    blobToken: process.env.BLOB_READ_WRITE_TOKEN || '',
   },
 
   app: {

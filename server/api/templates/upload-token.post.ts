@@ -1,10 +1,8 @@
 import { handleUpload } from '@vercel/blob/client'
+import { requireAdminAuth } from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
-  const authHeader = getRequestHeader(event, 'x-admin-auth')
-  if (!authHeader || authHeader !== 'true') {
-    throw createError({ statusCode: 401, message: 'Tidak terautentikasi' })
-  }
+  requireAdminAuth(event)
 
   const body = await readBody(event)
 

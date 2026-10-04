@@ -2,17 +2,17 @@
 
 # 🕌 Katalog Web PPDB Pesantren Smart Digital (PSD)
 
-**Platform Katalog & Live Interactive Preview Template Website PPDB untuk Pondok Pesantren, Islamic Boarding School & Madrasah Modern**
+**Platform Katalog, Live Interactive Preview & CMS Template Website PPDB untuk Pondok Pesantren, Islamic Boarding School & Madrasah Modern**
 
-Pilih dari beragam desain profesional • Live Responsive Preview • Download Source Code ZIP • Admin Management Panel
+Pilih dari beragam desain profesional • Live Responsive Preview • Download Source Code ZIP • Neon PostgreSQL • Vercel Blob • Admin Management Panel
 
 [![Nuxt](https://img.shields.io/badge/Nuxt-3.17+-00DC82?style=for-the-badge&logo=nuxt.js&logoColor=white)](https://nuxt.com)
 [![Vue](https://img.shields.io/badge/Vue-3.5+-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)](https://vuejs.org)
+[![Neon Database](https://img.shields.io/badge/Neon_PostgreSQL-Serverless_Database-00E599?style=for-the-badge&logo=postgresql&logoColor=white)](https://neon.tech)
+[![Vercel Blob](https://img.shields.io/badge/Vercel_Blob-Cloud_Storage-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/docs/storage/vercel-blob)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4+-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![Pinia](https://img.shields.io/badge/Pinia-State_Management-F7D336?style=for-the-badge&logo=pinia&logoColor=black)](https://pinia.vuejs.org)
-[![Vercel KV](https://img.shields.io/badge/Vercel_KV-Data_Cache-FF0000?style=for-the-badge&logo=redis&logoColor=white)](https://vercel.com/docs/storage/vercel-kv)
-[![Vercel Blob](https://img.shields.io/badge/Vercel_Blob-Cloud_Storage-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/docs/storage/vercel-blob)
 [![Deploy](https://img.shields.io/badge/Live_Demo-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://katalog-website-ppdb-psd.vercel.app)
 
 [🌐 Kunjungi Katalog Live](https://katalog-website-ppdb-psd.vercel.app) &nbsp;&bull;&nbsp; [🔐 Akses Admin Panel](https://katalog-website-ppdb-psd.vercel.app/admin)
@@ -33,7 +33,9 @@ Inisiatif ini lahir di bawah naungan ekosistem **Pesantren Smart Digital (PSD)**
 - **📱 Smart Responsive Preview:** Pengunjung dapat mencoba dan menjelajahi tampilan template secara langsung dalam mockup browser interaktif (Desktop, Tablet, dan Smartphone) sebelum mengunduh.
 - **⚡ Alur Instan & Download Bebas:** Santri, pengurus, maupun developer dapat mengunduh seluruh source code template dalam bentuk arsip **ZIP** siap pakai dengan sekali klik.
 - **🔄 Auto-Direct Integrasi Web App PSD:** Setiap template disiapkan dengan alur pendaftaran terintegrasi langsung ke sistem Web App PPDB Pesantren Smart Digital (Formulir online, upload berkas santri, pembayaran otomatis VA/QRIS, serta notifikasi WhatsApp).
-- **🛠️ Admin Panel Komprehensif:** Dashboard mandiri dengan analytics counter, upload template langsung ke cloud storage (Vercel Blob), manajemen taksonomi dinamis, dan dialog modal berstandar Apple macOS glassmorphism.
+- **🐘 Neon Serverless PostgreSQL Database:** Penyimpanan data terstruktur (template metadata, admin credentials terenkripsi, dan tanya-jawab FAQ) dengan query berparameter yang 100% kebal dari SQL Injection.
+- **☁️ Vercel Blob Object Storage:** Penyimpanan cloud terdistribusi untuk arsip berkas source code ZIP template dan gambar thumbnail berkualitas tinggi.
+- **🛠️ Admin Panel Komprehensif:** Dashboard mandiri dengan analytics counter, upload template langsung ke cloud, manajemen tanya-jawab FAQ dinamis, manajemen taksonomi warna/gaya, serta dialog konfirmasi bergaya Apple macOS glassmorphism.
 
 ---
 
@@ -81,90 +83,80 @@ Formulir upload dengan dukungan ekstraksi instan arsip ZIP via JSZip, preview th
 
 ---
 
-## ✨ Fitur & Arsitektur Sistem
+## 🏗️ Arsitektur Sistem Terpadu
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│                          PSD WEB PPDB KATALOG                          │
-├───────────────────────────────┬────────────────────────────────────────┤
-│         PUBLIC USERS          │            ADMINISTRATOR               │
-├───────────────────────────────┼────────────────────────────────────────┤
-│ • Search & Filter Real-Time   │ • Secure Login & Session Guard         │
-│ • Filter Kategori Warna & Gaya│ • Dashboard Analytics & Stats Counter │
-│ • Live Iframe Preview Switcher│ • Upload Template (Direct to Cloud)    │
-│ • One-Click ZIP Downloader    │ • Dynamic Taxonomy (Warna & Gaya)      │
-│ • WhatsApp Direct Consultation│ • Edit & Hapus Koleksi Template        │
-│ • FAQ & Ecosystem Showcase    │ • Apple Glassmorphic Confirm Modals    │
-└───────────────────────────────┴────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                       KATALOG WEB PPDB PESANTREN SMART DIGITAL                  │
+├──────────────────────────────────────┬──────────────────────────────────────────┤
+│             PUBLIC USERS             │              ADMINISTRATOR               │
+├──────────────────────────────────────┼──────────────────────────────────────────┤
+│ • Search & Filter Real-Time          │ • Secure Login (scrypt + HMAC Token)     │
+│ • Filter Kategori Warna & Gaya       │ • Dashboard Analytics & Stats Counter    │
+│ • Live Iframe Preview Switcher       │ • Upload Template (Direct to Cloud Blob) │
+│ • One-Click ZIP Downloader           │ • Kelola Tanya-Jawab FAQ Dinamis         │
+│ • Dynamic FAQ Accordion              │ • Dynamic Taxonomy (Warna & Gaya Desain) │
+│ • WhatsApp Direct Consultation       │ • Edit & Hapus Koleksi Template          │
+│ • Ecosystem Showcase & Alur PPDB     │ • REST API Storage (GET/POST/PUT/DEL)    │
+└──────────────────────────────────────┴──────────────────────────────────────────┘
 ```
-
-### 1. 🔍 Mesin Pencarian & Filter Cerdas
-
-- **Pencarian Real-Time:** Filter berdasarkan nama template, kata kunci deskripsi, tag fitur, dan slug.
-- **Kategori Warna & Gaya Dinamis:** Filter skema warna (Green, Gold, Blue, Gray, Maroon, Purple, dll.) dan gaya visual (Modern-Rabbani, Ultra-Minimal, Prestisius, Cyber-Islamic, dll.).
-- **Quick Status Pill:** Tab filter instan untuk kategori _Semua_, _Terbaru (New Release)_, dan _Unggulan (Featured)_.
-
-### 2. 🖥️ Sistem Streaming & Live Sandbox Preview
-
-- **Streaming Proxy Server Engine:** Endpoint `server/api/templates/preview/[...path].get.ts` secara cerdas mengalirkan (_stream_) dokumen HTML, CSS, JavaScript, font, dan aset gambar langsung dari Vercel Blob Storage atau file lokal.
-- **Device Viewport Switcher:** Memungkinkan calon pengguna menguji responsivitas template pada rasio Desktop (100%), Tablet (768px), dan Smartphone (375px).
-- **Fullscreen Mode:** Membuka demo website pada tab baru tanpa elemen pembungkus untuk peninjauan menyeluruh.
-
-### 3. 📦 Generator Download & Kompresi Berkas
-
-- Menggunakan library client-side [`jszip`](https://stuk.github.io/jszip/) dan [`file-saver`](https://github.com/nicolo-ribaudo/FileSaver.js).
-- Pengunjung dapat mengunduh paket lengkap source code website secara instan tanpa membebani bandwidth pemrosesan server.
-
-### 4. 🏷️ Dynamic Taxonomy System (`useTemplateTaxonomy.ts`)
-
-- Taksonomi kategori warna dan gaya desain tidak dikunci secara statis (_hardcoded_).
-- Administrator dapat menambahkan opsi kategori warna dan gaya desain baru secara langsung dari form upload atau edit melalui pop-up modal modern.
-- Data taksonomi disimpan secara persisten di `localStorage` pada sisi client dan tersinkronisasi di filter katalog publik.
-
-### 5. 🛡️ Keamanan & Manajemen Sesi
-
-- **Rate-Limiting Proteksi:** Mencegah serangan _brute force_ pada halaman login admin. Jika gagal 5 kali berturut-turut, sistem mengunci login selama 30 detik.
-- **Route Guard Middleware:** File `middleware/auth.ts` memvalidasi status autentikasi sebelum mengizinkan akses ke seluruh sub-rute `/admin`.
-- **Destructive Action Safety:** Konfirmasi penghapusan dan logout menggunakan modal custom bergaya Apple Glassmorphism dengan indikator loading state.
 
 ---
 
-## 🗄️ Cloud Storage & Data Management
+## 🗄️ Arsitektur Data & Penyimpanan Berkas (Database & Storage)
 
-Aplikasi menggunakan pendekatan arsitektur **Hybrid Storage Resilience** yang fleksibel dan andal baik di lingkungan lokal maupun cloud serverless:
+Aplikasi mengadopsi pemisahan tugas secara bersih antara **Relational Database Engine** dan **Object Storage CDN**:
 
 ```
-                          ┌──────────────────────────┐
-                          │   Nuxt 3 Backend API     │
-                          │ (server/utils/templates) │
-                          └─────────────┬────────────┘
-                                        │
-                 ┌──────────────────────┴──────────────────────┐
-                 ▼                                             ▼
-     [ Cloud Storage & State (Vercel) ]            [ Local Fallback System ]
-  ┌───────────────────────────────────────┐     ┌─────────────────────────────┐
-  │ • Vercel Blob Storage                 │     │ • data/templates.json       │
-  │   - templates.json (katalog metadata) │     │   - Standalone offline data │
-  │   - ZIP source code packages          │     │ • public/templates/         │
-  │   - Thumbnail & preview media         │     │   - Local static files      │
-  │ • Vercel KV (Redis Key-Value Cache)   │     │   - Local preview assets    │
-  │   - Fast cached read/write            │     │                             │
-  └───────────────────────────────────────┘     └─────────────────────────────┘
+                                  ┌──────────────────────────┐
+                                  │    Nuxt 3 Backend API    │
+                                  │   (Nitro Server Engine)  │
+                                  └─────────────┬────────────┘
+                                                │
+                 ┌──────────────────────────────┴──────────────────────────────┐
+                 ▼                                                             ▼
+    [ Neon PostgreSQL Database ]                                  [ Vercel Blob Cloud Storage ]
+ ┌────────────────────────────────────────┐                    ┌─────────────────────────────────┐
+ │ • Table: templates                     │                    │ • templates/[slug]/source.zip   │
+ │   - id, slug, name, description        │                    │ • templates/[slug]/preview.png  │
+ │   - theme, color, features, tags JSONB │                    │ • Public Global CDN Access      │
+ │   - zip_url, preview_image             │                    │ • Multi-method HTTP Storage API │
+ │ • Table: admin_users                   │                    │   (GET, POST, PUT, DELETE,      │
+ │   - username, scrypt hash, salt        │                    │    PATCH Rename / Move)         │
+ │ • Table: faqs                          │                    └─────────────────────────────────┘
+ │   - question, answer, order_index      │                                    ▲
+ │   - is_published                       │                                    │
+ └────────────────────────────────────────┘                    [ Local Dev Filesystem Fallback ]
+                 ▲                                             ┌─────────────────────────────────┐
+                 │                                             │ • data/templates.json & faqs.json
+                 └─────────────────────────────────────────────┤ • public/templates/[slug]/      │
+                                                               └─────────────────────────────────┘
 ```
 
-### 1. Vercel Blob Cloud Storage (Utama di Production)
+### 1. 🐘 Neon Serverless PostgreSQL Database
 
-- **Metadata Katalog (`templates.json`):** Di production, data seluruh template disimpan dan diperbarui langsung sebagai berkas JSON publik di Vercel Blob (`BLOB_KEY = 'templates.json'`).
-- **Direct Client-to-Cloud Upload:** Mengatasi batasan ukuran payload serverless Vercel (4.5 MB). Melalui endpoint `server/api/templates/upload-token.post.ts`, browser admin mengunggah file ZIP template dan thumbnail langsung ke Vercel Blob via `@vercel/blob/client`.
-- **Public CDN & Global Edge:** Seluruh berkas ZIP, gambar thumbnail, dan aset preview disajikan dengan cepat melalui jaringan CDN Vercel.
+- **Koneksi Pooler:** Terhubung melalui connection string berkecepatan tinggi dengan SSL mode terenkripsi (`ep-still-wind-b3hawgeb-pooler`).
+- **100% Kebal SQL Injection (Parameterized Queries):** Menggunakan tagged template `@neondatabase/serverless` (`sql`\`...\``) yang secara native mengisolasi semua input variabel ke dalam parameter binding PostgreSQL (`$1`, `$2`, dst.).
+- **Tabel `templates`:** Menyimpan informasi metadata template, palet warna, rincian fitur, serta URL file cloud.
+- **Tabel `admin_users`:** Menyimpan data pengguna admin dengan algoritma password hashing `scrypt` (memory-hard, tahan serangan brute-force/GPU) dan salt kriptografis 16-byte unik per pengguna.
+- **Tabel `faqs`:** Menyimpan tanya-jawab umum yang dapat diubah dan diatur urutannya secara langsung dari panel admin.
 
-### 2. Vercel KV (Redis Cache - Opsional)
+### 2. ☁️ Vercel Blob Object Storage
 
-- Jika variabel `KV_REST_API_URL` dan `KV_REST_API_TOKEN` tersedia di Vercel, sistem memanfaatkan Vercel KV sebagai layer caching in-memory berkecepatan tinggi sebelum membaca ke Blob.
+- **Direct Storage Integration:** Terhubung langsung ke store `store_MzTaOl2Xq7nUywvI`.
+- **Penyimpanan Berkas ZIP & Media:** Menyimpan file source code ZIP dan thumbnail yang diunggah oleh admin tanpa membebani memori serverless function.
+- **Otomatisasi Pembersihan:** Saat template dihapus dari database, file ZIP dan thumbnail terkait di Vercel Blob otomatis ikut terhapus (*auto-cleanup*) agar kapasitas penyimpanan tetap bersih dari file sampah (*orphaned files*).
+- **REST API Storage Universal (`/api/storage`):** Menyediakan kontrol lengkap atas storage dengan berbagai metode HTTP standard:
+  - `GET /api/storage`: Menampilkan daftar berkas (listing) dengan filter prefix dan paginasi.
+  - `GET /api/storage?url=...`: Membaca metadata berkas (HEAD: ukuran file, tipe konten, waktu upload).
+  - `POST /api/storage`: Mengunggah file baru via multipart/form-data.
+  - `PUT /api/storage?pathname=...`: Mengunggah/menimpa (*overwrite*) stream binary file secara langsung.
+  - `DELETE /api/storage?url=...`: Menghapus satu atau banyak file dari storage.
+  - `PATCH /api/storage`: Memindahkan atau mengganti nama (*rename/move*) file di cloud.
 
-### 3. Local JSON & Filesystem (Development)
+### 3. 💾 Local Development Fallback
 
-- Ketika dijalankan secara lokal (`npm run dev`), sistem secara otomatis menggunakan berkas lokal [data/templates.json](file:///d:/All%20Project%20Website/Nuxt%20PSD%20katalog%20web/data/templates.json) sebagai database file-based dan folder `public/templates/` untuk aset preview.
+- Jika dijalankan secara offline atau tanpa koneksi internet, sistem secara otomatis beralih (*fallback*) membaca berkas lokal [data/templates.json](file:///d:/All%20Project%20Website/Nuxt%20PSD%20katalog%20web/data/templates.json) dan [data/faqs.json](file:///d:/All%20Project%20Website/Nuxt%20PSD%20katalog%20web/data/faqs.json), serta menyajikan preview dari direktori `public/templates/`.
 
 ---
 
@@ -178,7 +170,7 @@ Aplikasi menggunakan pendekatan arsitektur **Hybrid Storage Resilience** yang fl
 ├── 📂 components/
 │   ├── 📂 catalog/
 │   │   ├── EcosystemCallout.vue        # Banner edukasi integrasi ekosistem Web App PSD & WhatsApp CTA
-│   │   ├── FaqSection.vue              # Accordion tanya jawab interaktif seputar template PPDB
+│   │   ├── FaqSection.vue              # Accordion tanya-jawab dinamis terhubung ke Neon PostgreSQL
 │   │   ├── FilterBar.vue               # Bar pencarian & filter multivariabel (status, warna, gaya)
 │   │   ├── TemplateCard.vue            # Kartu item template dengan visual browser frame ala macOS
 │   │   └── TemplateGrid.vue            # Grid katalog responsif dengan empty state handler
@@ -194,7 +186,8 @@ Aplikasi menggunakan pendekatan arsitektur **Hybrid Storage Resilience** yang fl
 │   ├── useTemplates.ts                 # Store fetcher dan state cache template katalog
 │   └── useTemplateTaxonomy.ts          # State terpadu kategori warna & gaya desain template
 ├── 📂 data/
-│   └── templates.json                  # Database lokal data template PPDB (fallback)
+│   ├── faqs.json                       # Cadangan data offline tanya-jawab FAQ
+│   └── templates.json                  # Cadangan data offline katalog template PPDB
 ├── 📂 docs/
 │   └── 📂 screenshots/                 # Tangkapan layar dokumentasi antarmuka aplikasi
 ├── 📂 layouts/
@@ -206,6 +199,7 @@ Aplikasi menggunakan pendekatan arsitektur **Hybrid Storage Resilience** yang fl
 │   ├── index.vue                       # Halaman utama katalog website PPDB (/)
 │   ├── 📂 admin/
 │   │   ├── index.vue                   # Dashboard utama analitik & manajemen template (/admin)
+│   │   ├── faqs.vue                    # Panel kelola FAQ (tambah, edit, urutkan, terbitkan) (/admin/faqs)
 │   │   ├── login.vue                   # Halaman login administrator (/admin/login)
 │   │   ├── upload.vue                  # Formulir upload template & auto-extract ZIP (/admin/upload)
 │   │   └── 📂 edit/
@@ -214,29 +208,46 @@ Aplikasi menggunakan pendekatan arsitektur **Hybrid Storage Resilience** yang fl
 │       └── [slug].vue                  # Halaman detail template & responsive interactive iframe
 ├── 📂 public/
 │   ├── logo-psd.jpeg                   # Logo resmi Pesantren Smart Digital
-│   ├── 📂 screenshots/                 # Salinan screenshot untuk public access
-│   └── 📂 templates/                   # Direktori berkas statis & aset lokal template PPDB
+│   └── 📂 templates/                   # Berkas statis & arsip ZIP template bawaan
 ├── 📂 server/
 │   ├── 📂 api/
 │   │   ├── 📂 auth/
-│   │   │   └── login.post.ts           # Endpoint validasi kredensial login admin
+│   │   │   ├── login.post.ts           # Login admin dengan verifikasi scrypt & token HMAC SHA-256
+│   │   │   ├── logout.post.ts          # Logout admin & penghapusan cookie sesi
+│   │   │   └── me.get.ts               # Pengecekan validitas token sesi admin
+│   │   ├── 📂 faqs/
+│   │   │   ├── index.get.ts            # GET list FAQ publik & admin (?all=true)
+│   │   │   ├── index.post.ts           # POST tambah FAQ baru ke Neon DB
+│   │   │   ├── [id].put.ts             # PUT perbarui pertanyaan/jawaban FAQ
+│   │   │   ├── [id].delete.ts          # DELETE hapus pertanyaan FAQ
+│   │   │   └── reorder.put.ts          # PUT simpan susunan urutan FAQ
+│   │   ├── 📂 storage/
+│   │   │   ├── status.get.ts           # GET cek status koneksi ke Vercel Blob store
+│   │   │   ├── index.get.ts            # GET daftar berkas storage & HEAD metadata
+│   │   │   ├── index.post.ts           # POST upload berkas baru ke Vercel Blob
+│   │   │   ├── index.put.ts            # PUT timpa/upload stream binary berkas
+│   │   │   ├── index.delete.ts         # DELETE hapus berkas dari Vercel Blob
+│   │   │   └── index.patch.ts          # PATCH pindah/ubah nama berkas di Vercel Blob
 │   │   └── 📂 templates/
-│   │       ├── index.get.ts            # Endpoint GET seluruh daftar template
-│   │       ├── upload.post.ts          # Endpoint POST upload metadata template
-│   │       ├── upload-token.post.ts    # Endpoint pembuat token direct upload Vercel Blob
+│   │       ├── index.get.ts            # GET seluruh daftar template dari Neon DB
+│   │       ├── upload.post.ts          # POST simpan template baru ke Neon DB & Vercel Blob
+│   │       ├── upload-token.post.ts    # POST token direct client-side upload ke Vercel Blob
 │   │       ├── 📂 preview/
-│   │       │   └── [...path].get.ts    # Endpoint streaming preview sandboxed HTML/CSS/JS/media
-│   │       ├── [slug].get.ts           # Endpoint GET data spesifik 1 template
-│   │       ├── [slug].put.ts           # Endpoint PUT perbarui data template
-│   │       └── [slug].delete.ts        # Endpoint DELETE hapus template dari database & storage
+│   │       │   └── [...path].get.ts    # GET streaming sandboxed HTML/CSS/JS preview
+│   │       ├── [slug].get.ts           # GET detail satu template dari Neon DB
+│   │       ├── [slug].put.ts           # PUT perbarui data template di Neon DB & Blob
+│   │       └── [slug].delete.ts        # DELETE hapus template dari Neon DB & auto-cleanup Blob
 │   └── 📂 utils/
-│       └── templates-store.ts          # Storage manager (Vercel Blob + Vercel KV + Local JSON)
+│       ├── blob-storage.ts             # Wrapper utilitas Vercel Blob Storage SDK
+│       ├── db.ts                       # Konektor Neon PostgreSQL, auth hashing & token generator
+│       ├── faqs-store.ts               # Data store & sinkronisasi FAQ Neon PostgreSQL
+│       └── templates-store.ts          # Data store & sinkronisasi template Neon PostgreSQL
 ├── 📂 stores/
-│   ├── auth.ts                         # Pinia store autentikasi, sesi admin, dan rate limiting
+│   ├── auth.ts                         # Pinia store autentikasi, bearer token, dan cookie sesi
 │   └── templates.ts                    # Pinia store koleksi data katalog template
 ├── app.vue                             # Root Nuxt application wrapper
 ├── error.vue                           # Halaman penanganan error kustom 404 / 500
-├── nuxt.config.ts                      # Konfigurasi modul Nuxt, head meta, runtime config, Tailwind
+├── nuxt.config.ts                      # Konfigurasi modul Nuxt, runtime config, Tailwind & SEO
 ├── package.json                        # Definisi dependensi & skrip NPM
 └── tailwind.config.ts                  # Konfigurasi tema warna PSD, breakpoint & font
 ```
@@ -249,13 +260,14 @@ Aplikasi menggunakan pendekatan arsitektur **Hybrid Storage Resilience** yang fl
 | ---------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | **Framework Utama**    | [Nuxt 3](https://nuxt.com/) (v3.17+)                                                     | Full-stack Vue framework dengan SSR, file-based routing, dan Nitro engine     |
 | **View Layer**         | [Vue 3](https://vuejs.org/) (Composition API)                                            | Reactive UI components dengan `<script setup lang="ts">`                      |
+| **Database Engine**    | [Neon PostgreSQL](https://neon.tech/) (v18.6)                                            | Serverless Postgres RDBMS dengan pooling, JSONB, dan parameterized query      |
+| **Cloud Storage**      | [Vercel Blob](https://vercel.com/docs/storage/vercel-blob)                               | Penyimpanan berkas arsip ZIP template, thumbnail, dan REST API universal      |
+| **Kriptografi & Auth** | Node.js `crypto` (`scrypt`, `timingSafeEqual`, `HMAC-SHA256`)                            | Autentikasi aman tanpa dependensi eksternal, kebal timing attack & brute force|
 | **Bahasa Pemrograman** | [TypeScript](https://www.typescriptlang.org/)                                            | Strict type checking untuk reliabilitas kode skala enterprise                 |
 | **Styling & Desain**   | [Tailwind CSS 3](https://tailwindcss.com/)                                               | Utility-first CSS, custom Islamic color palette, dan efek glassmorphism       |
 | **Tipografi**          | [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans)                 | Font modern, bersih, dan berstandar internasional                             |
 | **Ikonografi**         | [Google Material Symbols](https://fonts.google.com/icons)                                | Ikon sistem elegan yang serasi di seluruh halaman web & admin                 |
 | **State Management**   | [Pinia 3](https://pinia.vuejs.org/)                                                      | Reusable modular state untuk katalog dan sesi autentikasi                     |
-| **Cloud Storage**      | [Vercel Blob](https://vercel.com/docs/storage/vercel-blob)                               | Penyimpanan file metadata (templates.json), arsip ZIP template, dan thumbnail |
-| **Cache Store**        | [Vercel KV](https://vercel.com/docs/storage/vercel-kv) (Redis)                           | Key-value store untuk caching metadata template berkecepatan tinggi           |
 | **Kompresi Berkas**    | [JSZip](https://stuk.github.io/jszip/) & [Adm-Zip](https://github.com/cthackers/adm-zip) | Kompresi, ekstraksi ZIP di browser dan server                                 |
 | **Utilitas Gambar**    | [Sharp](https://sharp.pixelplumbing.com/)                                                | Optimasi dan pemrosesan gambar berkecepatan tinggi                            |
 | **Utilitas Reaktif**   | [@vueuse/nuxt](https://vueuse.org/)                                                      | Helper hooks untuk keyboard event, clipboard, dan viewport                    |
@@ -266,7 +278,7 @@ Aplikasi menggunakan pendekatan arsitektur **Hybrid Storage Resilience** yang fl
 
 ### Prasyarat Sistem
 
-- **Node.js:** Versi `18.x` atau lebih baru (Disarankan `20.x` LTS)
+- **Node.js:** Versi `18.x` atau lebih baru (Disarankan `20.x` LTS atau `24.x`)
 - **Package Manager:** `npm`, `pnpm`, atau `yarn`
 - **Git**
 
@@ -295,23 +307,24 @@ Isi variabel environment berikut:
 
 ```env
 # ==========================================
-# KREDENSIAL ADMINISTRATOR
+# 1. DATABASE NEON POSTGRESQL (Wajib)
+# ==========================================
+DATABASE_URL=postgresql://neondb_owner:password_anda@ep-still-wind-b3hawgeb-pooler.c-4.ap-southeast-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require
+
+# ==========================================
+# 2. KREDENSIAL ADMINISTRATOR
 # ==========================================
 NUXT_ADMIN_USERNAME=psdadmin
 NUXT_ADMIN_PASSWORD=password_admin_rahasia_anda
 NUXT_SESSION_SECRET=kunci_rahasia_sesi_acak_minimal_32_karakter
 
 # ==========================================
-# CLOUD STORAGE VERCEL BLOB (Wajib untuk upload di production)
+# 3. CLOUD STORAGE VERCEL BLOB
 # ==========================================
 BLOB_READ_WRITE_TOKEN=vercel_blob_rw_xxxxxxxxxxxxxxxxxxxxxxxx
-
-# ==========================================
-# VERCEL KV CACHE (Opsional di Vercel)
-# ==========================================
-# KV_REST_API_URL=https://...
-# KV_REST_API_TOKEN=...
 ```
+
+> **Catatan Inisialisasi Otomatis:** Saat server pertama kali berjalan, sistem akan secara otomatis memeriksa tabel di Neon DB (`templates`, `admin_users`, `faqs`). Jika tabel belum ada, sistem akan membuat tabel dan melakukan *initial seeding* data bawaan secara otomatis.
 
 ### 4. Menjalankan di Lingkungan Development
 
@@ -321,54 +334,59 @@ npm run dev
 
 Buka browser pada alamat [http://localhost:3000](http://localhost:3000).
 
-### 5. Build untuk Lingkungan Production
+### 5. Build & Deployment ke Vercel
+
+Proyek ini telah dikonfigurasi optimal untuk Vercel:
 
 ```bash
-# Build aplikasi Nuxt untuk deployment server / node
-npm run build
-
-# Menjalankan hasil build production secara lokal
-npm run preview
-```
-
-### 6. Deployment ke Vercel
-
-Proyek ini dioptimalkan untuk berjalan di Vercel:
-
-```bash
-# Deploy langsung via Vercel CLI
+# Build & Deploy langsung via Vercel CLI
 vercel --prod
 ```
 
-> Pastikan seluruh variabel environment (`NUXT_ADMIN_USERNAME`, `NUXT_ADMIN_PASSWORD`, `NUXT_SESSION_SECRET`, dan `BLOB_READ_WRITE_TOKEN`) telah ditambahkan di menu **Project Settings > Environment Variables** pada dashboard Vercel.
+> Pastikan seluruh variabel environment (`DATABASE_URL`, `BLOB_READ_WRITE_TOKEN`, `NUXT_ADMIN_USERNAME`, `NUXT_ADMIN_PASSWORD`, dan `NUXT_SESSION_SECRET`) telah disematkan pada menu **Project Settings > Environment Variables** di Vercel Dashboard.
 
 ---
 
-## 📋 Daftar Rute & Endpoint API
+## 📋 Daftar Rute & Endpoint API Lengkap
 
 ### Halaman Frontend (Pages)
 
-| Rute                 | Tipe           | Keterangan                                                     |
-| -------------------- | -------------- | -------------------------------------------------------------- |
-| `/`                  | Publik         | Halaman utama katalog, filter, showcase ekosistem PSD, dan FAQ |
-| `/template/[slug]`   | Publik         | Halaman detail template dengan live responsive preview iframe  |
-| `/admin/login`       | Publik (Admin) | Halaman login dengan rate limiter anti brute-force             |
-| `/admin`             | Terproteksi    | Dashboard analytics, metrik koleksi, dan tabel aksi template   |
-| `/admin/upload`      | Terproteksi    | Form upload template baru, extract ZIP, dan tambah taksonomi   |
-| `/admin/edit/[slug]` | Terproteksi    | Form pembaruan metadata dan aset template yang sudah ada       |
+| Rute                 | Tipe           | Keterangan                                                         |
+| -------------------- | -------------- | ------------------------------------------------------------------ |
+| `/`                  | Publik         | Halaman utama katalog, filter, showcase ekosistem PSD, dan FAQ     |
+| `/template/[slug]`   | Publik         | Halaman detail template dengan live responsive preview iframe      |
+| `/admin/login`       | Publik (Admin) | Halaman login dengan rate limiter dan autentikasi scrypt           |
+| `/admin`             | Terproteksi    | Dashboard analytics, metrik koleksi, dan tabel aksi template       |
+| `/admin/upload`      | Terproteksi    | Form upload template baru ke Neon DB & Vercel Blob                 |
+| `/admin/faqs`        | Terproteksi    | Panel CMS kelola pertanyaan umum (tambah, edit, urutkan, terbitkan)|
+| `/admin/edit/[slug]` | Terproteksi    | Form pembaruan metadata dan aset template                          |
 
 ### Server API (Nitro Endpoints)
 
-| Endpoint                           | Method   | Autentikasi | Keterangan                                               |
-| ---------------------------------- | -------- | ----------- | -------------------------------------------------------- |
-| `/api/auth/login`                  | `POST`   | Publik      | Validasi username & password dengan rate limiting        |
-| `/api/templates`                   | `GET`    | Publik      | Mengambil seluruh daftar template yang tersedia          |
-| `/api/templates/[slug]`            | `GET`    | Publik      | Mengambil data detail satu template                      |
-| `/api/templates/preview/[...path]` | `GET`    | Publik      | Streaming sandboxed aset preview (HTML, CSS, JS, Gambar) |
-| `/api/templates/upload`            | `POST`   | Terproteksi | Menyimpan template baru ke database/store                |
-| `/api/templates/upload-token`      | `POST`   | Terproteksi | Menerbitkan token client-side upload ke Vercel Blob      |
-| `/api/templates/[slug]`            | `PUT`    | Terproteksi | Memperbarui data template yang sudah tersimpan           |
-| `/api/templates/[slug]`            | `DELETE` | Terproteksi | Menghapus data template dan file terkait                 |
+| Endpoint                           | Method   | Autentikasi | Keterangan                                                  |
+| ---------------------------------- | -------- | ----------- | ----------------------------------------------------------- |
+| `/api/auth/login`                  | `POST`   | Publik      | Validasi login admin (scrypt + HMAC SHA-256 session token)  |
+| `/api/auth/logout`                 | `POST`   | Terproteksi | Mengakhiri sesi dan menghapus cookie login admin            |
+| `/api/auth/me`                     | `GET`    | Terproteksi | Memvalidasi status sesi dan identitas admin aktif           |
+| `/api/templates`                   | `GET`    | Publik      | Mengambil seluruh template dari Neon PostgreSQL             |
+| `/api/templates/[slug]`            | `GET`    | Publik      | Mengambil detail satu template berdasarkan slug unik        |
+| `/api/templates/preview/[...path]` | `GET`    | Publik      | Streaming sandboxed aset preview (HTML, CSS, JS, Media)     |
+| `/api/templates/upload`            | `POST`   | Terproteksi | Menyimpan template ke Neon DB & mengunggah file ke Blob     |
+| `/api/templates/upload-token`      | `POST`   | Terproteksi | Menerbitkan token direct client-side upload ke Vercel Blob  |
+| `/api/templates/[slug]`            | `PUT`    | Terproteksi | Memperbarui metadata dan aset template di Neon DB & Blob    |
+| `/api/templates/[slug]`            | `DELETE` | Terproteksi | Menghapus template dari Neon DB & auto-cleanup Vercel Blob  |
+| `/api/faqs`                        | `GET`    | Publik      | Mengambil daftar FAQ yang berstatus terbit (*published*)   |
+| `/api/faqs?all=true`               | `GET`    | Terproteksi | Mengambil seluruh FAQ (termasuk draft/arsip) untuk admin    |
+| `/api/faqs`                        | `POST`   | Terproteksi | Menambahkan pertanyaan & jawaban FAQ baru ke Neon DB        |
+| `/api/faqs/[id]`                   | `PUT`    | Terproteksi | Memperbarui teks atau status publikasi FAQ di Neon DB       |
+| `/api/faqs/[id]`                   | `DELETE` | Terproteksi | Menghapus pertanyaan FAQ secara permanen                    |
+| `/api/faqs/reorder`                | `PUT`    | Terproteksi | Mengatur ulang urutan tampil (*order_index*) FAQ di website |
+| `/api/storage/status`              | `GET`    | Publik      | Cek status koneksi ke Vercel Blob Storage                   |
+| `/api/storage`                     | `GET`    | Publik      | List berkas di Vercel Blob atau ambil metadata (HEAD)       |
+| `/api/storage`                     | `POST`   | Terproteksi | Upload file baru via multipart/form-data ke Vercel Blob     |
+| `/api/storage`                     | `PUT`    | Terproteksi | Upload/overwrite stream binary file ke Vercel Blob          |
+| `/api/storage`                     | `DELETE` | Terproteksi | Hapus satu atau banyak file dari Vercel Blob                |
+| `/api/storage`                     | `PATCH`  | Terproteksi | Pindahkan (*move*) atau ganti nama (*rename*) file di Blob  |
 
 ---
 

@@ -74,7 +74,7 @@
                   id="username"
                   v-model="form.username"
                   type="text"
-                  placeholder="psdadmin"
+                  placeholder="masukan username admin"
                   autocomplete="username"
                   required
                   class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 text-sm font-sans focus:outline-none focus:bg-white focus:border-[#0A5C4F] focus:ring-2 focus:ring-[#0A5C4F]/15 transition-all shadow-sm"

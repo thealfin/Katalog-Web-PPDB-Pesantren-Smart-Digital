@@ -14,11 +14,19 @@
         </p>
       </div>
 
+      <!-- Loading Skeleton -->
+      <div v-if="pending && (!faqs || faqs.length === 0)" class="flex flex-col gap-3">
+        <div v-for="i in 4" :key="i" class="bg-white rounded-2xl border border-psd-line p-5 animate-pulse">
+          <div class="h-4 bg-slate-200 rounded w-2/3 mb-2"></div>
+          <div class="h-3 bg-slate-100 rounded w-full"></div>
+        </div>
+      </div>
+
       <!-- FAQ Accordion List -->
-      <div class="flex flex-col gap-3">
+      <div v-else class="flex flex-col gap-3">
         <div
           v-for="(faq, index) in faqs"
-          :key="index"
+          :key="faq.id || index"
           class="bg-white rounded-2xl border border-psd-line shadow-sm overflow-hidden transition-all duration-200"
           :class="{ 'border-psd-mint ring-1 ring-psd-mint/50': openIndex === index }"
         >
@@ -43,38 +51,32 @@
             {{ faq.answer }}
           </div>
         </div>
+
+        <div v-if="!pending && (!faqs || faqs.length === 0)" class="text-center py-8 text-slate-400 text-sm">
+          Belum ada pertanyaan FAQ yang diterbitkan.
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+export interface FaqItem {
+  id: number
+  question: string
+  answer: string
+  orderIndex: number
+  isPublished: boolean
+}
+
 const openIndex = ref<number | null>(0)
 
 const toggleFaq = (index: number) => {
   openIndex.value = openIndex.value === index ? null : index
 }
 
-const faqs = [
-  {
-    question: 'Apakah pembuatan website PPDB ini gratis untuk mitra PSD?',
-    answer:
-      'Pilihan desain template dalam katalog ini bebas dipilih, namun terdapat biaya tambahan untuk proses pembuatan, kustomisasi, dan setup teknis website PPDB lembaga Anda. Untuk rincian biaya dapat dikonsultasikan langsung dengan pendamping dari yayasan masing-masing.',
-  },
-  {
-    question: 'Bagaimana cara menghubungkan template dengan domain resmi pondok kami?',
-    answer:
-      'Tim teknis PSD akan memandu proses pointing DNS dari domain pondok Anda (misal: pendaftaran.namaponpes.ponpes.id). Proses konfigurasi berlangsung cepat dengan sertifikat SSL gratis (HTTPS) otomatis terpasang.',
-  },
-  {
-    question: 'Apakah tim PSD membantu proses upload logo, visi misi, dan galeri foto pondok?',
-    answer:
-      'Tentu saja. Anda cukup menyediakan materi dasar (logo lembaga, foto media lingkungan dan kegiatan di pesantren, teks profil, deskripsi program dan kegiatan, program unggulan (jika ada), dan kontak person panitia PPDB), dan tim pendamping PSD akan membantu proses input hingga website siap digunakan santri baru.',
-  },
-  {
-    question: 'Apakah formulir pendaftaran bisa disesuaikan dengan jalur seleksi pondok?',
-    answer:
-      'Sangat bisa. Anda dapat mengaktifkan jalur reguler, jalur beasiswa tahfidz, jalur prestasi akademik, maupun jalur pindahan dengan kolom isian data wali dan berkas yang dapat disesuaikan kebutuhan panitia PPDB pondok Anda.',
-  },
-]
+// Mengambil FAQ secara dinamis dari Neon PostgreSQL
+const { data: faqs, pending } = await useAsyncData<FaqItem[]>('catalog-faqs', () =>
+  $fetch('/api/faqs')
+)
 </script>

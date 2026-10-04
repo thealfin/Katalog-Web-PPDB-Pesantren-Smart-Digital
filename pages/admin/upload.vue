@@ -564,7 +564,7 @@ const handleUpload = async () => {
         contentType: 'application/zip',
         handleUploadUrl: '/api/templates/upload-token',
         clientPayload,
-        headers: { 'x-admin-auth': 'true' },
+        headers: authStore.authHeaders,
         onUploadProgress: (progress) => {
           uploadStatusText.value = `Mengupload ZIP (${Math.round(progress.percentage)}%)...`
         },
@@ -578,7 +578,7 @@ const handleUpload = async () => {
           multipart: true,
           handleUploadUrl: '/api/templates/upload-token',
           clientPayload,
-          headers: { 'x-admin-auth': 'true' },
+          headers: authStore.authHeaders,
         })
         imageUrl = imgResult.url
       }
@@ -603,7 +603,7 @@ const handleUpload = async () => {
           zipUrl,
           previewImageUrl: imageUrl,
         },
-        headers: { 'x-admin-auth': 'true' },
+        headers: authStore.authHeaders,
       })
     } else {
       // Lokal / dev fallback dengan multipart FormData
@@ -623,7 +623,7 @@ const handleUpload = async () => {
       await $fetch('/api/templates/upload', {
         method: 'POST',
         body: formData,
-        headers: { 'x-admin-auth': 'true' },
+        headers: authStore.authHeaders,
       })
     }
 
